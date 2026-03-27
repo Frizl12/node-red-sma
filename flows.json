@@ -3561,6 +3561,33 @@
         "h": 82
     },
     {
+        "id": "64cb9d5f20d7df8a",
+        "type": "group",
+        "z": "49e1690633630c0d",
+        "name": "ARRIVAL ORDER",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "9b397bc953d92412",
+            "fd09ac5705040166",
+            "f13811f51155c5c2",
+            "4d2d95766e90c5ed",
+            "f509037c25fb855b",
+            "5871fd9ef4cdd608",
+            "7f642197687fe738",
+            "a80d724069308347",
+            "03ad5e51b0289e04",
+            "e3d1461ce1b1eb95",
+            "8bb91cc24a1275e5",
+            "cdeaf220d0ae71f3"
+        ],
+        "x": 34,
+        "y": 939,
+        "w": 1392,
+        "h": 242
+    },
+    {
         "id": "790d13f1061b4d32",
         "type": "websocket-client",
         "path": "ws://datacoreWS:8055/websocket",
@@ -17407,6 +17434,230 @@
         "statusType": "auto",
         "x": 1290,
         "y": 700,
+        "wires": []
+    },
+    {
+        "id": "9b397bc953d92412",
+        "type": "http in",
+        "z": "49e1690633630c0d",
+        "g": "64cb9d5f20d7df8a",
+        "name": "",
+        "url": "/dashboard/purchase-order",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 1040,
+        "wires": [
+            [
+                "f13811f51155c5c2",
+                "e3d1461ce1b1eb95"
+            ]
+        ]
+    },
+    {
+        "id": "fd09ac5705040166",
+        "type": "http response",
+        "z": "49e1690633630c0d",
+        "g": "64cb9d5f20d7df8a",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1350,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "f13811f51155c5c2",
+        "type": "function",
+        "z": "49e1690633630c0d",
+        "g": "64cb9d5f20d7df8a",
+        "name": "Prepare Hist Params",
+        "func": "const { start_date, end_date } = msg.payload;\n\nif (!start_date || !end_date) {\n    msg.payload = { error: \"start_date and end_date are required\" };\n    msg.statusCode = 400;\n    return [null, msg];\n}\n\nmsg.rangeKey = `${start_date}:${end_date}`;\n\n\n// 3. Construct API Request\nmsg.requestConfig = {\n    items: 'purchase_order',\n    method: \"GET\",\n    datacore: \"MAIN-DATACORE\",\n    params: {\n        fields: [\n            \"id\", \"order_amount\", \"order_date\", \"status\", \"po_number\", \"date_created\",\n            \"flags.flag_id.code\",\n            \"submission_id.activity_id.activity_status\",\n            \"submission_id.date_updated\",\n            \"submission_id.activity_id.activity_status_code\",\n            \"submission_id.activity_id.workflow_version_id.code\",\n            \"supplier_id\",\n            \"purchase_order_items.material_id.name\",\n            \"purchase_order_items.qty\",\n            \"purchase_order_items.planned_date\",\n            \"purchase_order_items.material_id.code\",\n        ],\n        sort: 'order_date',\n        limit: -1,\n        filter: {\n            order_date: {\n                _between: [start_date, end_date]\n            }\n        }\n    }\n};\n\n// Map properties\nmsg.items = msg.requestConfig.items;\nmsg.method = msg.requestConfig.method;\nmsg.datacore = msg.requestConfig.datacore;\nmsg.params = msg.requestConfig.params;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 1040,
+        "wires": [
+            [
+                "4d2d95766e90c5ed",
+                "5871fd9ef4cdd608"
+            ]
+        ]
+    },
+    {
+        "id": "4d2d95766e90c5ed",
+        "type": "subflow:11bcac05a44a18c2",
+        "z": "49e1690633630c0d",
+        "g": "64cb9d5f20d7df8a",
+        "name": "",
+        "x": 740,
+        "y": 1040,
+        "wires": [
+            [
+                "7f642197687fe738",
+                "03ad5e51b0289e04"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f509037c25fb855b",
+        "type": "function",
+        "z": "49e1690633630c0d",
+        "g": "64cb9d5f20d7df8a",
+        "name": "Aggregate Historical",
+        "func": "// --- HELPERS ---\nconst fmtMiliar = new Intl.NumberFormat('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 });\nconst fmtStandard = new Intl.NumberFormat('id-ID');\n\nfunction formatCurrency(amount) {\n    if (!amount && amount !== 0) return \"-\";\n    const absAmount = Math.abs(amount);\n    let formatted = \"\";\n    if (absAmount >= 1000000000) {\n        formatted = \"Rp \" + fmtMiliar.format(amount / 1000000000) + \" Miliar\";\n    } else if (absAmount >= 1000000) {\n        formatted = \"Rp \" + fmtMiliar.format(amount / 1000000) + \" Juta\";\n    } else {\n        formatted = \"Rp \" + fmtStandard.format(amount);\n    }\n    return formatted;\n}\n\nfunction checkOntime(plannedDate, referenceDate) {\n    if (!plannedDate || !referenceDate) {\n        return { isOntime: false, diffDays: 0 };\n    }\n    const planned = plannedDate.slice(0, 10);\n    const reference = referenceDate.slice(0, 10);\n    const dPlanned = new Date(planned + \"T00:00:00\");\n    const dRef = new Date(reference + \"T00:00:00\");\n    const diffDays = Math.floor((dPlanned - dRef) / (1000 * 60 * 60 * 24));\n    return {\n        isOntime: diffDays >= 0, \n        diffDays: diffDays\n    };\n}\n\nfunction checkFlag(flagList, expectedCode) {\n    if (!Array.isArray(flagList)) return false;\n    return flagList.some(item => item?.flag_id?.code === expectedCode);\n}\n\nconst data = msg.normalized || [];\n\n// --- CONTAINERS ---\n// 1. Simple Counters\nlet totalOrder = 0;\nlet totalClosed = 0;\nlet totalOverdue = 0;\nlet totalAdditional = 0;\nlet totalOutstanding = 0;\n\n// 2. Percentage Bases\nlet onTimeCount = 0;\nlet onTimeTotalBase = 0;\nlet fulfilledCount = 0;\nlet fulfilledTotalBase = 0;\n\n// 3. Categorical Accumulators\nlet statusCounts = {};\nlet materialCounts = {};\nlet supplierCounts = {}; // For Top 10 Supplier\nlet agingList = []; // For Top 10 Aging\n\n// 4. Time Series Accumulators\nlet timeSeriesCount = {};\nlet timeSeriesClosed = {}; // For Stacked Chart\nlet timeSeriesOutstanding = {}; // For Stacked Chart\n\n// --- PROCESS DATA LOOP ---\ndata.forEach(row => {\n    // A. Basic Totals\n    totalOrder += 1;\n    \n    const isClosed = row.submission?.activityStatus === \"PO_CLOSED\";\n    const flags = row.flags || [];\n    \n    // B. Specific Counters\n    if (isClosed) totalClosed += 1;\n    if (checkFlag(flags, \"OVERDUE\")) totalOverdue += 1;\n    if (checkFlag(flags, \"ADDITIONAL\")) totalAdditional += 1;\n    if (checkFlag(flags, \"OUTSTANDING\")) totalOutstanding += 1;\n\n    // C. Pie Chart Status\n    const status = row.status || \"Unknown\";\n    statusCounts[status] = (statusCounts[status] || 0) + 1;\n\n    // D. Material & Supplier & Aging\n    const poNumber = row.poNumber || row.id;\n    const customerName = row.customerName || \"Unknown\";\n    const customerCode = row.customerCode;\n\n    // Supplier Amount (Assume row.amount is total PO value)\n    if (row.amount > 0) {\n        // Key by Name to group same suppliers\n        supplierCounts[customerName] = (supplierCounts[customerName] || 0) + row.amount;\n    }\n\n    // Material Items\n    if (Array.isArray(row.items)) {\n        row.items.forEach(item => {\n            // Material Top 10\n            if (item.material_id && item.material_id.name) {\n                const name = item.material_id.name;\n                const qty = Number(item.qty) || 0;\n                materialCounts[name] = (materialCounts[name] || 0) + qty;\n            }\n        });\n\n        // Calculations needing the first item (Dates)\n        if (row.items.length > 0) {\n            const plannedDate = row.items[0].planned_date;\n            const updatedDate = row.submission?.date_updated; // Or current date if active\n\n            // On Time Calculation\n            // Only calculate if we have dates. Logic mirrors realtime:\n            // \"If orderSubmission <= activity... checkOntime\"\n            if (plannedDate && updatedDate) {\n                const timeCheck = checkOntime(plannedDate, updatedDate);\n                onTimeTotalBase += 1;\n                if (timeCheck.isOntime) onTimeCount += 1;\n\n                // Aging Calculation\n                // In Realtime: \"countDays = -diffDay.diffDays\" (Negative diff = Late)\n                let lateness = -timeCheck.diffDays;\n                if (lateness > 0) {\n                    agingList.push({\n                        name: `${poNumber} - ${customerName}`,\n                        value: lateness\n                    });\n                }\n            }\n        }\n    }\n\n    // E. Fill Rate (Is Fulfilled)\n    fulfilledTotalBase += 1;\n    if (row.isFulFilled) fulfilledCount += 1;\n\n    // F. Time Series Keys\n    const dateKey = row.date; // Ensure this exists in normalized data (YYYY-MM-DD or similar)\n    if (dateKey) {\n        // Line Chart (Total PO)\n        timeSeriesCount[dateKey] = (timeSeriesCount[dateKey] || 0) + 1;\n        \n        // Stacked Bar Chart Components\n        if (isClosed) {\n            timeSeriesClosed[dateKey] = (timeSeriesClosed[dateKey] || 0) + 1;\n        }\n        if (checkFlag(flags, \"OUTSTANDING\")) {\n            timeSeriesOutstanding[dateKey] = (timeSeriesOutstanding[dateKey] || 0) + 1;\n        }\n    }\n});\n\n// --- BUILD FINAL STRUCTURE ---\n\n// 1. Chart Data Preparations\nconst sortedDates = Object.keys(timeSeriesCount).sort();\n\n// Pie\nconst pieChartData = Object.keys(statusCounts).map(key => ({ name: key, value: statusCounts[key] }));\n\n// Top 10 Materials\nconst materialData = Object.entries(materialCounts)\n    .map(([key, val]) => ({ name: key, value: val }))\n    .sort((a, b) => b.value - a.value)\n    .slice(0, 10);\n\n// Top 10 Suppliers (Amount)\nconst supplierData = Object.entries(supplierCounts)\n    .map(([key, val]) => ({ name: key, value: val }))\n    .sort((a, b) => b.value - a.value)\n    .slice(0, 10);\n\n// Top 10 Aging\nconst agingData = agingList\n    .sort((a, b) => b.value - a.value)\n    .slice(0, 10);\n\n// Line Chart Series\nconst countSeries = sortedDates.map(d => timeSeriesCount[d] || 0);\n\n// Stacked Bar Series\nconst seriesOutstanding = sortedDates.map(d => timeSeriesOutstanding[d] || 0);\nconst seriesClosed = sortedDates.map(d => timeSeriesClosed[d] || 0);\n// Calculate total for Stacked Label\nconst totalStacked = seriesOutstanding.reduce((a,b)=>a+b, 0) + seriesClosed.reduce((a,b)=>a+b, 0);\n\n// Percentages\nconst onTimePct = onTimeTotalBase === 0 ? 0 : (onTimeCount / onTimeTotalBase * 100).toFixed(1);\nconst fillRatePct = fulfilledTotalBase === 0 ? 0 : (fulfilledCount / fulfilledTotalBase * 100).toFixed(1);\n\n// --- CONSTRUCT RESULT OBJECT ---\nconst result = {\n    // 1. Single Metrics\n    DETAIL_PARAMETER_TOTAL_PURCHASE_ORDER: {\n        VALUE: { raw: totalOrder, data: { value: totalOrder, label: \"Total PO\", subValue: \"\" } }\n    },\n    DETAIL_PARAMETER_TOTAL_PURCHASE_ORDER_CLOSED: {\n        VALUE: { raw: totalClosed, data: { value: totalClosed, label: \"Closed PO\", subValue: \"\" } }\n    },\n    DETAIL_PARAMETER_TOTAL_PURCHASE_ORDER_OVERDUE: {\n        VALUE: { raw: totalOverdue, data: { value: totalOverdue, label: \"Overdue\", subValue: \"\" } }\n    },\n    DETAIL_PARAMETER_TOTAL_PURCHASE_ORDER_ADDITIONAL: {\n        VALUE: { raw: totalAdditional, data: { value: totalAdditional, label: \"Additional\", subValue: \"\" } }\n    },\n    DETAIL_PARAMETER_TOTAL_PURCHASE_ORDER_OUTSTANDING: {\n        VALUE: { raw: totalOutstanding, data: { value: totalOutstanding, label: \"Outstanding\", subValue: \"\" } }\n    },\n    \n    // 2. Percentages\n    DETAIL_PARAMETER_TOTAL_PURCHASE_ORDER_ON_TIME: {\n        VALUE: { raw: onTimePct, data: { value: `${onTimePct}%`, label: `${onTimeCount} / ${onTimeTotalBase}`, subValue: \"\" } }\n    },\n    DETAIL_PARAMETER_ORDER_FILL_RATE: {\n        VALUE: { raw: fillRatePct, data: { value: `${fillRatePct}%`, label: `${fulfilledCount} / ${fulfilledTotalBase}`, subValue: \"\" } }\n    },\n\n    // 3. Charts\n    PIE_CHART_PURCHASE_ORDER: { data: pieChartData },\n    \n    BAR_CHART_TOP_10_ORDERED_MATERIAL: { data: materialData },\n    \n    BAR_CHART_TOP_10_SUPPLIER_AMOUNT: { data: supplierData },\n    \n    TOP_10_PO_AGING: { data: agingData },\n\n    LINE_CHART_PURCHASE_ORDER: {\n        data: {\n            label: \"Purchase Order Trend\",\n            value: totalOrder,\n            subValue: \"\",\n            xAxis: sortedDates,\n            seriesData: [{ name: \"Purchase Order\", color: \"#1E88E5\", data: countSeries }]\n        }\n    },\n    \n    STACKED_BAR_CHART_OUTSTANDING_AND_CLOSED: {\n        data: {\n            label: `Open: ${fmtStandard.format(totalOutstanding)} | Closed: ${fmtStandard.format(totalClosed)}`,\n            xAxis: sortedDates, // Uses the same dates as the Line Chart\n            series: [\n                { name: \"Open (Outstanding)\", color: \"#1E88E5\", data: seriesOutstanding },\n                { name: \"Closed\", color: \"#EF5350\", data: seriesClosed }\n            ]\n        }\n    }\n};\n\n// --- SAVE TO GLOBAL CONTEXT ---\nlet DASHBOARD = global.get(\"DASHBOARD\") || {};\nDASHBOARD.HISTORICAL = DASHBOARD.HISTORICAL || {};\nDASHBOARD.HISTORICAL.PURCHASE_ORDER = DASHBOARD.HISTORICAL.PURCHASE_ORDER || {};\n\nconst H_ROOT = DASHBOARD.HISTORICAL.PURCHASE_ORDER;\nconst rangeKey = msg.rangeKey;        \nconst customerKey = msg.customerKey;\n\nconst topics = Object.keys(result);\nlet messages = [];\n\ntopics.forEach(topicName => {\n    H_ROOT[topicName] = H_ROOT[topicName] || {};\n    H_ROOT[topicName][rangeKey] = H_ROOT[topicName][rangeKey] || {};\n    H_ROOT[topicName][rangeKey]['ALL'] = result[topicName];\n    \n    messages.push({\n        topic: `DASHBOARD/HISTORICAL/PURCHASE_ORDER/${topicName}/${rangeKey}/ALL`,\n        payload: result[topicName],\n        retain: true,\n        qos: 1\n    });\n});\n\nglobal.set(\"DASHBOARD\", DASHBOARD);\n\n// Return\nmsg.payload = {\n    status: \"success\",\n    range: rangeKey,\n    customer: customerKey,\n    data: result\n};\nnode.send([null, msg]);\n\nreturn [messages];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 10,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1140,
+        "y": 1080,
+        "wires": [
+            [
+                "8bb91cc24a1275e5",
+                "cdeaf220d0ae71f3"
+            ],
+            [
+                "fd09ac5705040166"
+            ]
+        ]
+    },
+    {
+        "id": "5871fd9ef4cdd608",
+        "type": "debug",
+        "z": "49e1690633630c0d",
+        "g": "64cb9d5f20d7df8a",
+        "name": "debug 1266",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "7f642197687fe738",
+        "type": "debug",
+        "z": "49e1690633630c0d",
+        "g": "64cb9d5f20d7df8a",
+        "name": "debug 1267",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "a80d724069308347",
+        "type": "debug",
+        "z": "49e1690633630c0d",
+        "g": "64cb9d5f20d7df8a",
+        "name": "debug 1268",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "03ad5e51b0289e04",
+        "type": "function",
+        "z": "49e1690633630c0d",
+        "g": "64cb9d5f20d7df8a",
+        "name": "Normalize",
+        "func": "// Master Data Company\nconst companies = global.get(\"CORE.CUSTOMER\") || [];\nconst getCustomerCode = (id) => {\n    if (!id) return [];\n    const company = Array.isArray(companies) ? companies.find(c => c.id === id) : Object.values(companies).find(c => c.id === id);\n    return company ? company : [];\n};\n\nconst rows = Array.isArray(msg.payload.data) ? msg.payload.data : [];\nconst clean = [];\n\nfor (const row of rows) {\n\n    const amount = Number(row.order_amount);\n    if (!Number.isFinite(amount)) continue; // Allow 0 amount? if not keep amount <= 0 check\n\n    const date = new Date(row.date_created);\n    if (isNaN(date.getTime())) continue;\n\n    const submission_id = row.submission_id;\n    const items = Array.isArray(row.purchase_order_items) ? row.purchase_order_items : [];\n    const { code:customerCode = 'UNKOWN' , name:customerName = 'UNKOWN' } = getCustomerCode(row.supplier_id);\n    const flags = row.flags;\n    const poNumber = row.po_number;\n\n    clean.push({\n        id: row.id,\n        amount,\n        date: date.toISOString(),\n        submission_id,\n        flags,\n        items,\n        poNumber,\n        customerCode,\n        customerName,\n    });\n}\n\nmsg.payload = [];\nif (!clean.length) return msg;\n\nmsg.payload = clean;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 1080,
+        "wires": [
+            [
+                "f509037c25fb855b",
+                "a80d724069308347"
+            ]
+        ]
+    },
+    {
+        "id": "e3d1461ce1b1eb95",
+        "type": "debug",
+        "z": "49e1690633630c0d",
+        "g": "64cb9d5f20d7df8a",
+        "name": "debug 1269",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "8bb91cc24a1275e5",
+        "type": "mqtt out",
+        "z": "49e1690633630c0d",
+        "g": "64cb9d5f20d7df8a",
+        "name": "",
+        "topic": "",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3d3bd7e8af197698",
+        "x": 1350,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "cdeaf220d0ae71f3",
+        "type": "debug",
+        "z": "49e1690633630c0d",
+        "g": "64cb9d5f20d7df8a",
+        "name": "debug 1270",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1290,
+        "y": 1000,
         "wires": []
     },
     {

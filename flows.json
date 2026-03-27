@@ -17442,11 +17442,11 @@
         "z": "49e1690633630c0d",
         "g": "64cb9d5f20d7df8a",
         "name": "",
-        "url": "/dashboard/purchase-order",
+        "url": "/dashboard/arrival-order",
         "method": "post",
         "upload": false,
         "swaggerDoc": "",
-        "x": 190,
+        "x": 180,
         "y": 1040,
         "wires": [
             [

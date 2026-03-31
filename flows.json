@@ -15773,7 +15773,7 @@
         "z": "a31581b73210e088",
         "g": "8151db3df8d4f782",
         "name": "debug 27",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,

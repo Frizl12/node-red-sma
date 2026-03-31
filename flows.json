@@ -3589,6 +3589,34 @@
         "h": 262
     },
     {
+        "id": "1943a14c98ca7c09",
+        "type": "group",
+        "z": "49e1690633630c0d",
+        "name": "REPLACEMENT ORDER",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "9275c83b3ef48c7c",
+            "d3d181a2dff08a17",
+            "eafc8ab5dedea770",
+            "bf9b6c1b4e22c0f9",
+            "5977eb680432f36f",
+            "ebdcae456bb05103",
+            "6fe800dfb0c07d34",
+            "bdd9405fd4d39c32",
+            "83bb562b720cfc3b",
+            "0125229482128d9f",
+            "fe88007cff34eb3c",
+            "6e44f1ea080d3904",
+            "9f9c17d86341ae7d"
+        ],
+        "x": 34,
+        "y": 1259,
+        "w": 1412,
+        "h": 262
+    },
+    {
         "id": "790d13f1061b4d32",
         "type": "websocket-client",
         "path": "ws://datacoreWS:8055/websocket",
@@ -17678,6 +17706,249 @@
         "statusType": "auto",
         "x": 1330,
         "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "9275c83b3ef48c7c",
+        "type": "http in",
+        "z": "49e1690633630c0d",
+        "g": "1943a14c98ca7c09",
+        "name": "",
+        "url": "/dashboard/replacement-order",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 1360,
+        "wires": [
+            [
+                "eafc8ab5dedea770",
+                "0125229482128d9f"
+            ]
+        ]
+    },
+    {
+        "id": "d3d181a2dff08a17",
+        "type": "http response",
+        "z": "49e1690633630c0d",
+        "g": "1943a14c98ca7c09",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1350,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "eafc8ab5dedea770",
+        "type": "function",
+        "z": "49e1690633630c0d",
+        "g": "1943a14c98ca7c09",
+        "name": "Prepare Hist Params",
+        "func": "// --- INPUT VALIDATION ---\nconst { start_date, end_date } = msg.payload || {};\n\nif (!start_date || !end_date) {\n    node.error(\"start_date and end_date are required (YYYY-MM-DD)\", msg);\n    return null;\n}\n\n// --- BUILD FILTER ---\nconst filter = {\n    delivery_date: {\n        _between: [start_date, end_date]\n    }\n};\n\n// --- REQUEST CONFIG ---\nmsg.requestConfig = {\n    items: \"replacement_order\",\n    method: \"GET\",\n    datacore: \"MAIN-DATACORE\",\n    params: {\n        fields: [\n                \"id\", \"code\", \"delivery_date\", \"order_date\", \"date_created\", \"is_overdue\",\n                \"submission_id.activity_id.activity_status\",\n                \"submission_id.date_updated\",\n                \"submission_id.activity_id.activity_status_code\",\n                \"submission_id.activity_id.workflow_version_id.code\",\n                \"supplier_id\",\n                \"replacement_order_items.material_id.code\",\n                \"replacement_order_items.material_id.name\",\n                \"replacement_order_items.order_qty\",\n                \"replacement_order_items.shipped_qty\",\n                \"replacement_order_items.received_qty\",\n        ],\n        filter,\n        sort: \"-delivery_date\",\n        limit: -1\n    }\n};\n\n// normalize for DIRECTUS\nmsg.items = msg.requestConfig.items;\nmsg.method = msg.requestConfig.method;\nmsg.datacore = msg.requestConfig.datacore;\nmsg.parameter = msg.requestConfig.params;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 1360,
+        "wires": [
+            [
+                "bf9b6c1b4e22c0f9",
+                "ebdcae456bb05103"
+            ]
+        ]
+    },
+    {
+        "id": "bf9b6c1b4e22c0f9",
+        "type": "subflow:11bcac05a44a18c2",
+        "z": "49e1690633630c0d",
+        "g": "1943a14c98ca7c09",
+        "name": "",
+        "x": 740,
+        "y": 1360,
+        "wires": [
+            [
+                "6fe800dfb0c07d34",
+                "83bb562b720cfc3b"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "5977eb680432f36f",
+        "type": "function",
+        "z": "49e1690633630c0d",
+        "g": "1943a14c98ca7c09",
+        "name": "Aggregate Historical",
+        "func": "const data = msg.normalized || msg.payload || [];\n\n// --- HELPERS ---\nfunction checkOntime(plannedDate, referenceDate) {\n    if (!plannedDate || !referenceDate) return { isOntime: false, diffDays: 0 };\n    const dPlanned = new Date(plannedDate.slice(0, 10) + \"T00:00:00\");\n    const dRef = new Date(referenceDate.slice(0, 10) + \"T00:00:00\");\n    const diffDays = Math.floor((dPlanned - dRef) / (1000 * 60 * 60 * 24));\n    return { isOntime: diffDays >= 0, diffDays };\n}\n\nfunction getDaysFromToday(isoDate) {\n    if (!isoDate) return 0;\n    const d = new Date(isoDate.slice(0, 10) + \"T00:00:00\");\n    const today = new Date(new Date().toISOString().slice(0, 10) + \"T00:00:00\");\n    return Math.floor((today - d) / (1000 * 60 * 60 * 24));\n}\n\n// --- ROOT ---\nconst result = {\n    total: 0,\n    \n    // On Time\n    onTimeCount: 0,\n    onTimeRate: 0,\n\n    // Lead Time\n    leadTimeSum: 0,\n    leadTimeCount: 0,\n    avgLeadTime: 0,\n\n    // Status Counters\n    confirmed: 0,\n    closed: 0,\n    overdue: 0,\n\n    // Aggregations\n    status: {},\n    items: {},\n    agingList: [],\n    \n    // Time Series Temp\n    timeMap: {},\n    outVsCloseMap: {},\n\n    // Final Output Arrays\n    pie: [],\n    lineDate: [],\n    outstandingVsClose: [],\n    topItems: [],\n    topAging: []\n};\n\n\n// --- LOOP ---\nfor (const row of data) {\n    result.total++;\n\n    const orderDateStr = row.orderDate;\n    const actionDateStr = row.date;\n    const totalOrderQty = row.totalOrderQty || 0;\n\n    // --- LEAD TIME & ON TIME ---\n    if (actionDateStr && orderDateStr) {\n        const onTimeCheck = checkOntime(actionDateStr, orderDateStr);\n        if (onTimeCheck.isOntime) {\n            result.onTimeCount++;\n        }\n\n        result.leadTimeSum += Math.abs(onTimeCheck.diffDays);\n        result.leadTimeCount++;\n    }\n\n    // --- STATUS COUNTERS ---\n    if (row.statusCode === \"RO_DELIVERY\") result.confirmed++;\n    if (row.statusCode === \"RO_BINNING\")  result.closed++;\n    if (row.isOverdue)                    result.overdue++;\n\n    // --- STATUS PIE ---\n    if (row.status) {\n        result.status[row.status] = (result.status[row.status] || 0) + 1;\n    }\n\n    // --- TOP ITEMS ---\n    if (row.items && row.items.length) {\n        for (const item of row.items) {\n            if (!item.materialCode) continue;\n            const key = `${item.materialCode} - ${item.materialName || 'Unknown'}`;\n            result.items[key] = (result.items[key] || 0) + (Number(item.orderQty) || 0);\n        }\n    }\n\n    // --- TOP AGING ---\n    if (orderDateStr) {\n        result.agingList.push({\n            name: `${row.orderCode || 'Unknown'} - ${row.supplierName || 'Unknown'}`,\n            value: getDaysFromToday(orderDateStr)\n        });\n    }\n\n    // --- TIME SERIES (BY ORDER DATE) ---\n    const dayKey = orderDateStr ? orderDateStr.slice(0, 10) : null;\n    if (dayKey) {\n        \n        // Line Chart (Total Replacement Order Qty by Date)\n        if (!result.timeMap[dayKey]) result.timeMap[dayKey] = 0;\n        result.timeMap[dayKey] += totalOrderQty;\n\n        // Bar Chart (Outstanding vs Closed)\n        if (!result.outVsCloseMap[dayKey]) {\n            result.outVsCloseMap[dayKey] = { outstanding: 0, closed: 0 };\n        }\n        \n        if (row.statusCode === \"RO_BINNING\") {\n            result.outVsCloseMap[dayKey].closed += totalOrderQty;\n        } else {\n            result.outVsCloseMap[dayKey].outstanding += totalOrderQty;\n        }\n    }\n}\n\n// --- FINAL METRICS ---\nresult.onTimeRate = result.total === 0 \n    ? 0 \n    : +(result.onTimeCount / result.total * 100).toFixed(2);\n\nresult.avgLeadTime = result.leadTimeCount === 0 \n    ? 0 \n    : Math.round(result.leadTimeSum / result.leadTimeCount);\n\n// --- PIE ---\nresult.pie = Object.entries(result.status)\n    .map(([name, value]) => ({ name, value }));\n\n// --- TOP ITEMS ---\nresult.topItems = Object.entries(result.items)\n    .map(([name, value]) => ({ name, value }))\n    .sort((a, b) => b.value - a.value)\n    .slice(0, 10);\n\n// --- TOP AGING ---\nresult.topAging = result.agingList\n    .sort((a, b) => b.value - a.value)\n    .slice(0, 10);\n\n// --- TIME SERIES FORMATTING ---\nresult.lineDate = Object.entries(result.timeMap)\n    .map(([date, count]) => ({ date, count }))\n    .sort((a, b) => a.date.localeCompare(b.date));\n\nresult.outstandingVsClose = Object.entries(result.outVsCloseMap)\n    .map(([date, values]) => ({\n        date,\n        outstanding: values.outstanding,\n        closed: values.closed\n    }))\n    .sort((a, b) => a.date.localeCompare(b.date));\n\n// Cleanup temporary mapping objects from final output\ndelete result.status;\ndelete result.items;\ndelete result.agingList;\ndelete result.timeMap;\ndelete result.outVsCloseMap;\n\n// --- RANGE + CUSTOMER KEYS ---\nconst rangeKey = msg.rangeKey || \"DEFAULT\";\nconst customerKey = msg.customerKey || \"ALL\";\n\n// --- SAVE TO GLOBAL CONTEXT ---\nlet DASHBOARD = global.get(\"DASHBOARD\") || {};\nDASHBOARD.HISTORICAL = DASHBOARD.HISTORICAL || {};\nDASHBOARD.HISTORICAL.REPLACEMENT_ORDER = DASHBOARD.HISTORICAL.REPLACEMENT_ORDER || {};\n\nconst H_ROOT = DASHBOARD.HISTORICAL.REPLACEMENT_ORDER;\n\nconst topics = Object.keys(result);\nlet messages = [];\n\n// --- DISTRIBUTE PER TOPIC ---\ntopics.forEach(topicName => {\n    H_ROOT[topicName] = H_ROOT[topicName] || {};\n    H_ROOT[topicName][rangeKey] = H_ROOT[topicName][rangeKey] || {};\n\n    // Pattern constraint: target \"ALL\" bucket\n    H_ROOT[topicName][rangeKey]['ALL'] = result[topicName];\n\n    messages.push({\n        topic: `DASHBOARD/HISTORICAL/REPLACEMENT_ORDER/${topicName}/${rangeKey}/ALL`,\n        payload: result[topicName],\n        retain: true,\n        qos: 1\n    });\n});\n\n// --- PERSIST GLOBAL ---\nglobal.set(\"DASHBOARD\", DASHBOARD);\n\n// --- RESPONSE (HTTP / DEBUG) ---\nmsg.payload = {\n    status: \"success\",\n    range: rangeKey,\n    customer: customerKey,\n    data: result\n};\n\n// [0] → MQTT messages\n// [1] → HTTP response\nnode.send([null, msg]);\n\nreturn [messages];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 7,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1140,
+        "y": 1400,
+        "wires": [
+            [
+                "fe88007cff34eb3c",
+                "6e44f1ea080d3904"
+            ],
+            [
+                "d3d181a2dff08a17",
+                "9f9c17d86341ae7d"
+            ]
+        ]
+    },
+    {
+        "id": "ebdcae456bb05103",
+        "type": "debug",
+        "z": "49e1690633630c0d",
+        "g": "1943a14c98ca7c09",
+        "name": "debug 1272",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "6fe800dfb0c07d34",
+        "type": "debug",
+        "z": "49e1690633630c0d",
+        "g": "1943a14c98ca7c09",
+        "name": "debug 1273",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "bdd9405fd4d39c32",
+        "type": "debug",
+        "z": "49e1690633630c0d",
+        "g": "1943a14c98ca7c09",
+        "name": "debug 1274",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "83bb562b720cfc3b",
+        "type": "function",
+        "z": "49e1690633630c0d",
+        "g": "1943a14c98ca7c09",
+        "name": "Normalize",
+        "func": "const companies = global.get(\"CORE.CUSTOMER\") || [];\n\nconst getCustomerCode = (id) => {\n    if (!id) return {};\n    const company = Array.isArray(companies)\n        ? companies.find(c => c.id === id)\n        : Object.values(companies).find(c => c.id === id);\n    return company ? company : {};\n};\n\nconst rows = Array.isArray(msg.payload.data) ? msg.payload.data : [];\nconst clean = [];\n\nfor (const row of rows) {\n\n    // RO has both order_date and delivery_date — use delivery_date as primary\n    const date = new Date(row.delivery_date || row.order_date);\n    if (isNaN(date.getTime())) continue;\n\n    const items = Array.isArray(row.replacement_order_items)  // 🔄\n        ? row.replacement_order_items.map(item => ({\n            orderQty:     item.order_qty,\n            shippedQty:   item.shipped_qty,                   // 🔄 was deliveryQty\n            receivedQty:  item.received_qty,                  // 🔄 was qtyReceived\n            materialCode: item.material_id?.code,\n            materialName: item.material_id?.name,\n        }))\n        : [];\n\n    const { code: supplierCode = 'UNKNOWN', name: supplierName = 'UNKNOWN' } = getCustomerCode(row.supplier_id);\n\n    const submissionStatus     = row.submission_id?.activity_id?.activity_status ?? null;\n    const submissionStatusCode = row.submission_id?.activity_id?.activity_status_code ?? null;\n    const workflowCode         = row.submission_id?.activity_id?.workflow_version_id?.code ?? null;\n\n    clean.push({\n        id:                  row.id,\n        code:                row.code,                        \n        date:                date.toISOString(),\n        orderDate:           new Date(row.order_date).toISOString(),  \n        isOverdue:           row.is_overdue ?? false,\n        items,\n        supplierCode,\n        supplierName,\n        submissionStatus,\n        submissionStatusCode,\n        workflowCode,\n    });\n}\n\nmsg.payload = [];\nif (!clean.length) return msg;\nmsg.payload = clean;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 1400,
+        "wires": [
+            [
+                "5977eb680432f36f",
+                "bdd9405fd4d39c32"
+            ]
+        ]
+    },
+    {
+        "id": "0125229482128d9f",
+        "type": "debug",
+        "z": "49e1690633630c0d",
+        "g": "1943a14c98ca7c09",
+        "name": "debug 1275",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "fe88007cff34eb3c",
+        "type": "mqtt out",
+        "z": "49e1690633630c0d",
+        "g": "1943a14c98ca7c09",
+        "name": "",
+        "topic": "",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3d3bd7e8af197698",
+        "x": 1350,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "6e44f1ea080d3904",
+        "type": "debug",
+        "z": "49e1690633630c0d",
+        "g": "1943a14c98ca7c09",
+        "name": "debug 1276",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1290,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "9f9c17d86341ae7d",
+        "type": "debug",
+        "z": "49e1690633630c0d",
+        "g": "1943a14c98ca7c09",
+        "name": "debug 1277",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1330,
+        "y": 1480,
         "wires": []
     },
     {

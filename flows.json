@@ -26577,7 +26577,7 @@
         "z": "721bce6a77e1aca4",
         "g": "group_engine",
         "name": "Request Builder",
-        "func": "const config = global.get(\"METADATA_CONFIG\")?.[msg.entity];\nif (!config) return null; // Drop event jika tidak ada di config\n\nmsg.requestConfig = {\n    items: msg.entity,\n    method: \"GET\",\n    params: config.query_params\n};\n\nif (msg.cdc_target_id) {\n    msg.requestConfig.params.filter = { id: { _eq: msg.cdc_target_id } };\n    msg.isRealtime = true;\n}\n\nreturn msg;",
+        "func": "const config = global.get(\"METADATA_CONFIG\")?.[msg.entity];\nif (!config) return null; // Drop event jika tidak ada di config\n\n// 1. Amankan param dengan fallback {} dan Deep Copy agar global config tidak ikut berubah\nconst safeParams = config.query_params ? JSON.parse(JSON.stringify(config.query_params)) : {};\n\nmsg.requestConfig = {\n    items: msg.entity,\n    method: \"GET\",\n    params: safeParams\n};\n\nif (msg.cdc_target_id) {\n    // 2. Pastikan object 'filter' sudah ada sebelum diisi\n    if (!msg.requestConfig.params.filter) {\n        msg.requestConfig.params.filter = {};\n    }\n\n    // 3. Set filter spesifik untuk realtime\n    // Menggunakan cara ini agar jika di DB sudah ada filter lain (misal is_active: true),\n    // filter tersebut tidak tertimpa/hilang, melainkan ditambah filter ID.\n    msg.requestConfig.params.filter.id = { _eq: msg.cdc_target_id };\n\n    msg.isRealtime = true;\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,

@@ -3395,11 +3395,14 @@
             "932706cd93c8bc66",
             "e654cff882e0a5aa",
             "586b3fbbe3123cb0",
-            "645e50f28629dc60"
+            "645e50f28629dc60",
+            "625e3ac471d30cbb",
+            "627829d31f2053a7",
+            "d6ddded952957a62"
         ],
         "x": 34,
         "y": 839,
-        "w": 1432,
+        "w": 1752,
         "h": 262
     },
     {
@@ -15966,7 +15969,8 @@
         "y": 1000,
         "wires": [
             [
-                "2c585080ce780c86"
+                "2c585080ce780c86",
+                "625e3ac471d30cbb"
             ]
         ]
     },
@@ -16854,6 +16858,65 @@
         "statusType": "auto",
         "x": 1580,
         "y": 740,
+        "wires": []
+    },
+    {
+        "id": "625e3ac471d30cbb",
+        "type": "function",
+        "z": "a31581b73210e088",
+        "g": "8151db3df8d4f782",
+        "name": "MQTT PURCHASE ORDER",
+        "func": "// --- GLOBAL CONTEXT ---\nconst DASHBOARD = global.get(\"DASHBOARD\");\n\n// Safety Check\nif (!DASHBOARD || !DASHBOARD.REALTIME || !DASHBOARD.REALTIME.PURCHASE_ORDER) {\n    node.warn(\"Data Dashboard Sales Order belum tersedia di Global Context\");\n    return null;\n}\n\nconst ROOT_SO = DASHBOARD.REALTIME.PURCHASE_ORDER;\nconst BASE_TOPIC = \"DASHBOARD/REALTIME/PURCHASE_ORDER\";\nconst outputMsgs = [];\n\nconst VALID_TIMEFRAMES = [\"YEARLY\", \"MONTHLY\", \"WEEKLY\", \"DAILY\"];\n\nObject.keys(ROOT_SO).forEach(metricKey => {\n\n    // Filter internal data\n    if (metricKey === \"STATUS_INTERNAL\") return;\n\n    const metricData = ROOT_SO[metricKey];\n\n    VALID_TIMEFRAMES.forEach(timeframeKey => {\n        if (metricData[timeframeKey] && typeof metricData[timeframeKey] === 'object') {\n\n            const customerContainer = metricData[timeframeKey];\n\n            Object.keys(customerContainer).forEach(customerKey => {\n                const payloadData = customerContainer[customerKey];\n                const msg = {\n                    topic: `${BASE_TOPIC}/${metricKey}/${timeframeKey}/${customerKey}`,\n                    payload: payloadData,\n                    retain: true\n                };\n\n                outputMsgs.push(msg);\n            });\n        }\n    });\n});\n\nreturn [outputMsgs];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 1040,
+        "wires": [
+            [
+                "627829d31f2053a7",
+                "d6ddded952957a62"
+            ]
+        ]
+    },
+    {
+        "id": "627829d31f2053a7",
+        "type": "mqtt out",
+        "z": "a31581b73210e088",
+        "g": "8151db3df8d4f782",
+        "name": "",
+        "topic": "",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3d3bd7e8af197698",
+        "x": 1630,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "d6ddded952957a62",
+        "type": "debug",
+        "z": "a31581b73210e088",
+        "g": "8151db3df8d4f782",
+        "name": "PO Mqtt Output",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1660,
+        "y": 1000,
         "wires": []
     },
     {

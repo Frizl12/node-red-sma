@@ -16759,7 +16759,7 @@
         "z": "a31581b73210e088",
         "g": "4d188e67cc207052",
         "name": "MQTT DEBUG",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,

@@ -3086,7 +3086,7 @@
         ],
         "x": 34,
         "y": 591.5,
-        "w": 1672,
+        "w": 1732,
         "h": 229.5
     },
     {
@@ -16838,7 +16838,7 @@
         "correl": "",
         "expiry": "",
         "broker": "3d3bd7e8af197698",
-        "x": 1550,
+        "x": 1610,
         "y": 780,
         "wires": []
     },
@@ -16856,7 +16856,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1580,
+        "x": 1640,
         "y": 740,
         "wires": []
     },
@@ -16907,7 +16907,7 @@
         "z": "a31581b73210e088",
         "g": "8151db3df8d4f782",
         "name": "PO Mqtt Output",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,

@@ -16107,7 +16107,7 @@
         "stream": "ensure",
         "ensurestream": "d7bce44fd61d1c25",
         "consumertype": "durable",
-        "durable": "dashboard_do",
+        "durable": "dashboard_po",
         "startseq": 0,
         "starttime": 0,
         "ack": "manual",

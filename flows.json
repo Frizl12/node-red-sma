@@ -3125,9 +3125,6 @@
         },
         "nodes": [
             "7ec97122cd079c3e",
-            "728e30c46efb2590",
-            "fa9c8cc2e05aec1e",
-            "0f67f7267d631393",
             "bf4390d01df432c7",
             "76e43386850d5e79",
             "3ded9c2769495905",
@@ -3135,12 +3132,18 @@
             "e1b0e288a5f4271c",
             "c1be262df8c9a73d",
             "721c2f2a5d6d1b0d",
-            "4a7950fa5009fabf"
+            "4a7950fa5009fabf",
+            "93e873feee22866e",
+            "2311f41a7db83154",
+            "0ea14fd171b547cb",
+            "217ed4cae83643c4",
+            "6ada2fcb6f0231b6",
+            "2d1c29062e701b9f"
         ],
-        "x": 34,
-        "y": 591.5,
-        "w": 1392,
-        "h": 229.5
+        "x": 44,
+        "y": 571.5,
+        "w": 1402,
+        "h": 249.5
     },
     {
         "id": "dc845c4b5b05b9dc",
@@ -15436,8 +15439,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 260,
-        "y": 380,
+        "x": 320,
+        "y": 400,
         "wires": [
             [
                 "0eb114ba0fa6a441"
@@ -15460,15 +15463,16 @@
         "type": "debug",
         "z": "a31581b73210e088",
         "g": "fe7a78ddc635ee6f",
-        "name": "debug 1202",
+        "name": "DEBUG CDC SO",
         "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 330,
+        "x": 350,
         "y": 440,
         "wires": []
     },
@@ -15525,77 +15529,13 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 640,
+        "x": 170,
+        "y": 620,
         "wires": [
             [
                 "bf4390d01df432c7"
             ]
         ]
-    },
-    {
-        "id": "728e30c46efb2590",
-        "type": "NATS JetStream Consumer",
-        "z": "a31581b73210e088",
-        "d": true,
-        "g": "ea9168cdbab83da1",
-        "name": "pg cdc DO",
-        "server": "1a3160710db7b007",
-        "subjects": "pgcdc.public.*",
-        "delivery": "new",
-        "stream": "ensure",
-        "ensurestream": "d7bce44fd61d1c25",
-        "consumertype": "durable",
-        "durable": "do_consumer_fix",
-        "startseq": 0,
-        "starttime": 0,
-        "ack": "manual",
-        "maxackpending": 2000,
-        "ackwait": 10000,
-        "maxworkerpending": 1000,
-        "maxdeliver": -1,
-        "payloadType": "json",
-        "x": 130,
-        "y": 720,
-        "wires": [
-            [
-                "fa9c8cc2e05aec1e",
-                "0f67f7267d631393"
-            ]
-        ]
-    },
-    {
-        "id": "fa9c8cc2e05aec1e",
-        "type": "function",
-        "z": "a31581b73210e088",
-        "g": "ea9168cdbab83da1",
-        "name": "Extract ID",
-        "func": "const event = msg.payload.data?.payload;\nif (!event) return null;\n\nconst table = event.source?.table;\nif (table !== 'delivery_order' && table !== 'submission') return null;\n\nconst op = event.op;\nconst rowData = op === 'd' ? event.before : event.after;\n\nif (!rowData) return null;\n\nlet targetId = null;\nlet lookupBySubmission = false;\n\nif (table === 'delivery_order') {\n    targetId = rowData.id;\n} else if (table === 'submission') {\n    targetId = rowData.id;\n    lookupBySubmission = true;\n}\n\nif (!targetId) return null;\n\nmsg.cdc_target_id = targetId;\nmsg.cdc_op = op;\nmsg.cdc_lookup_type = lookupBySubmission ? 'submission_id' : 'id';\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 290,
-        "y": 700,
-        "wires": [
-            [
-                "bf4390d01df432c7"
-            ]
-        ]
-    },
-    {
-        "id": "0f67f7267d631393",
-        "type": "NATS JetStream Acknowledge",
-        "z": "a31581b73210e088",
-        "d": true,
-        "g": "ea9168cdbab83da1",
-        "name": "ack",
-        "action": "ack",
-        "x": 270,
-        "y": 760,
-        "wires": []
     },
     {
         "id": "bf4390d01df432c7",
@@ -15610,8 +15550,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 640,
+        "x": 380,
+        "y": 620,
         "wires": [
             [
                 "76e43386850d5e79"
@@ -15624,8 +15564,8 @@
         "z": "a31581b73210e088",
         "g": "ea9168cdbab83da1",
         "name": "",
-        "x": 580,
-        "y": 640,
+        "x": 600,
+        "y": 620,
         "wires": [
             [
                 "3ded9c2769495905"
@@ -15647,8 +15587,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 800,
-        "y": 640,
+        "x": 820,
+        "y": 620,
         "wires": [
             [
                 "06699ad6c018c075"
@@ -15668,8 +15608,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1050,
-        "y": 640,
+        "x": 1070,
+        "y": 620,
         "wires": [
             [
                 "e1b0e288a5f4271c",
@@ -15690,8 +15630,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1060,
-        "y": 740,
+        "x": 1080,
+        "y": 720,
         "wires": [
             [
                 "c1be262df8c9a73d",
@@ -15713,8 +15653,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1310,
-        "y": 740,
+        "x": 1330,
+        "y": 720,
         "wires": []
     },
     {
@@ -15730,8 +15670,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1310,
-        "y": 640,
+        "x": 1330,
+        "y": 620,
         "wires": []
     },
     {
@@ -16922,8 +16862,8 @@
         "links": [
             "9820dca95dcd95f4"
         ],
-        "x": 1255,
-        "y": 780,
+        "x": 1275,
+        "y": 760,
         "wires": []
     },
     {
@@ -17214,6 +17154,149 @@
         "x": 1295,
         "y": 460,
         "wires": []
+    },
+    {
+        "id": "93e873feee22866e",
+        "type": "function",
+        "z": "a31581b73210e088",
+        "g": "ea9168cdbab83da1",
+        "name": "extract ID",
+        "func": "const event = msg.payload.data?.payload;\nif (!event) return null;\n\nconst table = event.source?.table;\n// Tambahkan 'submission' ke daftar tabel yang dipantau\nif (table !== 'delivery_order' && table !== 'delivery_order_item' && table !== 'submission') return null;\n\nconst op = event.op;\nconst rowData = op === 'd' ? event.before : event.after;\n\nif (!rowData) return null;\n\nlet targetOrderId = null;\nlet lookupBySubmission = false;\n\nif (table === 'delivery_order') {\n    targetOrderId = rowData.id;\n} else if (table === 'delivery_order_item') {\n    targetOrderId = rowData.purchase_order_id\n} else if (table === 'submission') {\n    targetOrderId = rowData.id;\n    lookupBySubmission = true;  // Flag penanda\n}\n\nif (!targetOrderId) return null;\n\nmsg.cdc_target_id = targetOrderId;\nmsg.cdc_op = op;\nmsg.cdc_lookup_type = lookupBySubmission ? 'submission_id' : 'id';\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 700,
+        "wires": [
+            [
+                "bf4390d01df432c7"
+            ]
+        ]
+    },
+    {
+        "id": "2311f41a7db83154",
+        "type": "NATS JetStream Acknowledge",
+        "z": "a31581b73210e088",
+        "g": "ea9168cdbab83da1",
+        "name": "ack",
+        "action": "ack",
+        "x": 280,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "0ea14fd171b547cb",
+        "type": "debug",
+        "z": "a31581b73210e088",
+        "g": "ea9168cdbab83da1",
+        "name": "DEBUG CDC DO",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 320,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "217ed4cae83643c4",
+        "type": "NATS JetStream Consumer",
+        "z": "a31581b73210e088",
+        "g": "ea9168cdbab83da1",
+        "name": "pg cdc",
+        "server": "1a3160710db7b007",
+        "subjects": "pgcdc.public.delivery_order",
+        "delivery": "new",
+        "stream": "ensure",
+        "ensurestream": "d7bce44fd61d1c25",
+        "consumertype": "durable",
+        "durable": "dashboard_do",
+        "startseq": 0,
+        "starttime": 0,
+        "ack": "manual",
+        "maxackpending": 2000,
+        "ackwait": 10000,
+        "maxworkerpending": 1000,
+        "maxdeliver": -1,
+        "payloadType": "json",
+        "x": 120,
+        "y": 680,
+        "wires": [
+            [
+                "93e873feee22866e",
+                "0ea14fd171b547cb",
+                "2311f41a7db83154"
+            ]
+        ]
+    },
+    {
+        "id": "6ada2fcb6f0231b6",
+        "type": "NATS JetStream Consumer",
+        "z": "a31581b73210e088",
+        "g": "ea9168cdbab83da1",
+        "name": "pg cdc",
+        "server": "1a3160710db7b007",
+        "subjects": "pgcdc.public.delivery_order_item",
+        "delivery": "new",
+        "stream": "ensure",
+        "ensurestream": "d7bce44fd61d1c25",
+        "consumertype": "durable",
+        "durable": "doi",
+        "startseq": 0,
+        "starttime": 0,
+        "ack": "manual",
+        "maxackpending": 2000,
+        "ackwait": 10000,
+        "maxworkerpending": 1000,
+        "maxdeliver": -1,
+        "payloadType": "json",
+        "x": 120,
+        "y": 720,
+        "wires": [
+            [
+                "93e873feee22866e",
+                "0ea14fd171b547cb",
+                "2311f41a7db83154"
+            ]
+        ]
+    },
+    {
+        "id": "2d1c29062e701b9f",
+        "type": "NATS JetStream Consumer",
+        "z": "a31581b73210e088",
+        "g": "ea9168cdbab83da1",
+        "name": "pg cdc",
+        "server": "1a3160710db7b007",
+        "subjects": "pgcdc.public.submission",
+        "delivery": "new",
+        "stream": "ensure",
+        "ensurestream": "d7bce44fd61d1c25",
+        "consumertype": "durable",
+        "durable": "subs",
+        "startseq": 0,
+        "starttime": 0,
+        "ack": "manual",
+        "maxackpending": 2000,
+        "ackwait": 10000,
+        "maxworkerpending": 1000,
+        "maxdeliver": -1,
+        "payloadType": "json",
+        "x": 120,
+        "y": 760,
+        "wires": [
+            [
+                "93e873feee22866e",
+                "0ea14fd171b547cb",
+                "2311f41a7db83154"
+            ]
+        ]
     },
     {
         "id": "http_hist_in",

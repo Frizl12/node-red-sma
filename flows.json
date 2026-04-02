@@ -3312,12 +3312,13 @@
             "9820dca95dcd95f4",
             "b07498538dd47124",
             "63cf87eab887a039",
-            "d73fc4a3a44d0ce4"
+            "d73fc4a3a44d0ce4",
+            "7073378e550af177"
         ],
         "x": 44,
-        "y": 1759,
+        "y": 1739,
         "w": 722,
-        "h": 202
+        "h": 242
     },
     {
         "id": "8bf928f8ea0a14dd",
@@ -15795,7 +15796,7 @@
         "expiry": "",
         "broker": "3d3bd7e8af197698",
         "x": 590,
-        "y": 1840,
+        "y": 1820,
         "wires": []
     },
     {
@@ -15804,7 +15805,7 @@
         "z": "a31581b73210e088",
         "g": "79c7866c1d97c077",
         "name": "MQTT DELIVERY ORDER",
-        "func": "// --- GLOBAL CONTEXT ---\nconst DASHBOARD = global.get(\"DASHBOARD\");\n\n// Safety Check\nif (!DASHBOARD || !DASHBOARD.REALTIME || !DASHBOARD.REALTIME.DELIVERY_ORDER) {\n    node.warn(\"Data Dashboard Sales Order belum tersedia di Global Context\");\n    return null;\n}\n\nconst ROOT_SO = DASHBOARD.REALTIME.DELIVERY_ORDER;\nconst BASE_TOPIC = \"DASHBOARD/REALTIME/DELIVERY_ORDER\";\nconst outputMsgs = [];\n\nconst VALID_TIMEFRAMES = [\"YEARLY\", \"MONTHLY\", \"WEEKLY\", \"DAILY\"];\n\nObject.keys(ROOT_SO).forEach(metricKey => {\n\n    // Filter internal data\n    if (metricKey === \"STATUS_INTERNAL\") return;\n\n    const metricData = ROOT_SO[metricKey];\n\n    VALID_TIMEFRAMES.forEach(timeframeKey => {\n        if (metricData[timeframeKey] && typeof metricData[timeframeKey] === 'object') {\n\n            const customerContainer = metricData[timeframeKey];\n\n            Object.keys(customerContainer).forEach(customerKey => {\n                const payloadData = customerContainer[customerKey];\n                const msg = {\n                    topic: `${BASE_TOPIC}/${metricKey}/${timeframeKey}/${customerKey}`,\n                    payload: payloadData,\n                    retain: true\n                };\n\n                outputMsgs.push(msg);\n            });\n        }\n    });\n});\n\nreturn [outputMsgs];",
+        "func": "// --- GLOBAL CONTEXT ---\nconst DASHBOARD = global.get(\"DASHBOARD\");\n\n// Safety Check\nif (!DASHBOARD || !DASHBOARD.REALTIME || !DASHBOARD.REALTIME.DELIVERY_ORDER) {\n    node.warn(\"Data Dashboard Delivery Order belum tersedia di Global Context\");\n    return null;\n}\n\nconst ROOT_SO = DASHBOARD.REALTIME.DELIVERY_ORDER;\nconst BASE_TOPIC = \"DASHBOARD/REALTIME/DELIVERY_ORDER\";\nconst outputMsgs = [];\n\nconst VALID_TIMEFRAMES = [\"YEARLY\", \"MONTHLY\", \"WEEKLY\", \"DAILY\"];\n\nObject.keys(ROOT_SO).forEach(metricKey => {\n\n    // Filter internal data\n    if (metricKey === \"STATUS_INTERNAL\") return;\n\n    const metricData = ROOT_SO[metricKey];\n\n    VALID_TIMEFRAMES.forEach(timeframeKey => {\n        if (metricData[timeframeKey] && typeof metricData[timeframeKey] === 'object') {\n\n            const customerContainer = metricData[timeframeKey];\n\n            Object.keys(customerContainer).forEach(customerKey => {\n                const payloadData = customerContainer[customerKey];\n                const msg = {\n                    topic: `${BASE_TOPIC}/${metricKey}/${timeframeKey}/${customerKey}`,\n                    payload: payloadData,\n                    retain: true\n                };\n\n                outputMsgs.push(msg);\n            });\n        }\n    });\n});\n\nreturn [outputMsgs];",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -15812,7 +15813,7 @@
         "finalize": "",
         "libs": [],
         "x": 280,
-        "y": 1800,
+        "y": 1820,
         "wires": [
             [
                 "ebb752da5be733fd",
@@ -15835,7 +15836,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 630,
-        "y": 1800,
+        "y": 1780,
         "wires": []
     },
     {
@@ -16106,7 +16107,7 @@
         "z": "a31581b73210e088",
         "g": "79c7866c1d97c077",
         "name": "MQTT PURCHASE ORDER",
-        "func": "// --- GLOBAL CONTEXT ---\nconst DASHBOARD = global.get(\"DASHBOARD\");\n\n// Safety Check\nif (!DASHBOARD || !DASHBOARD.REALTIME || !DASHBOARD.REALTIME.PURCHASE_ORDER) {\n    node.warn(\"Data Dashboard Sales Order belum tersedia di Global Context\");\n    return null;\n}\n\nconst ROOT_SO = DASHBOARD.REALTIME.PURCHASE_ORDER;\nconst BASE_TOPIC = \"DASHBOARD/REALTIME/PURCHASE_ORDER\";\nconst outputMsgs = [];\n\nconst VALID_TIMEFRAMES = [\"YEARLY\", \"MONTHLY\", \"WEEKLY\", \"DAILY\"];\n\nObject.keys(ROOT_SO).forEach(metricKey => {\n\n    // Filter internal data\n    if (metricKey === \"STATUS_INTERNAL\") return;\n\n    const metricData = ROOT_SO[metricKey];\n\n    VALID_TIMEFRAMES.forEach(timeframeKey => {\n        if (metricData[timeframeKey] && typeof metricData[timeframeKey] === 'object') {\n\n            const customerContainer = metricData[timeframeKey];\n\n            Object.keys(customerContainer).forEach(customerKey => {\n                const payloadData = customerContainer[customerKey];\n                const msg = {\n                    topic: `${BASE_TOPIC}/${metricKey}/${timeframeKey}/${customerKey}`,\n                    payload: payloadData,\n                    retain: true\n                };\n\n                outputMsgs.push(msg);\n            });\n        }\n    });\n});\n\nreturn [outputMsgs];",
+        "func": "// --- GLOBAL CONTEXT ---\nconst DASHBOARD = global.get(\"DASHBOARD\");\n\n// Safety Check\nif (!DASHBOARD || !DASHBOARD.REALTIME || !DASHBOARD.REALTIME.PURCHASE_ORDER) {\n    node.warn(\"Data Dashboard Purchase Order belum tersedia di Global Context\");\n    return null;\n}\n\nconst ROOT_SO = DASHBOARD.REALTIME.PURCHASE_ORDER;\nconst BASE_TOPIC = \"DASHBOARD/REALTIME/PURCHASE_ORDER\";\nconst outputMsgs = [];\n\nconst VALID_TIMEFRAMES = [\"YEARLY\", \"MONTHLY\", \"WEEKLY\", \"DAILY\"];\n\nObject.keys(ROOT_SO).forEach(metricKey => {\n\n    // Filter internal data\n    if (metricKey === \"STATUS_INTERNAL\") return;\n\n    const metricData = ROOT_SO[metricKey];\n\n    VALID_TIMEFRAMES.forEach(timeframeKey => {\n        if (metricData[timeframeKey] && typeof metricData[timeframeKey] === 'object') {\n\n            const customerContainer = metricData[timeframeKey];\n\n            Object.keys(customerContainer).forEach(customerKey => {\n                const payloadData = customerContainer[customerKey];\n                const msg = {\n                    topic: `${BASE_TOPIC}/${metricKey}/${timeframeKey}/${customerKey}`,\n                    payload: payloadData,\n                    retain: true\n                };\n\n                outputMsgs.push(msg);\n            });\n        }\n    });\n});\n\nreturn [outputMsgs];",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -16114,7 +16115,7 @@
         "finalize": "",
         "libs": [],
         "x": 280,
-        "y": 1840,
+        "y": 1860,
         "wires": [
             [
                 "db952eb86664e0e5",
@@ -16678,7 +16679,7 @@
         "finalize": "",
         "libs": [],
         "x": 270,
-        "y": 1880,
+        "y": 1900,
         "wires": [
             [
                 "ebb752da5be733fd",
@@ -16700,7 +16701,7 @@
         "finalize": "",
         "libs": [],
         "x": 290,
-        "y": 1920,
+        "y": 1940,
         "wires": [
             [
                 "ebb752da5be733fd",
@@ -16901,7 +16902,7 @@
             "4a7950fa5009fabf"
         ],
         "x": 85,
-        "y": 1800,
+        "y": 1820,
         "wires": [
             [
                 "6980e20613c337e2"
@@ -16932,7 +16933,7 @@
             "a1c6195f595cc7c8"
         ],
         "x": 85,
-        "y": 1840,
+        "y": 1860,
         "wires": [
             [
                 "adfb7f0cb3736bf5"
@@ -16949,7 +16950,7 @@
             "03beec83891f3836"
         ],
         "x": 85,
-        "y": 1880,
+        "y": 1900,
         "wires": [
             [
                 "82064b4e02dcb20a"
@@ -16966,7 +16967,7 @@
             "1b72e7745c50ae3e"
         ],
         "x": 85,
-        "y": 1920,
+        "y": 1940,
         "wires": [
             [
                 "32ae62c114ce2472"
@@ -17155,6 +17156,28 @@
                 "ecb71401d2c6ddd0",
                 "6107bf1f7a6b375d",
                 "76d59949da25d3e1"
+            ]
+        ]
+    },
+    {
+        "id": "7073378e550af177",
+        "type": "function",
+        "z": "a31581b73210e088",
+        "g": "79c7866c1d97c077",
+        "name": "MQTT SALES ORDER",
+        "func": "// --- GLOBAL CONTEXT ---\nconst DASHBOARD = global.get(\"DASHBOARD\");\n\n// Safety Check\nif (!DASHBOARD || !DASHBOARD.REALTIME || !DASHBOARD.REALTIME.DELIVERY_ORDER) {\n    node.warn(\"Data Dashboard Sales Order belum tersedia di Global Context\");\n    return null;\n}\n\nconst ROOT_SO = DASHBOARD.REALTIME.DELIVERY_ORDER;\nconst BASE_TOPIC = \"DASHBOARD/REALTIME/SALES ORDER\";\nconst outputMsgs = [];\n\nconst VALID_TIMEFRAMES = [\"YEARLY\", \"MONTHLY\", \"WEEKLY\", \"DAILY\"];\n\nObject.keys(ROOT_SO).forEach(metricKey => {\n\n    // Filter internal data\n    if (metricKey === \"STATUS_INTERNAL\") return;\n\n    const metricData = ROOT_SO[metricKey];\n\n    VALID_TIMEFRAMES.forEach(timeframeKey => {\n        if (metricData[timeframeKey] && typeof metricData[timeframeKey] === 'object') {\n\n            const customerContainer = metricData[timeframeKey];\n\n            Object.keys(customerContainer).forEach(customerKey => {\n                const payloadData = customerContainer[customerKey];\n                const msg = {\n                    topic: `${BASE_TOPIC}/${metricKey}/${timeframeKey}/${customerKey}`,\n                    payload: payloadData,\n                    retain: true\n                };\n\n                outputMsgs.push(msg);\n            });\n        }\n    });\n});\n\nreturn [outputMsgs];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 260,
+        "y": 1780,
+        "wires": [
+            [
+                "ebb752da5be733fd",
+                "db952eb86664e0e5"
             ]
         ]
     },

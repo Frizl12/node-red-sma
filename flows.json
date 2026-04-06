@@ -3369,12 +3369,13 @@
             "7818276de39d5a69",
             "1bb19aa6d99fc177",
             "619f9358d02a860b",
-            "def37f280b95821f"
+            "def37f280b95821f",
+            "e46503c2785909b6"
         ],
         "x": 14,
-        "y": 259,
+        "y": 219,
         "w": 1412,
-        "h": 222
+        "h": 262
     },
     {
         "id": "14fb3b56b95e3fa3",
@@ -3486,9 +3487,9 @@
             "e84b5de2cd6bf0f1",
             "fb6cf6b7c50f9277"
         ],
-        "x": 24,
+        "x": 34,
         "y": 639,
-        "w": 1402,
+        "w": 1392,
         "h": 242
     },
     {
@@ -3656,9 +3657,9 @@
             "cdeaf220d0ae71f3",
             "0d626e87fa22e593"
         ],
-        "x": 24,
+        "x": 34,
         "y": 939,
-        "w": 1422,
+        "w": 1412,
         "h": 262
     },
     {
@@ -3684,9 +3685,9 @@
             "6e44f1ea080d3904",
             "9f9c17d86341ae7d"
         ],
-        "x": 24,
+        "x": 34,
         "y": 1259,
-        "w": 1422,
+        "w": 1412,
         "h": 262
     },
     {
@@ -17559,7 +17560,7 @@
         "z": "49e1690633630c0d",
         "g": "50d10e6f77263d16",
         "name": "Prepare Hist Params",
-        "func": "const { start_date, end_date, customer_code } = msg.payload;\n\nif (!start_date || !end_date) {\n    msg.payload = { error: \"start_date and end_date are required\" };\n    msg.statusCode = 400;\n    return [null, msg];\n}\n\nmsg.rangeKey = `${start_date}:${end_date}`;\n\n\n// 3. Construct API Request\nmsg.requestConfig = {\n    items: 'delivery_order',\n    method: \"GET\",\n    datacore: \"MAIN-DATACORE\",\n    params: {\n        fields: [\n            \"id\", \"ext_delivery_date_request\", \"status\", \"is_active\", \"act_arrival_date\", \"customer_id\",\n            \"submission_id.activity_id.activity_status\",\n            \"submission_id.activity_id.activity_status_code\",\n            \"submission_id.submission_logs.activity_id.activity_status_code\",\n            \"submission_id.submission_logs.date_created\",\n            \"delivery_cycle_id.est_time_arrival\", \"delivery_cycle_id.tolerance\"\n        ],\n        sort: 'ext_delivery_date_request',\n        limit: -1,\n        filter: {\n            ext_delivery_date_request: {\n                _between: [start_date, end_date]\n            }\n        },\n        deep: {\n            submission_id: {\n                submission_logs: {\n                    _sort: \"date_created\"\n                }\n            }\n        }\n    }\n};\n\n// Map properties\nmsg.items = msg.requestConfig.items;\nmsg.method = msg.requestConfig.method;\nmsg.datacore = msg.requestConfig.datacore;\nmsg.params = msg.requestConfig.params;\n\nreturn msg;",
+        "func": "const { start_date, end_date, customer_code } = msg.payload;\n\nif (!start_date || !end_date) {\n    msg.payload = { error: \"start_date and end_date are required\" };\n    msg.statusCode = 400;\n    return [null, msg];\n}\n\nmsg.rangeKey = `${start_date}:${end_date}`;\n\n// 3. Construct API Request\nmsg.requestConfig = {\n    items: 'delivery_order',\n    method: \"GET\",\n    datacore: \"MAIN-DATACORE\",\n    params: {\n        fields: [\n            \"id\", \"ext_delivery_date_request\", \"status\", \"is_active\", \"act_arrival_date\", \"customer_id\",\n            \"submission_id.activity_id.activity_status\",\n            \"submission_id.activity_id.activity_status_code\",\n            \"submission_id.submission_logs.activity_id.activity_status_code\",\n            \"submission_id.submission_logs.date_created\",\n            \"delivery_cycle_id.est_time_arrival\", \"delivery_cycle_id.tolerance\"\n        ],\n        sort: 'ext_delivery_date_request',\n        limit: -1,\n        filter: {\n            ext_delivery_date_request: {\n                _between: [start_date, end_date]\n            }\n        },\n        deep: {\n            submission_id: {\n                submission_logs: {\n                    _sort: \"date_created\"\n                }\n            }\n        }\n    }\n};\n\n// Map properties\nmsg.items = msg.requestConfig.items;\nmsg.method = msg.requestConfig.method;\nmsg.datacore = msg.requestConfig.datacore;\nmsg.params = msg.requestConfig.params;\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -18257,7 +18258,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 460,
+        "x": 461,
         "y": 1360,
         "wires": [
             [
@@ -18636,7 +18637,7 @@
         "z": "b80c44bd6fa8b311",
         "g": "acaabff9e7a0899e",
         "name": "Production Set Request",
-        "func": "const ENTITY = 'production_order';\n\n// --- LOGIC 1: REALTIME (CDC TRIGGER) ---\nif (msg.cdc_target_id) {\n    msg.requestConfig = {\n        items: ENTITY,\n        method: \"GET\",\n        datacore: \"MAIN-DATACORE\",\n        params: {\n            fields: [\n                \"id\", \"production_number\", \"code\", \n                \"production_start_date\", \"production_quantity\", \"line_id.line\", \n                \"material_id.code\", \"material_id.name\", \n                \"submission_id.activity_id.activity_status_code\", \"submission_id.activity_id.activity_status\"\n            ],\n            filter: {\n                id: { _eq: msg.cdc_target_id },\n                submission_id: {\n                    activity_id: {\n                        activity_status_code: { _eq: \"PRO_SHOPPING\" }\n                    }\n                }\n            }\n        }\n    };\n    msg.isRealtime = true;\n} else {\n    // --- LOGIC 2: INITIAL LOAD ---\n    // Reset Cache Global\n    // global.set(\"PRO_CACHE\", {}); \n    // global.set(\"DASHBOARD.REALTIME.PRODUCTION\", { LIST: {}, ARRAY: [] });\n\n    // Filter tahun berjalan (Optional, agar tidak load semua history)\n    const now = new Date();\n    const startOfYear = `${now.getFullYear()}-01-01`;\n    const endOfYear = `${now.getFullYear()}-12-31`;\n\n    msg.requestConfig = {\n        items: ENTITY,\n        method: \"GET\",\n        datacore: \"MAIN-DATACORE\",\n        params: {\n            fields: [\n                \"id\", \"production_number\", \"code\", \n                \"production_start_date\", \"production_quantity\", \"line_id.line\", \n                \"material_id.code\", \"material_id.name\", \n                \"submission_id.activity_id.activity_status_code\", \"submission_id.activity_id.activity_status\"\n            ],\n            sort: '-production_start_date',\n            limit: -1,\n            filter: {\n                production_start_date: {\n                    _between: [startOfYear, endOfYear]\n                },\n                submission_id: {\n                    activity_id: {\n                        activity_status_code: { _eq: \"PRO_SHOPPING\" }\n                    }\n                }\n            }\n        }\n    };\n    msg.isRealtime = false;\n}\n\nmsg.items = msg.requestConfig.items;\nmsg.method = msg.requestConfig.method;\nmsg.datacore = msg.requestConfig.datacore;\nmsg.parameter = msg.requestConfig.params;\n\nreturn msg.requestConfig;",
+        "func": "const { start_date, end_date } = msg.payload;\nconst ENTITY = 'production_order';\n\n// --- LOGIC 1: REALTIME (CDC TRIGGER) ---\nif (msg.cdc_target_id) {\n    msg.requestConfig = {\n        items: ENTITY,\n        method: \"GET\",\n        datacore: \"MAIN-DATACORE\",\n        params: {\n            fields: [\n                \"id\", \"production_number\", \"code\", \n                \"production_start_date\", \"production_quantity\", \"line_id.line\", \n                \"material_id.code\", \"material_id.name\", \n                \"submission_id.activity_id.activity_status_code\", \"submission_id.activity_id.activity_status\"\n            ],\n            filter: {\n                id: { _eq: msg.cdc_target_id },\n                submission_id: {\n                    activity_id: {\n                        activity_status_code: { _eq: \"PRO_SHOPPING\" }\n                    }\n                },\n                production_start_date : {\n                    _between: [start_date, end_date]\n                }\n            }\n        }\n    };\n    msg.isRealtime = true;\n} else {\n    // --- LOGIC 2: INITIAL LOAD ---\n    // Reset Cache Global\n    // global.set(\"PRO_CACHE\", {}); \n    // global.set(\"DASHBOARD.REALTIME.PRODUCTION\", { LIST: {}, ARRAY: [] });\n\n    const isFilter= (start_date || end_date);\n    // Filter tahun berjalan (Optional, agar tidak load semua history)\n    const now = new Date();\n    const startOfYear = `${now.getFullYear()}-01-01`;\n    const endOfYear = `${now.getFullYear()}-12-31`;\n\n\n    msg.requestConfig = {\n        items: ENTITY,\n        method: \"GET\",\n        datacore: \"MAIN-DATACORE\",\n        params: {\n            fields: [\n                \"id\", \"production_number\", \"code\", \n                \"production_start_date\", \"production_quantity\", \"line_id.line\", \n                \"material_id.code\", \"material_id.name\", \n                \"submission_id.activity_id.activity_status_code\", \"submission_id.activity_id.activity_status\"\n            ],\n            sort: '-production_start_date',\n            limit: -1,\n            filter: {\n                production_start_date: {\n                    _between: isFilter ? [start_date, end_date] : [startOfYear, endOfYear]\n                },\n                submission_id: {\n                    activity_id: {\n                        activity_status_code: { _eq: \"PRO_SHOPPING\" }\n                    }\n                }\n            }\n        }\n    };\n    msg.isRealtime = false;\n}\n\nmsg.items = msg.requestConfig.items;\nmsg.method = msg.requestConfig.method;\nmsg.datacore = msg.requestConfig.datacore;\nmsg.parameter = msg.requestConfig.params;\n\nreturn msg.requestConfig;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -18968,7 +18969,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1060,
+        "x": 1062,
         "y": 400,
         "wires": [
             [
@@ -19036,6 +19037,24 @@
         "x": 1270,
         "y": 600,
         "wires": []
+    },
+    {
+        "id": "e46503c2785909b6",
+        "type": "http in",
+        "z": "b80c44bd6fa8b311",
+        "g": "acaabff9e7a0899e",
+        "name": "",
+        "url": "/tv-production/pro-shopping",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 260,
+        "wires": [
+            [
+                "e1ba0c2a78475044"
+            ]
+        ]
     },
     {
         "id": "6b2fc5720321e5f6",

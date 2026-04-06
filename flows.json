@@ -3371,8 +3371,7 @@
             "619f9358d02a860b",
             "def37f280b95821f",
             "e46503c2785909b6",
-            "0f292569c5fbfb33",
-            "8ab9b387e7415566"
+            "7a5e5cd64c4058e0"
         ],
         "x": 14,
         "y": 219,
@@ -18964,10 +18963,10 @@
         "z": "b80c44bd6fa8b311",
         "g": "acaabff9e7a0899e",
         "name": "Manager (Shopping) - Optimized",
-        "func": "// --- GET GLOBAL CONTEXT ---\nconst CONTEXT_KEY = \"DASHBOARD.REALTIME.PRODUCTION.SHOPPING\";\nlet CONTEXT = global.get(CONTEXT_KEY);\nlet isNewContext = false;\n\n// Inisialisasi jika Context belum ada\nif (!CONTEXT) {\n    CONTEXT = { LIST: {}, ARRAY: [] };\n    isNewContext = true;\n}\n\nlet LIST = CONTEXT.LIST || {};\n\nconst transactions = Array.isArray(msg.payload) ? msg.payload : [];\nlet hasChange = false;\n\n// --- PROCESS TRANSACTIONS ---\ntransactions.forEach(tx => {\n    if (tx.isRemoval) {\n        if (LIST[tx.id]) {\n            delete LIST[tx.id];\n            hasChange = true;\n        }\n    } else {\n        // Upsert\n        LIST[tx.id] = tx.data;\n        hasChange = true;\n    }\n});\n\n// --- REBUILD ARRAY & PUBLISH IF CHANGED OR NEW CONTEXT ---\nif (hasChange || isNewContext) {\n    const finalArray = Object.values(LIST).map(item => ({\n        id: item.id,\n        ...item.ui,\n        _rawDate: item.rawDate // Simpan untuk sorting\n    }));\n\n    // Sort by Date Descending\n    finalArray.sort((a, b) => {\n        return new Date(b._rawDate) - new Date(a._rawDate);\n    });\n\n    // Hapus field helper sorting\n    const cleanArray = finalArray.map(({ _rawDate, ...keepAttrs }) => keepAttrs);\n\n    // Update Global Object\n    CONTEXT.LIST = LIST;\n    CONTEXT.ARRAY = cleanArray;\n\n    // SIMPAN KE GLOBAL\n    global.set(CONTEXT_KEY, CONTEXT);\n\n    // --- MQTT COMPATIBILITY ---\n    // 1. Set Topic berdasarkan context (mengubah dot menjadi slash agar standar MQTT)\n    msg.topic = CONTEXT_KEY.toUpperCase().replace(/\\./g, \"/\");\n    \n    // 2. Set Payload (Node-RED MQTT Out akan otomatis men-stringify object ini)\n    msg.payload = cleanArray;\n    msg.success = true;\n\n    // 3. Opsional: Tambahkan timestamp atau metadata jika diperlukan\n    // msg.retain = true; // Bisa di-set di node mqtt-out secara langsung\n\n    // Return both: msg (original/modified) and httpResponse (cloned/modified)\n    return [msg, msg];\n}\n\nreturn [null, null];",
-        "outputs": 2,
+        "func": "// --- GET GLOBAL CONTEXT ---\nconst CONTEXT_KEY = \"DASHBOARD.REALTIME.PRODUCTION.SHOPPING\";\nlet CONTEXT = global.get(CONTEXT_KEY);\nlet isNewContext = false;\n\n// Inisialisasi jika Context belum ada\nif (!CONTEXT) {\n    CONTEXT = { LIST: {}, ARRAY: [] };\n    isNewContext = true;\n}\n\nlet LIST = CONTEXT.LIST || {};\n\nconst transactions = Array.isArray(msg.payload) ? msg.payload : [];\nlet hasChange = false;\n\n// --- PROCESS TRANSACTIONS ---\ntransactions.forEach(tx => {\n    if (tx.isRemoval) {\n        if (LIST[tx.id]) {\n            delete LIST[tx.id];\n            hasChange = true;\n        }\n    } else {\n        // Upsert\n        LIST[tx.id] = tx.data;\n        hasChange = true;\n    }\n});\n\n// --- REBUILD ARRAY & PUBLISH IF CHANGED OR NEW CONTEXT ---\nif (hasChange || isNewContext) {\n    const finalArray = Object.values(LIST).map(item => ({\n        id: item.id,\n        ...item.ui,\n        _rawDate: item.rawDate // Simpan untuk sorting\n    }));\n\n    // Sort by Date Descending\n    finalArray.sort((a, b) => {\n        return new Date(b._rawDate) - new Date(a._rawDate);\n    });\n\n    // Hapus field helper sorting\n    const cleanArray = finalArray.map(({ _rawDate, ...keepAttrs }) => keepAttrs);\n\n    // Update Global Object\n    CONTEXT.LIST = LIST;\n    CONTEXT.ARRAY = cleanArray;\n\n    // SIMPAN KE GLOBAL\n    global.set(CONTEXT_KEY, CONTEXT);\n\n    // --- MQTT COMPATIBILITY ---\n    // 1. Set Topic berdasarkan context (mengubah dot menjadi slash agar standar MQTT)\n    msg.topic = CONTEXT_KEY.toUpperCase().replace(/\\./g, \"/\");\n    \n    // 2. Set Payload (Node-RED MQTT Out akan otomatis men-stringify object ini)\n    msg.payload = cleanArray;\n\n    // 3. Opsional: Tambahkan timestamp atau metadata jika diperlukan\n    // msg.retain = true; // Bisa di-set di node mqtt-out secara langsung\n\n    // Return both: msg (original/modified) and httpResponse (cloned/modified)\n    return msg;\n}\n\nreturn msg;",
+        "outputs": 1,
         "timeout": 0,
-        "noerr": 2,
+        "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
@@ -18977,10 +18976,6 @@
             [
                 "7818276de39d5a69",
                 "def37f280b95821f"
-            ],
-            [
-                "0f292569c5fbfb33",
-                "8ab9b387e7415566"
             ]
         ]
     },
@@ -19058,38 +19053,21 @@
         "y": 260,
         "wires": [
             [
-                "e1ba0c2a78475044"
+                "e1ba0c2a78475044",
+                "7a5e5cd64c4058e0"
             ]
         ]
     },
     {
-        "id": "0f292569c5fbfb33",
+        "id": "7a5e5cd64c4058e0",
         "type": "http response",
         "z": "b80c44bd6fa8b311",
         "g": "acaabff9e7a0899e",
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 1290,
-        "y": 380,
-        "wires": []
-    },
-    {
-        "id": "8ab9b387e7415566",
-        "type": "debug",
-        "z": "b80c44bd6fa8b311",
-        "g": "acaabff9e7a0899e",
-        "name": "HTTP Out",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1300,
-        "y": 420,
+        "x": 410,
+        "y": 260,
         "wires": []
     },
     {

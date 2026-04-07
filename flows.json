@@ -3550,9 +3550,9 @@
             "d71f9839413f1fd1",
             "19a08c5c0699d24e"
         ],
-        "x": 34,
+        "x": 44,
         "y": 59,
-        "w": 2812,
+        "w": 2802,
         "h": 522
     },
     {
@@ -26850,6 +26850,769 @@
             [
                 "d71f9839413f1fd1",
                 "c4126395340ad488"
+            ]
+        ]
+    },
+    {
+        "id": "dcb_v2_func_build_params",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "name": "Build Fetch Params (§2 Data Model)",
+        "func": "msg = {\n    items    : 'mt_charts',\n    method   : 'GET',\n    datacore : 'MAIN-DATACORE',\n    req      : msg.req,\n    res      : msg.res,\n    params   : {\n        fields : ['*'],\n        sort   : '-date_created',\n        limit  : -1\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 660,
+        "wires": [
+            [
+                "8d123409b21f356a"
+            ]
+        ]
+    },
+    {
+        "id": "dcb_v2_inject_sync",
+        "type": "inject",
+        "z": "853d459b0cf0e88c",
+        "name": "Sync every 5 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "300",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 660,
+        "wires": [
+            [
+                "dcb_v2_func_build_params"
+            ]
+        ]
+    },
+    {
+        "id": "01c398f3dce54640",
+        "type": "inject",
+        "z": "853d459b0cf0e88c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 740,
+        "wires": [
+            [
+                "9ed8acc7fc053e4f"
+            ]
+        ]
+    },
+    {
+        "id": "9ed8acc7fc053e4f",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "name": "Set Filter  & config Data",
+        "func": "const MT_CHART_CONFIG = \"DCB_DEFINITIONS\";\n\nconst getConfigChart = global.get(MT_CHART_CONFIG);\n\nObject.values(getConfigChart).map( (item) => {\n    node.send({\n        payload: item,\n        filter: {}\n    });\n})",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 740,
+        "wires": [
+            [
+                "4492413c33079ff2",
+                "9593e22fcbd94391"
+            ]
+        ]
+    },
+    {
+        "id": "4492413c33079ff2",
+        "type": "delay",
+        "z": "853d459b0cf0e88c",
+        "d": true,
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 570,
+        "y": 780,
+        "wires": [
+            [
+                "9593e22fcbd94391"
+            ]
+        ]
+    },
+    {
+        "id": "9593e22fcbd94391",
+        "type": "link out",
+        "z": "853d459b0cf0e88c",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [
+            "04fa310427943f72"
+        ],
+        "x": 735,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "260b8829ba9fef22",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "name": "debug 50",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "dcb_v2_func_validate_defs",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "name": "Validate Definitions (§9, §10)",
+        "func": "const charts = msg.payload.data || [];\nconst defs = {};\nconst errors = [];\n\ncharts.forEach((chart, idx) => {\n    if (!chart.code) {\n        errors.push('[' + idx + '] Missing code');\n        return;\n    }\n    if (!chart.name) {\n        errors.push('[' + chart.id + '] Missing name');\n        return;\n    }\n    if (!chart.config) {\n        errors.push('[' + chart.id + '] Missing config');\n        return;\n    }\n    // Validate config is valid JSON\n    try {\n        const cfg = typeof chart.config === 'string' ? JSON.parse(chart.config) : chart.config;\n        if (!cfg || typeof cfg !== 'object') throw new Error('config must be object');\n    } catch(e) {\n        errors.push('[' + chart.id + '] Invalid config JSON: ' + e.message);\n        return;\n    }\n    // Check data source (§7 Decision Rules)\n    // const hasTopic = chart.topic_in && chart.topic_in.trim() !== '' && chart.topic_in !== '-';\n    // const hasQuery = chart.query && chart.query.trim() !== '';\n    // if (!hasTopic && !hasQuery) {\n    //     errors.push('[' + chart.id + '] No topic_in or query defined');\n    //     return;\n    // }\n    // Validate logic if present\n    if (chart.logic && chart.logic.trim() !== '') {\n        try {\n            new Function('ctx', chart.logic);\n        } catch(e) {\n            errors.push('[' + chart.id + '] Invalid logic JS: ' + e.message);\n            return;\n        }\n    }\n    defs[chart.id] = chart;\n});\n\nif (errors.length > 0) {\n    node.warn('[DCB] Validation errors:\\n  ' + errors.join('\\n  '));\n}\n\nglobal.set('DCB_DEFINITIONS', defs);\nnode.log('[DCB] Synced ' + Object.keys(defs).length + ' valid charts (skipped ' + errors.length + ')');\nmsg.payload = { count: Object.keys(defs).length, errors: errors };\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 680,
+        "wires": [
+            [
+                "dcb_v2_func_store_defs"
+            ]
+        ]
+    },
+    {
+        "id": "dcb_v2_func_store_defs",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "name": "Store Definitions",
+        "func": "// Already stored in dcb_v2_func_validate_defs\nnode.log('[DCB] Definitions cached in global.DCB_DEFINITIONS');\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1160,
+        "y": 680,
+        "wires": [
+            [
+                "dcb_v2_debug_sync",
+                "9ed8acc7fc053e4f"
+            ]
+        ]
+    },
+    {
+        "id": "dcb_v2_debug_sync",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "name": "Sync Status",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1350,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "04fa310427943f72",
+        "type": "link in",
+        "z": "853d459b0cf0e88c",
+        "name": "link in 2",
+        "links": [
+            "9593e22fcbd94391",
+            "150d6ce633742727"
+        ],
+        "x": 65,
+        "y": 900,
+        "wires": [
+            [
+                "b86802735e510cf3"
+            ]
+        ]
+    },
+    {
+        "id": "b86802735e510cf3",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "name": "Set Filter Timeframe",
+        "func": "// Build filter dari payload (jika ada field filter dikirim)\nconst now = new Date();\nconst currentYear = now.getFullYear();\nconst currentMonth = now.getMonth(); // 0 (January) to 11 (December)\nconst currentDate = now.getDate(); // Day of the month\nconst startOfYear = `${currentYear}-01-01`;\nconst endOfYear = `${currentYear}-12-31`;\n// Start and end of the current month\nconst startOfMonth = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-01`;\nconst endOfMonth = new Date(currentYear, currentMonth + 1, 0)\n    .toISOString()\n    .slice(0, 10); // Gets the last day of the current month\n// Start and end of the current week (assuming the week starts on Sunday)\nconst dayOfWeek = now.getDay(); // 0 (Sunday) to 6 (Saturday)\nconst startOfWeek = new Date(now.setDate(currentDate - dayOfWeek))\n    .toISOString()\n    .slice(0, 10); // Start of the week\nconst endOfWeek = new Date(now.setDate(currentDate - dayOfWeek + 6))\n    .toISOString()\n    .slice(0, 10); // End of the week\n// Today's date\nconst today = new Date().toISOString().slice(0, 10);\n\nlet filterDate = {\n    startOfYear,\n    endOfYear,\n    startOfMonth,\n    endOfMonth,\n    startOfWeek,\n    endOfWeek,\n    today\n};\n\nmsg.mt_chart = msg.payload;\n\nreturn { ...msg , filterDate };",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 230,
+        "y": 900,
+        "wires": [
+            [
+                "0d0ccf6f83f747b2"
+            ]
+        ]
+    },
+    {
+        "id": "0d0ccf6f83f747b2",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "name": "Build query",
+        "func": "// const configDb = env.get(\"DATABASE\");\nconst connection = global.get(\"CORE.ETL_CONNECTION\")\nconst configDb = Object.values(connection).find(item => item.db_client == \"postgresql\");\n\n// set config pg sql\nmsg.pgConfig = {\n    user    : configDb.username,\n    password: configDb.password,\n    host    : configDb.host,\n    database: configDb.database,\n    port    : configDb.port\n};\n\n// set query\nmsg.query = msg.payload.query\nmsg.queryParameters = {...msg.filter  , ...msg.filterDate}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 900,
+        "wires": [
+            [
+                "a0ab53391afa08e8",
+                "f29e83028f3fc077"
+            ]
+        ]
+    },
+    {
+        "id": "a0ab53391afa08e8",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "name": "debug 72",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 590,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "21d5edc745a8970e",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "name": "debug 73",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "0270e04061530705",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "name": "Route MQTT vs HTTP & Save Query Data",
+        "func": "// FIX: Gunakan topic_in (bukan topic_id)\n// FIX: Port 1 = mode MQTT (topic_in terisi)\n//       Port 2 = mode HTTP / Query DB (topic_in kosong)\nconst item = msg.mt_chart;\n\n// Validasi: name & code wajib ada (§10 Checklist)\nif (!item.name || !item.code) {\n    node.warn('[Mutation Data] Chart tidak valid (name/code kosong): ' + JSON.stringify(item));\n    return [null, null];\n}\n\nconst hasTopic = item.topic_in && item.topic_in.trim() !== '-';\nconst hasQuery = item.query && item.query.trim() !== '';\n\n// Decision rules §7:\n// Rule 3: Keduanya kosong → invalid\nif (!hasTopic && !hasQuery) {\n    node.warn('[Mutation Data] Chart invalid config (topic_in & query kosong): ' + item.code);\n    return [null, null];\n}\n\nif (hasTopic && item.topic_in.trim() !== \"-\") {\n    // Mode MQTT — Port 1\n    node.log('[Mutation Data] MQTT mode: ' + item.code + ' → ' + item.topic_in);\n    return [{ ...msg, mutationData: [], dataMode: 'mqtt' }, null];\n} else {\n    // Mode Query DB — Port 2\n    node.log('[Mutation Data] Query DB mode: ' + item.code);\n    return [null, { ...msg, mutationData: [], dataMode: 'query' }];\n}",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 900,
+        "wires": [
+            [
+                "af08f50f308aec96"
+            ],
+            [
+                "c51b397fca810396"
+            ]
+        ]
+    },
+    {
+        "id": "af08f50f308aec96",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "name": "Resolve Time Bucket",
+        "func": "// --- 1. SETUP CONSTANTS ---\nconst MONTH_NAMES = [\"jan\", \"feb\", \"mar\", \"apr\", \"may\", \"jun\", \"jul\", \"aug\", \"sep\", \"oct\", \"nov\", \"dec\"];\nconst DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];\nconst now = new Date();\nconst currentYearVal = now.getFullYear();\n\n// --- HELPER FUNCTIONS ---\nfunction getWeekOfMonth(d) {\n  const day = d.getUTCDate();\n  const week = Math.floor(day / 7) + 1;\n  return week > 5 ? 5 : week;\n}\n\nfunction generateBucketData(item) {\n  const d = new Date(item.date_series);\n  if (isNaN(d.getTime())) return null;\n\n  let statusLabel = item.submission_id?.activity_id?.activity_status || item.status || \"Unknown\";\n  const itemYear = d.getFullYear();\n  const itemMonth = d.getMonth();\n  const itemDate = d.getDate();\n\n  // Helper cek minggu ini (sederhana)\n  const oneJan = new Date(d.getFullYear(), 0, 1);\n  const numberOfDays = Math.floor((d - oneJan) / (24 * 60 * 60 * 1000));\n  const weekNum = Math.ceil((d.getDay() + 1 + numberOfDays) / 7);\n  \n  const nowOneJan = new Date(currentYearVal, 0, 1);\n  const nowNumberOfDays = Math.floor((now - nowOneJan) / (24 * 60 * 60 * 1000));\n  const currentWeekNum = Math.ceil((now.getDay() + 1 + nowNumberOfDays) / 7);\n\n  // Flags Calculation\n  const isCurrentYear = itemYear === currentYearVal;\n  const isCurrentMonth = isCurrentYear && (itemMonth === now.getMonth());\n  // Cek minggu: harus tahun sama, bulan sama (opsional tergantung bisnis), dan nomor minggu sama\n  const isCurrentWeek = isCurrentYear && (weekNum === currentWeekNum); \n  const isToday = isCurrentMonth && (itemDate === now.getDate());\n\n  return {\n    bucket: {\n      year: itemYear,\n      monthName: MONTH_NAMES[d.getMonth()], // Gunakan getMonth lokal agar konsisten\n      weekStr: String(getWeekOfMonth(d)),\n      dayName: DAYS[d.getDay()],\n      hourStr: String(d.getHours()),\n      dayOfMonth: d.getDate()\n    },\n    isCurrentYear,\n    isCurrentMonth,\n    isCurrentWeek,\n    isToday,\n    ...item \n  };\n}\n\n// --- 2. MAIN BATCH PROCESS ---\nconst inputList = Array.isArray(msg.payload) ? msg.payload : [msg.payload];\nconst transactionList = [];\n\n// Loop native JavaScript\nfor (const raw of inputList) {\n  const newData = generateBucketData(raw);\n  if (!newData) continue;\n  transactionList.push(newData);\n}\n\nconst topicNormalized = msg.mt_chart.topic_in.replace(/\\//g, '.');\n\nglobal.set( 'bucket.' + topicNormalized, transactionList)\nmsg.payload = transactionList;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 7,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1270,
+        "y": 880,
+        "wires": [
+            [
+                "7e1ef083117dc192"
+            ]
+        ]
+    },
+    {
+        "id": "c51b397fca810396",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "name": "Resolve Time Bucket",
+        "func": "// --- 1. SETUP CONSTANTS ---\nconst MONTH_NAMES = [\"jan\", \"feb\", \"mar\", \"apr\", \"may\", \"jun\", \"jul\", \"aug\", \"sep\", \"oct\", \"nov\", \"dec\"];\nconst DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];\nconst now = new Date();\nconst currentYearVal = now.getFullYear();\n\n// --- HELPER FUNCTIONS ---\nfunction getWeekOfMonth(d) {\n  const day = d.getUTCDate();\n  const week = Math.floor(day / 7) + 1;\n  return week > 5 ? 5 : week;\n}\n\nfunction generateBucketData(item) {\n  const d = new Date(item.date_series);\n  if (isNaN(d.getTime())) return null;\n\n  let statusLabel = item.submission_id?.activity_id?.activity_status || item.status || \"Unknown\";\n  const itemYear = d.getFullYear();\n  const itemMonth = d.getMonth();\n  const itemDate = d.getDate();\n\n  // Helper cek minggu ini (sederhana)\n  const oneJan = new Date(d.getFullYear(), 0, 1);\n  const numberOfDays = Math.floor((d - oneJan) / (24 * 60 * 60 * 1000));\n  const weekNum = Math.ceil((d.getDay() + 1 + numberOfDays) / 7);\n  \n  const nowOneJan = new Date(currentYearVal, 0, 1);\n  const nowNumberOfDays = Math.floor((now - nowOneJan) / (24 * 60 * 60 * 1000));\n  const currentWeekNum = Math.ceil((now.getDay() + 1 + nowNumberOfDays) / 7);\n\n  // Flags Calculation\n  const isCurrentYear = itemYear === currentYearVal;\n  const isCurrentMonth = isCurrentYear && (itemMonth === now.getMonth());\n  // Cek minggu: harus tahun sama, bulan sama (opsional tergantung bisnis), dan nomor minggu sama\n  const isCurrentWeek = isCurrentYear && (weekNum === currentWeekNum); \n  const isToday = isCurrentMonth && (itemDate === now.getDate());\n\n  return {\n    bucket: {\n      year: itemYear,\n      monthName: MONTH_NAMES[d.getMonth()], // Gunakan getMonth lokal agar konsisten\n      weekStr: String(getWeekOfMonth(d)),\n      dayName: DAYS[d.getDay()],\n      hourStr: String(d.getHours()),\n      dayOfMonth: d.getDate()\n    },\n    isCurrentYear,\n    isCurrentMonth,\n    isCurrentWeek,\n    isToday,\n    ...item \n  };\n}\n\n// --- 2. MAIN BATCH PROCESS ---\nconst inputList = Array.isArray(msg.payload) ? msg.payload : [msg.payload];\nconst transactionList = [];\n\n// Loop native JavaScript\nfor (const raw of inputList) {\n  const newData = generateBucketData(raw);\n  if (!newData) continue;\n  transactionList.push(newData);\n}\n\nmsg.payload = transactionList;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 7,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1270,
+        "y": 940,
+        "wires": [
+            [
+                "25bcdd2a4dbc6703"
+            ]
+        ]
+    },
+    {
+        "id": "25bcdd2a4dbc6703",
+        "type": "link out",
+        "z": "853d459b0cf0e88c",
+        "name": "link out 4",
+        "mode": "link",
+        "links": [
+            "f48c391c370165d9"
+        ],
+        "x": 1435,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "7e1ef083117dc192",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "name": "debug 71",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1470,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "278a9354987b023c",
+        "type": "inject",
+        "z": "853d459b0cf0e88c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 1100,
+        "wires": [
+            [
+                "7a6d5430c035e3a0"
+            ]
+        ]
+    },
+    {
+        "id": "7a6d5430c035e3a0",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "name": "Setup Format Data",
+        "func": "const configData = global.get(\"DCB_DEFINITIONS\");\nObject.values(configData).map((item) => {\n\n    if (item.topic_in == \"-\") return;\n    \n    const topicNormalized = item.topic_in\n        ? item.topic_in.replace(/\\//g, '.')\n        : null;\n\n    if (!topicNormalized) {\n        node.warn(`[DCB] topic_in kosong pada item id=${item.id}, skip.`);\n        return;\n    }\n\n    node.warn(topicNormalized);\n        \n    const bucketData = global.get(\"bucket.\" + topicNormalized);\n\n    node.send({\n        mt_chart: item,\n        payload: bucketData ,\n        mode: \"mqtt\"\n    })\n})",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 1100,
+        "wires": [
+            [
+                "38fed9c01159dae8",
+                "0eafff4c0d0dbb84"
+            ]
+        ]
+    },
+    {
+        "id": "5bcbd0dc45c16fba",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "name": "Setup Format Data",
+        "func": "\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 303,
+        "y": 1154,
+        "wires": [
+            [
+                "38fed9c01159dae8"
+            ]
+        ]
+    },
+    {
+        "id": "0eafff4c0d0dbb84",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "name": "debug 74",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "925ff36125a623d8",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "name": "debug 75",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "38fed9c01159dae8",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "name": "Logic",
+        "func": "/**\n * Dynamic Chart Bucket Engine (Node-RED Function)\n */\n\n// =========================\n// 1) CONSTANTS\n// =========================\nconst ALL_MONTHS = [\"jan\",\"feb\",\"mar\",\"apr\",\"may\",\"jun\",\"jul\",\"aug\",\"sep\",\"oct\",\"nov\",\"dec\"];\nconst ALL_WEEKS  = [\"1\",\"2\",\"3\",\"4\",\"5\"];\nconst ALL_DAYS   = [\"sunday\",\"monday\",\"tuesday\",\"wednesday\",\"thursday\",\"friday\",\"saturday\"];\nconst ALL_HOURS  = Array.from({ length: 24 }, (_, i) => String(i));\nconst KEY_ALL    = \"ALL\";\n\n// =========================\n// 2) HELPERS\n// =========================\nfunction parseDateSafe(v) {\n    if (!v) return null;\n    const d = new Date(v);\n    return isNaN(d.getTime()) ? null : d;\n}\n\nfunction getTimeKeys(dateObj) {\n    if (!dateObj) return { monthName: null, weekStr: null, dayName: null, hourStr: null };\n    const monthName = ALL_MONTHS[dateObj.getMonth()];\n    const dayName   = ALL_DAYS[dateObj.getDay()];\n    const hourStr   = String(dateObj.getHours());\n    const weekNum   = Math.min(5, Math.ceil(dateObj.getDate() / 7));\n    const weekStr   = String(weekNum);\n    return { monthName, weekStr, dayName, hourStr };\n}\n\nfunction createBaseMetric() {\n    return { raw: 0, data: { value: 0, subValue: 0 } };\n}\n\nfunction initContainer(keys) {\n    const c = { VALUE: createBaseMetric(), TRACKER: {} };\n    keys.forEach(k => { c[k] = { VALUE: createBaseMetric(), TRACKER: {} }; });\n    return c;\n}\n\nfunction ensurePath(root, timeframe, target, keys) {\n    if (!root[timeframe]) root[timeframe] = {};\n    if (!root[timeframe][target]) root[timeframe][target] = initContainer(keys);\n}\n\nfunction incMetric(metricObj, delta = 1) {\n    if (!metricObj.VALUE) metricObj.VALUE = createBaseMetric();\n    metricObj.VALUE.raw = (metricObj.VALUE.raw || 0) + delta;\n    metricObj.VALUE.data.value = metricObj.VALUE.raw;\n    metricObj.VALUE.data.subValue = delta;\n}\n\n// =========================\n// 3) BUCKET CORE\n// =========================\nfunction applyDefaultCounter(bucketRoot, row, amount = 1) {\n    const txDate = parseDateSafe(row.date || row.created_at || row.date_created || row.ts);\n    const { monthName, weekStr, dayName, hourStr } = getTimeKeys(txDate);\n\n    const updates = [\n        [\"YEARLY\",  monthName, ALL_MONTHS],\n        [\"MONTHLY\", weekStr,   ALL_WEEKS],\n        [\"WEEKLY\",  dayName,   ALL_DAYS],\n        [\"DAILY\",   hourStr,   ALL_HOURS]\n    ];\n\n    const customerCode = row.customer_code || row.customerCode || KEY_ALL;\n    const targets = [KEY_ALL];\n    if (customerCode && customerCode !== KEY_ALL) targets.push(customerCode);\n\n    targets.forEach(target => {\n        updates.forEach(([tf, keyName, keys]) => {\n            ensurePath(bucketRoot, tf, target, keys);\n            if (keyName == null) return;\n            incMetric(bucketRoot[tf][target][keyName], amount);\n            incMetric(bucketRoot[tf][target], amount);\n        });\n    });\n}\n\n// =========================\n// 4) LOGIC EXECUTOR\n// =========================\nfunction buildLogicExecutor(logicCode) {\n    if (!logicCode || !logicCode.trim()) return null;\n    try {\n        return new Function(\"ctx\", logicCode);\n    } catch (e) {\n        node.error(\"Invalid logic JS from DB: \" + e.message);\n        return null;\n    }\n}\n\n// =========================\n// 5) FILTER GROUPING HELPERS\n// =========================\n\n/**\n * Bangun base topic dari chartDef.code\n * Ganti semua \"/\" jadi \".\"\n * ex: \"DASHBOARD_DYNAMIC/REALTIME/SALES_ORDER/PIE_IKI_LUR\"\n *  -> \"DASHBOARD_DYNAMIC.REALTIME.SALES_ORDER.PIE_IKI_LUR\"\n */\nfunction buildBaseTopic(code) {\n    if (!code) return \"UNKNOWN\";\n    return String(code).replace(/\\//g, \".\");\n}\n\n/**\n * Bangun suffix topic dari kombinasi filter\n * ex: { code: \"abc\", status: \"active\" }\n *  -> \"code=abc|status=active\"\n * ex: { code: \"_all\", status: \"_all\" }\n *  -> \"code=_all|status=_all\"\n */\nfunction buildFilterSuffix(combo) {\n    return Object.entries(combo)\n        .map(([k, v]) => `${k}=${v}`)\n        .join(\"|\");\n}\n\n/**\n * Bangun topic_in lengkap\n * ex: \"DASHBOARD_DYNAMIC.REALTIME.SALES_ORDER.PIE_IKI_LUR.code=abc|status=active\"\n */\nfunction buildTopicIn(baseTopic, combo) {\n    const suffix = buildFilterSuffix(combo);\n    return `${baseTopic}.${suffix}`;\n}\n\n/**\n * Kumpulkan semua kombinasi unik nilai dari field-field filter\n * PLUS semua variasi dengan \"_all\" sebagai wildcard per field\n *\n * ex fields: [\"code\",\"status\"]\n * unique: code=[ABC,DEF], status=[active,non-active]\n * hasil:\n *   { code:\"_all\",  status:\"_all\"       }  ← full all\n *   { code:\"_all\",  status:\"active\"     }  ← partial\n *   { code:\"_all\",  status:\"non-active\" }  ← partial\n *   { code:\"ABC\",   status:\"_all\"       }  ← partial\n *   { code:\"ABC\",   status:\"active\"     }  ← spesifik\n *   { code:\"ABC\",   status:\"non-active\" }  ← spesifik\n *   { code:\"DEF\",   status:\"_all\"       }  ← partial\n *   { code:\"DEF\",   status:\"active\"     }  ← spesifik\n *   { code:\"DEF\",   status:\"non-active\" }  ← spesifik\n */\nfunction collectCombinations(rows, fields) {\n    // kumpulkan unique values per field\n    const uniquePerField = {};\n    fields.forEach(f => { uniquePerField[f] = new Set(); });\n\n    rows.forEach(row => {\n        fields.forEach(f => {\n            const val = row[f];\n            if (val !== undefined && val !== null) {\n                uniquePerField[f].add(String(val));\n            }\n        });\n    });\n\n    // Setiap field: [nilai asli...] + \"_all\"\n    // \"_all\" selalu di index 0 supaya urutan: full-all dulu, partial, spesifik\n    const valsPerField = {};\n    fields.forEach(f => {\n        valsPerField[f] = [\"_all\", ...Array.from(uniquePerField[f])];\n    });\n\n    // cartesian product dari semua field (termasuk \"_all\" per field)\n    let combos = [{}];\n    fields.forEach(f => {\n        const vals = valsPerField[f];\n        const next = [];\n        combos.forEach(existing => {\n            vals.forEach(v => {\n                next.push({ ...existing, [f]: v });\n            });\n        });\n        combos = next;\n    });\n\n    return combos;\n}\n\n/**\n * Filter rows yang cocok dengan combo\n * Jika nilai combo suatu field = \"_all\" -> semua nilai lolos untuk field tsb\n */\nfunction filterRowsByCombo(rows, combo) {\n    return rows.filter(row => {\n        return Object.entries(combo).every(([field, val]) => {\n            if (val === \"_all\") return true;\n            return String(row[field]) === val;\n        });\n    });\n}\n\n// =========================\n// 6) MAIN\n// =========================\nconst rows      = msg.payload;\nconst chartDef  = msg.mt_chart;\nconst config    = JSON.parse(chartDef.config);\nconst logicCode = String(chartDef.logic || \"\");\nconst meta      = chartDef.meta   || {};\nconst filters   = Array.isArray(config.filter) ? config.filter : [];\n\nconst baseTopic = buildBaseTopic(chartDef.topic_in);\nconst logicFn   = buildLogicExecutor(logicCode);\n\nconst bucket    = {};\nconst results   = []; // kumpulkan output per kombinasi\n\n// --- Tentukan kombinasi yang akan dieksekusi ---\nlet combos = [];\n\nif (filters.length === 0) {\n    // Tidak ada filter -> jalankan sekali, topic_in = baseTopic saja\n    combos = [null];\n} else {\n    // collectCombinations sudah include semua variasi _all (partial & full)\n    combos = collectCombinations(rows, filters);\n}\n\n// --- Loop per kombinasi ---\nnode.warn(\"Test\");\n\ncombos.forEach(combo => {\n    const filteredRows = combo === null\n        ? rows                          // tanpa filter\n        : filterRowsByCombo(rows, combo); // filter sesuai combo\n\n    // const topic_in = combo === null\n    //     ? baseTopic\n    //     : buildTopicIn(baseTopic, combo);\n\n\n    const topic_in = combo === null\n        ? baseTopic\n        : baseTopic + '.' + Object.values(combo).join(\".\");\n\n    const state      = {};\n    const comboResult = { topic_in, bucket: {}, chartData: null , filter : combo === null ? \"\" :buildFilterSuffix(combo)};\n\n    for (let i = 0; i < filteredRows.length; i++) {\n        // Inject topic_in ke setiap row (non-destructive, pakai spread)\n        const row = { ...filteredRows[i], topic_in };\n\n        if (logicFn) {\n            try {\n                logicFn({\n                    node,\n                    global,\n                    row,\n                    index: i,\n                    bucket: comboResult.bucket,\n                    meta,\n                    state,\n                    helpers: {\n                        ensurePath,\n                        incMetric,\n                        ALL_MONTHS,\n                        ALL_WEEKS,\n                        ALL_DAYS,\n                        ALL_HOURS,\n                        KEY_ALL,\n                        getTimeKeys,\n                        parseDateSafe\n                    }\n                });\n            } catch (e) {\n                node.warn(`[${chartDef.code || \"UNKNOWN\"}][${topic_in}] logic error row#${i}: ${e.message}`);\n                applyDefaultCounter(comboResult.bucket, row, 1);\n            }\n        } else {\n            applyDefaultCounter(comboResult.bucket, row, 1);\n        }\n    }\n\n    // Optional finalize per kombinasi\n    if (typeof state.finalize === \"function\") {\n        try {\n            comboResult.chartData = state.finalize(comboResult.bucket, state);\n        } catch (e) {\n            node.warn(`[${chartDef.code || \"UNKNOWN\"}][${topic_in}] finalize error: ${e.message}`);\n        }\n    }\n\n    results.push(comboResult);\n});\n\nmsg.payload = {\n    code    : chartDef.code || null,\n    ts      : Date.now(),\n    bucket,          // bucket global (kosong jika semua pakai per-combo bucket)\n    results          // array hasil per kombinasi filter\n};\n\nif (msg.mode === \"mqtt\" ) return [ msg , []] \nelse return [ [] , msg ] ",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 1140,
+        "wires": [
+            [
+                "c1ba8788750bbf2b"
+            ],
+            [
+                "f90dee6b39311770",
+                "a0415e575c5b56d9"
+            ]
+        ]
+    },
+    {
+        "id": "c1ba8788750bbf2b",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "name": "Set Response MQTT",
+        "func": "// FIX: Implementasi lengkap — subscribe/publish setup untuk chart MQTT mode\n// Kirim payload siap-format ke topic_in sesuai §3A & §6.2\nconst chart = msg.mt_chart;\n\nif (!chart || !chart.topic_in) {\n    node.warn('[SETUP MQTT] topic_in kosong, skip.');\n    return null;\n}\nconst chartData = msg.payload.results;\n\nchartData.map((item) =>{\n    // global.set(topicNormalized + `.${index}`, chartData[index])\n    const filter = item?.filter;\n    global.set(item.topic_in, { /* bucket: item.bucket , */ data: item.chartData })\n    node.send({\n        topic : chart.topic_in + ( filter  ? `/${filter}` : ''),\n        payload : {\n            code: chart.code,\n            name: chart.name,\n            data: item.chartData,   // §6.1: property 'data' berisi series\n            source: 'context',\n            timestamp: new Date().toISOString()\n        },\n        qos : 1,\n        retain : true           // Retain agar subscriber baru langsung dapat data    \n    }, [])\n})\n\n\nreturn [ [] , msg];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 1100,
+        "wires": [
+            [
+                "e7c082d3b40822b1",
+                "7f593fd14acd3337"
+            ],
+            [
+                "212a7f3b5fcba9b0"
+            ]
+        ]
+    },
+    {
+        "id": "f90dee6b39311770",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "name": "Set Response Rest",
+        "func": "const rawData = msg.payload;\nconst chart = msg.mt_chart;\n\nmsg.payload = {\n    code: chart.code,\n    name: chart.name,\n    data: rawData.results.map((item) =>  item.chartData ),   // §6.1: property 'data' berisi series\n    source: 'query',\n    timestamp: new Date().toISOString()\n}\n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 1160,
+        "wires": [
+            [
+                "bee79dbcbc1bc32a",
+                "491e6c543ffc30b2"
+            ]
+        ]
+    },
+    {
+        "id": "a0415e575c5b56d9",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "name": "debug 76",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "bee79dbcbc1bc32a",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "name": "debug 70",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "e7c082d3b40822b1",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "name": "Result Mqtt",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "212a7f3b5fcba9b0",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "name": "Result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "491e6c543ffc30b2",
+        "type": "http response",
+        "z": "853d459b0cf0e88c",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 960,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "f48c391c370165d9",
+        "type": "link in",
+        "z": "853d459b0cf0e88c",
+        "name": "link in 3",
+        "links": [
+            "25bcdd2a4dbc6703"
+        ],
+        "x": 115,
+        "y": 1180,
+        "wires": [
+            [
+                "925ff36125a623d8",
+                "5bcbd0dc45c16fba"
+            ]
+        ]
+    },
+    {
+        "id": "eb9b6e19edebb817",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "name": "Lookup context → fallback query",
+        "func": "const code        = msg.req.params.code;\nconst queryFilter = msg.req.query || {};\nconst defs        = global.get('DCB_DEFINITIONS') || {};\n\n// Cari chart def berdasarkan code\nconst chart = Object.values(defs).find(function(d) { return d.code === code; });\nif (!chart) {\n    msg.res.status(404).json({ error: 'Chart not found: ' + code });\n    return null;\n}\n\n// Bangun topic yang dicari dari query params\n// const topicBase = (chart.topic_in || chart.code).replace(/\\//g, '.');\n// let topicLookup = topicBase;\n// if (Object.keys(queryFilter).length > 0) {\n//     const suffix = Object.entries(queryFilter).map(function(e) { return e[0]+'='+e[1]; }).join('|');\n//     topicLookup = topicBase + '.' + suffix;\n// }\n\n// Coba ambil dari global context dulu\n// const cached = global.get(topicLookup) || global.get(topicBase + '.' + Object.keys(queryFilter).map(function(k){ return k+'=_all'; }).join('|'));\n\n// if (cached) {\n//     // Langsung return dari cache\n//     msg.res.json({\n//         code     : chart.code,\n//         name     : chart.name,\n//         filter   : Object.keys(queryFilter).length > 0 ? Object.entries(queryFilter).map(function(e){return e[0]+'='+e[1];}).join('|') : null,\n//         topic_in : topicLookup,\n//         data     : cached.data,\n//         source   : 'context',\n//         timestamp: new Date().toISOString()\n//     });\n//     return null;\n// }\n\n// Fallback: jalankan query + engine\nmsg.mt_chart = chart;\nmsg.filter = queryFilter;\nmsg.payload  = chart;\nmsg.mode = \"rest\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 1320,
+        "wires": [
+            [
+                "150d6ce633742727"
+            ]
+        ]
+    },
+    {
+        "id": "b45c13d8eb2ed5ff",
+        "type": "http in",
+        "z": "853d459b0cf0e88c",
+        "name": "GET /chart/:code",
+        "url": "/chart/:code",
+        "method": "get",
+        "upload": false,
+        "x": 130,
+        "y": 1320,
+        "wires": [
+            [
+                "eb9b6e19edebb817"
+            ]
+        ]
+    },
+    {
+        "id": "150d6ce633742727",
+        "type": "link out",
+        "z": "853d459b0cf0e88c",
+        "name": "link out 3",
+        "mode": "link",
+        "links": [
+            "04fa310427943f72"
+        ],
+        "x": 625,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "7f593fd14acd3337",
+        "type": "mqtt out",
+        "z": "853d459b0cf0e88c",
+        "name": "",
+        "topic": "",
+        "qos": "0",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3d3bd7e8af197698",
+        "x": 1030,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "8d123409b21f356a",
+        "type": "subflow:11bcac05a44a18c2",
+        "z": "853d459b0cf0e88c",
+        "name": "",
+        "x": 700,
+        "y": 660,
+        "wires": [
+            [
+                "260b8829ba9fef22",
+                "dcb_v2_func_validate_defs"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f29e83028f3fc077",
+        "type": "postgresql",
+        "z": "853d459b0cf0e88c",
+        "name": "",
+        "query": "",
+        "postgreSQLConfig": "26f3b1a0e30e54f3",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 670,
+        "y": 900,
+        "wires": [
+            [
+                "0270e04061530705",
+                "21d5edc745a8970e"
             ]
         ]
     },

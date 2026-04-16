@@ -2443,6 +2443,39 @@
         ]
     },
     {
+        "id": "emqx_v4_sub_detector",
+        "type": "subflow",
+        "name": "EMQX v4 New Sub Detector",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 40,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "v4_header"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 680,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "v4_diff",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [],
+        "meta": {},
+        "color": "#3FADB5"
+    },
+    {
         "id": "fc25f1bd35c0129a",
         "type": "group",
         "z": "5f65c4e20b83f30b",
@@ -3365,19 +3398,19 @@
             "e1ba0c2a78475044",
             "6f7f4d9b26f9dc93",
             "7aebec332bddc39b",
-            "6e32f6ea7288f131",
             "7818276de39d5a69",
             "1bb19aa6d99fc177",
             "619f9358d02a860b",
             "def37f280b95821f",
-            "e46503c2785909b6",
-            "7a5e5cd64c4058e0",
-            "f2324fdfb2077b4b"
+            "f2324fdfb2077b4b",
+            "3630c7f923b5f02d",
+            "6e32f6ea7288f131",
+            "542fad1090bb7886"
         ],
         "x": 14,
-        "y": 219,
+        "y": 259,
         "w": 1432,
-        "h": 282
+        "h": 242
     },
     {
         "id": "14fb3b56b95e3fa3",
@@ -3400,14 +3433,12 @@
             "271378e4fb0bba41",
             "6aede465ca1957c4",
             "026479af1b7eb46a",
-            "9a201ca19999010a",
-            "7cd10ba9466c322c",
-            "ab4a29bdc6debcc0"
+            "9a201ca19999010a"
         ],
         "x": 14,
-        "y": 519,
+        "y": 539,
         "w": 1412,
-        "h": 262
+        "h": 242
     },
     {
         "id": "50d10e6f77263d16",
@@ -3491,9 +3522,9 @@
             "e84b5de2cd6bf0f1",
             "fb6cf6b7c50f9277"
         ],
-        "x": 24,
+        "x": 34,
         "y": 639,
-        "w": 1402,
+        "w": 1392,
         "h": 242
     },
     {
@@ -3661,9 +3692,9 @@
             "cdeaf220d0ae71f3",
             "0d626e87fa22e593"
         ],
-        "x": 24,
+        "x": 34,
         "y": 939,
-        "w": 1422,
+        "w": 1412,
         "h": 262
     },
     {
@@ -3689,9 +3720,9 @@
             "6e44f1ea080d3904",
             "9f9c17d86341ae7d"
         ],
-        "x": 24,
+        "x": 34,
         "y": 1259,
-        "w": 1422,
+        "w": 1412,
         "h": 262
     },
     {
@@ -3741,12 +3772,18 @@
             "dcb_v2_func_validate_defs",
             "dcb_v2_func_store_defs",
             "dcb_v2_debug_sync",
-            "8d123409b21f356a"
+            "8d123409b21f356a",
+            "da7022477ebc39de",
+            "aed3e1085abe8f00",
+            "40d7ed47183f57e9",
+            "b0a46786a4d3cd57",
+            "8da8f67b30e6a41a",
+            "7cf785c76bdf976a"
         ],
         "x": 44,
         "y": 599,
         "w": 1442,
-        "h": 222
+        "h": 322
     },
     {
         "id": "e834bc7d323b1bf2",
@@ -3768,12 +3805,20 @@
             "c51b397fca810396",
             "25bcdd2a4dbc6703",
             "7e1ef083117dc192",
-            "f29e83028f3fc077"
+            "f29e83028f3fc077",
+            "a96be2425efe1d8b",
+            "c7220bdb5a6aa41b",
+            "a76702fe3470e972",
+            "2c68601476c4ea59",
+            "780d37e9b4105b23",
+            "a173f7a4de5409ea",
+            "4f64a5545c5832d2",
+            "f2e748d4b9c32f18"
         ],
         "x": 44,
-        "y": 839,
-        "w": 1552,
-        "h": 162
+        "y": 939,
+        "w": 1562,
+        "h": 302
     },
     {
         "id": "b5492f98d53a25e2",
@@ -3799,30 +3844,97 @@
             "212a7f3b5fcba9b0",
             "491e6c543ffc30b2",
             "f48c391c370165d9",
-            "7f593fd14acd3337"
+            "7f593fd14acd3337",
+            "6e4f57e6ccfa7550",
+            "8ace4f35e476517b",
+            "42286f0674e85bf0",
+            "e45a1144e4956635",
+            "aed2d424b0895025"
         ],
         "x": 44,
-        "y": 1019,
-        "w": 1202,
-        "h": 222
+        "y": 1359,
+        "w": 1522,
+        "h": 242
     },
     {
-        "id": "46b7599f0df399d4",
+        "id": "0815395a577749ef",
         "type": "group",
         "z": "853d459b0cf0e88c",
-        "name": "Rest API",
+        "name": "API",
         "style": {
             "label": true
         },
         "nodes": [
-            "eb9b6e19edebb817",
-            "b45c13d8eb2ed5ff",
-            "150d6ce633742727"
+            "37ce7cc9a5038e73",
+            "6a1dca46d199784e",
+            "64d84019ee03f882",
+            "a28c042e81c8c836",
+            "f3801e658224adad",
+            "5cbc67d1ae830374",
+            "251692bbe0e9005f",
+            "f0e27c6a939cd7ce",
+            "b2643304b2552d2e",
+            "15475284f9684b80",
+            "a98b072362b2d192",
+            "36c93de5e153b111",
+            "29be8af4c198256c"
         ],
         "x": 54,
-        "y": 1279,
-        "w": 642,
-        "h": 82
+        "y": 1619,
+        "w": 722,
+        "h": 302
+    },
+    {
+        "id": "6a47b69838c20e5d",
+        "type": "group",
+        "z": "b80c44bd6fa8b311",
+        "name": "Production Order Binning (Historical)",
+        "style": {
+            "label": true,
+            "stroke": "#000000"
+        },
+        "nodes": [
+            "5e1964dc39a6ee6d",
+            "015017b1cd731a79",
+            "6041c3dd21c1cc8e",
+            "ff25b4b9a5931992",
+            "87037999519cf502",
+            "89216d606eaf2304",
+            "b2505c3b779c58e0",
+            "5d21ab67b74a7dae",
+            "4fd74cca5657209e",
+            "764d0b19f9716b87"
+        ],
+        "x": 14,
+        "y": 1079,
+        "w": 1412,
+        "h": 182
+    },
+    {
+        "id": "39cd2ddaf27dc980",
+        "type": "group",
+        "z": "b80c44bd6fa8b311",
+        "name": "Production Order Shopping (Historical)",
+        "style": {
+            "label": true,
+            "stroke": "#000000"
+        },
+        "nodes": [
+            "7f9d954b4a888165",
+            "92a997c61fca7b81",
+            "53dd1ec8b3264cc9",
+            "3d150c014dca6777",
+            "55159bc9183b6434",
+            "f31141f79e90207c",
+            "d88b6f7f04a19b8c",
+            "0d92c95224839079",
+            "14bf9ccef2502af9",
+            "a1aafce6365adfbf"
+        ],
+        "x": 4,
+        "y": 879,
+        "w": 1442,
+        "h": 182
     },
     {
         "id": "790d13f1061b4d32",
@@ -3959,6 +4071,11 @@
                 "name": "TOKEN_INFLUX_NR",
                 "value": "k4dSTF4Q_WVQ_MfrXsK5xua-o6INnvPCGzLRRFNTYDWxARvgoTXRpJzuuV3LVBWU4Jk_EMVS0VoI-3gkxkL3OA==",
                 "type": "str"
+            },
+            {
+                "name": "EMQX",
+                "value": "{\"host\":\"emqx\",\"port\":18083,\"username\":\"admin\",\"password\":\"public\"}",
+                "type": "json"
             }
         ]
     },
@@ -15151,6 +15268,86 @@
         ]
     },
     {
+        "id": "v4_header",
+        "type": "function",
+        "z": "emqx_v4_sub_detector",
+        "name": "V4 Auth Setup",
+        "func": "const emqxEnv = env.get('EMQX')\n\nconst appId = emqxEnv.username; \nconst appSecret = emqxEnv.password;\nconst auth = Buffer.from(`${appId}:${appSecret}`).toString('base64');\n\nmsg.url = `${emqxEnv.host}:${emqxEnv.port}/api/v4/subscriptions`;\nmsg.headers = { \"Authorization\": `Basic ${auth}` };\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 80,
+        "wires": [
+            [
+                "v4_http",
+                "471309c38566791e"
+            ]
+        ]
+    },
+    {
+        "id": "v4_http",
+        "type": "http request",
+        "z": "emqx_v4_sub_detector",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 370,
+        "y": 80,
+        "wires": [
+            [
+                "v4_diff"
+            ]
+        ]
+    },
+    {
+        "id": "471309c38566791e",
+        "type": "debug",
+        "z": "emqx_v4_sub_detector",
+        "name": "debug 93",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 330,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "v4_diff",
+        "type": "function",
+        "z": "emqx_v4_sub_detector",
+        "name": "Detect New",
+        "func": "const current = msg.payload.data || [];\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "c88e1af749ca18ab",
         "type": "debug",
         "z": "a31581b73210e088",
@@ -15880,7 +16077,7 @@
         "z": "a31581b73210e088",
         "g": "79c7866c1d97c077",
         "name": "Debug MQTT Out",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -16663,10 +16860,10 @@
         "z": "a31581b73210e088",
         "g": "3f9468b6280c087d",
         "name": "Aggregate Replacement Order Paralel",
-        "func": "// --- 1. CONSTANTS ---\nconst ALL_MONTHS = [\"jan\",\"feb\",\"mar\",\"apr\",\"may\",\"jun\",\"jul\",\"aug\",\"sep\",\"oct\",\"nov\",\"dec\"];\nconst ALL_WEEKS = [\"1\",\"2\",\"3\",\"4\",\"5\"];\nconst ALL_DAYS = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];\nconst ALL_HOURS = Array.from({ length: 24 }, (_, i) => String(i));\nconst ALL_DATES = Array.from({ length: 31 }, (_, i) => String(i + 1).padStart(2, '0'));\nconst COLOR_BLUE = \"#1E88E5\";\nconst COLOR_RED  = \"#E53935\";\nconst KEY_ALL = \"ALL\";\n\nconst fmtStandard = new Intl.NumberFormat('id-ID');\n\n// --- 2. GLOBAL STATE ---\nlet DASHBOARD = global.get(\"DASHBOARD\") || {};\nDASHBOARD.REALTIME = DASHBOARD.REALTIME || {};\nDASHBOARD.REALTIME.REPLACEMENT_ORDER = DASHBOARD.REALTIME.REPLACEMENT_ORDER || {};\nconst ROOT_RO = DASHBOARD.REALTIME.REPLACEMENT_ORDER;\n\n// --- TOPICS ---\nconst TOPIC_COUNT           = \"DETAIL_PARAMETER_TOTAL_REPLACEMENT_ORDER\";\nconst TOPIC_ON_TIME         = \"DETAIL_PARAMETER_ON_TIME_REPLACEMENT\";\nconst TOPIC_LEAD_TIME       = \"DETAIL_PARAMETER_AVG_RO_LEAD_TIME\";\nconst TOPIC_RO_CONFIRMED    = \"DETAIL_PARAMETER_RO_CONFIRMED\";\nconst TOPIC_RO_CLOSED       = \"DETAIL_PARAMETER_RO_CLOSED\";\nconst TOPIC_RO_OVERDUE      = \"DETAIL_PARAMETER_RO_OVERDUE\";\nconst TOPIC_STATUS          = \"PIE_CHART_REPLACEMENT_ORDER\";\nconst TOPIC_LINE_COUNT      = \"LINE_CHART_REPLACEMENT_ORDER\";\nconst TOPIC_LINE_DATE       = \"LINE_CHART_REPLACEMENT_ORDER_BY_DATE\";\nconst TOPIC_BAR_OUTSTANDING = \"BAR_CHART_OUTSTANDING_VS_CLOSE_RO\";\nconst TOPIC_TOP_ITEM        = \"BAR_CHART_TOP_10_REPLACEMENT_ITEM\";\nconst TOPIC_TOP_AGING       = \"BAR_CHART_TOP_10_REPLACEMENT_AGING\";\n\nconst ALL_TOPICS = [\n    TOPIC_COUNT, TOPIC_ON_TIME, TOPIC_LEAD_TIME,\n    TOPIC_RO_CONFIRMED, TOPIC_RO_CLOSED, TOPIC_RO_OVERDUE,\n    TOPIC_STATUS, TOPIC_LINE_COUNT, TOPIC_LINE_DATE,\n    TOPIC_BAR_OUTSTANDING,\n    TOPIC_TOP_ITEM, TOPIC_TOP_AGING\n];\n\nALL_TOPICS.forEach(t => { if (!ROOT_RO[t]) ROOT_RO[t] = {}; });\n\n// --- 3. HELPERS ---\nfunction createEmptyData(type) {\n    if (type === 'status' || type === 'material') return { COUNTS: {}, data: [] };\n    if (type === 'chart') return { data: { label: \"\", value: \"\", subValue: \"\", xAxis: [], seriesData: [] } };\n    return { raw: 0, data: { value: \"0\", label: \"No Data\", subValue: \"0\" } };\n}\n\nfunction initContainer(keys, type, labelPrefix = \"\") {\n    if (type === 'chart') return createEmptyData('chart');\n    const container = { VALUE: createEmptyData(type) };\n    if (keys) {\n        keys.forEach(k => {\n            container[k] = { VALUE: createEmptyData(type), TRACKER: {} };\n            if (type !== 'status' && type !== 'material' && container[k].VALUE.data) {\n                container[k].VALUE.data.label = labelPrefix ? `${labelPrefix} ${k}` : k;\n            }\n        });\n    }\n    return container;\n}\n\nfunction checkOntime(plannedDate, referenceDate) {\n    if (!plannedDate || !referenceDate) return { isOntime: false, diffDays: 0 };\n    const dPlanned = new Date(plannedDate.slice(0, 10) + \"T00:00:00\");\n    const dRef = new Date(referenceDate.slice(0, 10) + \"T00:00:00\");\n    const diffDays = Math.floor((dPlanned - dRef) / (1000 * 60 * 60 * 24));\n    return { isOntime: diffDays >= 0, diffDays };\n}\n\nfunction getDayKey(isoDate) {\n    if (!isoDate) return null;\n    return isoDate.slice(8, 10);\n}\n\nfunction getDaysFromToday(isoDate) {\n    if (!isoDate) return 0;\n    const d = new Date(isoDate.slice(0, 10) + \"T00:00:00\");\n    const today = new Date(new Date().toISOString().slice(0, 10) + \"T00:00:00\");\n    return Math.floor((today - d) / (1000 * 60 * 60 * 24));\n}\n\n// --- 4. UPDATE FUNCTIONS ---\n\nfunction updateMetric(bucket, amount, id, isRemoval, type) {\n    if (!bucket) return;\n    if (!bucket.VALUE) bucket.VALUE = createEmptyData(type);\n    bucket.TRACKER = bucket.TRACKER || {};\n\n    const prevVal = bucket.TRACKER[id];\n    const exists = prevVal !== undefined;\n    let delta = 0;\n\n    if (isRemoval) {\n        if (exists) {\n            delta = type === 'qty' ? -prevVal : -1;\n            delete bucket.TRACKER[id];\n        }\n    } else {\n        const valToAdd = type === 'qty' ? amount : 1;\n        if (exists && type === 'qty') {\n            delta = amount - prevVal;\n            bucket.TRACKER[id] = amount;\n        } else if (!exists) {\n            delta = valToAdd;\n            bucket.TRACKER[id] = valToAdd;\n        }\n    }\n\n    if (delta !== 0) {\n        bucket.VALUE.raw = (bucket.VALUE.raw || 0) + delta;\n        bucket.VALUE.data.value = fmtStandard.format(bucket.VALUE.raw);\n        const sign = delta > 0 ? \"+\" : \"\";\n        bucket.VALUE.data.subValue = `${sign}${delta}`;\n    }\n}\n\nfunction updateLeadTime(bucket, id, leadDays, isRemoval) {\n    if (!bucket) return;\n    bucket.TRACKER = bucket.TRACKER || {};\n    bucket.VALUE = bucket.VALUE || { raw: 0, data: { value: \"0 days\", label: \"No Data\", subValue: \"0\" } };\n\n    if (isRemoval) {\n        delete bucket.TRACKER[id];\n    } else {\n        bucket.TRACKER[id] = leadDays;\n    }\n\n    const allDays = Object.values(bucket.TRACKER);\n    const avg = allDays.length === 0 ? 0 : Math.round(allDays.reduce((s, v) => s + v, 0) / allDays.length);\n    const diff = avg - (bucket.VALUE.raw || 0);\n\n    bucket.VALUE.raw = avg;\n    bucket.VALUE.data.value = `${avg} days`;\n    bucket.VALUE.data.label = `${allDays.length} records`;\n    bucket.VALUE.data.subValue = diff >= 0 ? `+${diff} days` : `${diff} days`;\n}\n\nfunction updateStatus(bucket, status, id, isRemoval) {\n    if (!bucket) return;\n    if (!bucket.VALUE) bucket.VALUE = createEmptyData('status');\n    bucket.TRACKER = bucket.TRACKER || {};\n\n    const prevStat = bucket.TRACKER[id];\n    let oldS = null, newS = null;\n\n    if (isRemoval && prevStat) {\n        oldS = prevStat; delete bucket.TRACKER[id];\n    } else if (!isRemoval) {\n        if (prevStat !== status) { oldS = prevStat; newS = status; bucket.TRACKER[id] = status; }\n        else if (!prevStat) { newS = status; bucket.TRACKER[id] = status; }\n    }\n\n    const counts = bucket.VALUE.COUNTS;\n    if (oldS) { counts[oldS] = (counts[oldS] || 1) - 1; if (counts[oldS] <= 0) delete counts[oldS]; }\n    if (newS) { counts[newS] = (counts[newS] || 0) + 1; }\n    bucket.VALUE.data = Object.entries(counts).map(([k, v]) => ({ name: k, value: v }));\n}\n\nfunction updateOrderFill(bucket, id, isFulfilled, isRemoval) {\n    if (!bucket) return;\n    bucket.TOTAL     = bucket.TOTAL     || { raw: 0, TRACKER: {} };\n    bucket.FULFILLED = bucket.FULFILLED || { raw: 0, TRACKER: {} };\n    bucket.VALUE     = bucket.VALUE     || { raw: 0, data: { value: \"0%\", label: \"0 / 0\", subValue: \"0%\" } };\n\n    const prevPercent = Number(bucket.VALUE.raw) || 0;\n    const existed = bucket.TOTAL.TRACKER[id];\n\n    if (isRemoval) {\n        if (existed) {\n            bucket.TOTAL.raw--;\n            delete bucket.TOTAL.TRACKER[id];\n            if (bucket.FULFILLED.TRACKER[id]) { bucket.FULFILLED.raw--; delete bucket.FULFILLED.TRACKER[id]; }\n        }\n    } else {\n        if (!existed) {\n            bucket.TOTAL.raw++;\n            bucket.TOTAL.TRACKER[id] = true;\n            if (isFulfilled) { bucket.FULFILLED.raw++; bucket.FULFILLED.TRACKER[id] = true; }\n        } else {\n            const wasFulfilled = !!bucket.FULFILLED.TRACKER[id];\n            if (isFulfilled && !wasFulfilled)  { bucket.FULFILLED.raw++; bucket.FULFILLED.TRACKER[id] = true; }\n            if (!isFulfilled && wasFulfilled)  { bucket.FULFILLED.raw--; delete bucket.FULFILLED.TRACKER[id]; }\n        }\n    }\n\n    const total = bucket.TOTAL.raw;\n    const done = bucket.FULFILLED.raw;\n    const percent = total === 0 ? 0 : +(done / total * 100).toFixed(1);\n    const diff = +(percent - prevPercent).toFixed(1);\n\n    bucket.VALUE.raw = percent;\n    bucket.VALUE.data.value = `${percent}%`;\n    bucket.VALUE.data.label = `${done} / ${total}`;\n    bucket.VALUE.data.subValue = diff > 0 ? `+${diff}%` : diff < 0 ? `${diff}%` : `0%`;\n}\n\nfunction updateLineChart(topicRoot, timeframeKey, targetKey, keys, label, color, topicMetricRoot) {\n    if (!topicRoot[timeframeKey]) topicRoot[timeframeKey] = {};\n    if (!topicRoot[timeframeKey][targetKey]) topicRoot[timeframeKey][targetKey] = createEmptyData('chart');\n\n    const chartObj = topicRoot[timeframeKey][targetKey];\n    const sourceObj = topicMetricRoot[timeframeKey]?.[targetKey];\n    if (!sourceObj) return;\n\n    chartObj.data = {\n        label: sourceObj.VALUE?.data?.label || label,\n        value: sourceObj.VALUE?.data?.value,\n        subValue: sourceObj.VALUE?.data?.subValue,\n        xAxis: keys,\n        seriesData: [{ name: label, color, data: keys.map(k => sourceObj[k]?.VALUE?.raw || 0) }]\n    };\n}\n\nfunction updateLineChartByDate(timeframeKey, targetKey, dayKey, id, qty, isRemoval) {\n    if (!dayKey || qty < 1) return;\n\n    const topic = ROOT_RO[TOPIC_LINE_DATE];\n    if (!topic[timeframeKey]) topic[timeframeKey] = {};\n    if (!topic[timeframeKey][targetKey]) {\n        topic[timeframeKey][targetKey] = {\n            TRACKER: {},\n            COUNTS:  {},\n            data: {\n                label: \"Replacement Order\",\n                value: \"0\",\n                subValue: \"0\",\n                xAxis: ALL_DATES,\n                seriesData: [{ name: \"Replacement Order\", color: COLOR_BLUE, data: new Array(31).fill(0) }]\n            }\n        };\n    }\n\n    const bucket = topic[timeframeKey][targetKey];\n    const prev = bucket.TRACKER[id];\n\n    if (isRemoval) {\n        if (prev !== undefined) {\n            bucket.COUNTS[prev.dayKey] = Math.max(0, (bucket.COUNTS[prev.dayKey] || 0) - prev.qty);\n            delete bucket.TRACKER[id];\n        }\n    } else {\n        if (prev !== undefined) {\n            bucket.COUNTS[prev.dayKey] = Math.max(0, (bucket.COUNTS[prev.dayKey] || 0) - prev.qty);\n        }\n        bucket.COUNTS[dayKey] = (bucket.COUNTS[dayKey] || 0) + qty;\n        bucket.TRACKER[id] = { dayKey, qty };\n    }\n\n    const seriesData = ALL_DATES.map(d => bucket.COUNTS[d] || 0);\n    const total = seriesData.reduce((s, v) => s + v, 0);\n    bucket.data.value = fmtStandard.format(total);\n    bucket.data.seriesData[0].data = seriesData;\n}\n\nfunction updateOutstandingVsClose(timeframeKey, targetKey, dayKey, id, qty, statusCode, isRemoval) {\n    if (!dayKey || qty < 1) return;\n\n    const topic = ROOT_RO[TOPIC_BAR_OUTSTANDING];\n    if (!topic[timeframeKey]) topic[timeframeKey] = {};\n    if (!topic[timeframeKey][targetKey]) {\n        topic[timeframeKey][targetKey] = {\n            TRACKER:     {},\n            OUTSTANDING: {},\n            CLOSED:      {},\n            data: {\n                label: \"Outstanding Vs Close\",\n                value: \"0\",\n                subValue: \"0\",\n                xAxis: ALL_DATES,\n                seriesData: [\n                    { name: \"Outstanding\", color: COLOR_BLUE, data: new Array(31).fill(0) },\n                    { name: \"Closed\",      color: COLOR_RED,  data: new Array(31).fill(0) }\n                ]\n            }\n        };\n    }\n\n    const bucket    = topic[timeframeKey][targetKey];\n    const isClosed  = statusCode === \"RO_BINNING\";\n    const seriesKey = isClosed ? \"CLOSED\" : \"OUTSTANDING\";\n    const prev      = bucket.TRACKER[id];\n\n    if (isRemoval) {\n        if (prev !== undefined) {\n            const prevStore = prev.series === \"CLOSED\" ? bucket.CLOSED : bucket.OUTSTANDING;\n            prevStore[prev.dayKey] = Math.max(0, (prevStore[prev.dayKey] || 0) - prev.qty);\n            delete bucket.TRACKER[id];\n        }\n    } else {\n        if (prev !== undefined) {\n            const prevStore = prev.series === \"CLOSED\" ? bucket.CLOSED : bucket.OUTSTANDING;\n            prevStore[prev.dayKey] = Math.max(0, (prevStore[prev.dayKey] || 0) - prev.qty);\n        }\n        const store = isClosed ? bucket.CLOSED : bucket.OUTSTANDING;\n        store[dayKey] = (store[dayKey] || 0) + qty;\n        bucket.TRACKER[id] = { dayKey, qty, series: seriesKey };\n    }\n\n    const outData    = ALL_DATES.map(d => bucket.OUTSTANDING[d] || 0);\n    const closedData = ALL_DATES.map(d => bucket.CLOSED[d] || 0);\n    const total      = [...outData, ...closedData].reduce((s, v) => s + v, 0);\n\n    bucket.data.value              = fmtStandard.format(total);\n    bucket.data.seriesData[0].data = outData;\n    bucket.data.seriesData[1].data = closedData;\n}\n\n// Top 10 Replacement Item — sum order_qty per material across all timeframes\nfunction updateTopItem(timeframeKey, targetKey, items, isRemoval) {\n    if (!items?.length) return;\n\n    const topic = ROOT_RO[TOPIC_TOP_ITEM];\n    if (!topic[timeframeKey]) topic[timeframeKey] = {};\n    if (!topic[timeframeKey][targetKey]) {\n        topic[timeframeKey][targetKey] = {\n            COUNTS: {},\n            data: []\n        };\n    }\n\n    const bucket = topic[timeframeKey][targetKey];\n    const mult   = isRemoval ? -1 : 1;\n\n    items.forEach(({ materialCode, materialName, orderQty }) => {\n        if (!materialCode || !orderQty) return;\n        const key = `${materialCode}||${materialName}`;\n        bucket.COUNTS[key] = (bucket.COUNTS[key] || 0) + (orderQty * mult);\n        if (bucket.COUNTS[key] <= 0) delete bucket.COUNTS[key];\n    });\n\n    bucket.data = Object.entries(bucket.COUNTS)\n        .map(([k, v]) => {\n            const [code, name] = k.split(\"||\");\n            return { name: `${code} - ${name}`, value: v };\n        })\n        .sort((a, b) => b.value - a.value)\n        .slice(0, 10);\n}\n\n// Top 10 Replacement Aging — ALL orders ranked by today minus order_date (days), top 10 longest\n// No status filter — every order is eligible regardless of statusCode\nfunction updateTopAging(timeframeKey, targetKey, id, orderCode, supplierName, orderDate, isRemoval) {\n    const topic = ROOT_RO[TOPIC_TOP_AGING];\n    if (!topic[timeframeKey]) topic[timeframeKey] = {};\n    if (!topic[timeframeKey][targetKey]) {\n        topic[timeframeKey][targetKey] = {\n            TRACKER: {},  // id → { orderCode, supplierName, orderDate }\n            data: []\n        };\n    }\n\n    const bucket = topic[timeframeKey][targetKey];\n\n    if (isRemoval) {\n        delete bucket.TRACKER[id];\n    } else {\n        bucket.TRACKER[id] = { orderCode, supplierName, orderDate };\n    }\n\n    bucket.data = Object.values(bucket.TRACKER)\n        .map(entry => ({\n            name:  `${entry.orderCode} - ${entry.supplierName}`,\n            value: getDaysFromToday(entry.orderDate)\n        }))\n        .sort((a, b) => b.value - a.value)\n        .slice(0, 10);\n}\n\n// --- 5. PROCESS SINGLE ---\nfunction processSingle(data, isRemoval) {\n    const {\n        bucket, id, status, statusCode, items,\n        supplierCode, supplierName, orderCode,\n        totalOrderQty,\n        date, orderDate,\n        isCurrentYear, isCurrentMonth, isCurrentWeek, isToday,\n        isOverdue,\n    } = data;\n\n    const { monthName, weekStr, dayName, hourStr } = bucket;\n\n    const updates = [\n        ['YEARLY',  monthName, ALL_MONTHS, \"\",     isCurrentYear],\n        ['MONTHLY', weekStr,   ALL_WEEKS,  \"Week\", isCurrentMonth],\n        ['WEEKLY',  dayName,   ALL_DAYS,   \"\",     isCurrentWeek],\n        ['DAILY',   hourStr,   ALL_HOURS,  \"Hour\", isToday]\n    ];\n\n    const targets = [KEY_ALL];\n    if (supplierCode && supplierCode !== \"UNKNOWN\") targets.push(supplierCode);\n\n    const dayKey = getDayKey(orderDate);\n\n    targets.forEach(targetKey => {\n        updates.forEach(([tfKey, keyName, keysArr, lblPfx, isValidTimeframe]) => {\n\n            ALL_TOPICS.forEach(topic => {\n                if (!ROOT_RO[topic][tfKey]) ROOT_RO[topic][tfKey] = {};\n            });\n\n            if (!ROOT_RO[TOPIC_COUNT][tfKey][targetKey]) {\n                ROOT_RO[TOPIC_COUNT][tfKey][targetKey]     = initContainer(keysArr, 'count',   lblPfx);\n                ROOT_RO[TOPIC_ON_TIME][tfKey][targetKey]   = initContainer(keysArr, 'percent', lblPfx);\n                ROOT_RO[TOPIC_LEAD_TIME][tfKey][targetKey] = initContainer(keysArr, 'count',   lblPfx);\n                ROOT_RO[TOPIC_STATUS][tfKey][targetKey]    = initContainer(keysArr, 'status',  lblPfx);\n            }\n\n            if (!ROOT_RO[TOPIC_RO_CONFIRMED][tfKey][targetKey])\n                ROOT_RO[TOPIC_RO_CONFIRMED][tfKey][targetKey] = initContainer(keysArr, 'count', lblPfx);\n            if (!ROOT_RO[TOPIC_RO_CLOSED][tfKey][targetKey])\n                ROOT_RO[TOPIC_RO_CLOSED][tfKey][targetKey]   = initContainer(keysArr, 'count', lblPfx);\n            if (!ROOT_RO[TOPIC_RO_OVERDUE][tfKey][targetKey])\n                ROOT_RO[TOPIC_RO_OVERDUE][tfKey][targetKey]  = initContainer(keysArr, 'count', lblPfx);\n\n            if (isValidTimeframe) {\n\n                // Total Replacement Order\n                updateMetric(ROOT_RO[TOPIC_COUNT][tfKey][targetKey][keyName], 1, id, isRemoval, 'count');\n                updateMetric(ROOT_RO[TOPIC_COUNT][tfKey][targetKey], 1, id, isRemoval, 'count');\n\n                // Avg RO Lead Time\n                if (date && orderDate) {\n                    const leadDays = Math.abs(checkOntime(date, orderDate).diffDays);\n                    updateLeadTime(ROOT_RO[TOPIC_LEAD_TIME][tfKey][targetKey][keyName], id, leadDays, isRemoval);\n                    updateLeadTime(ROOT_RO[TOPIC_LEAD_TIME][tfKey][targetKey], id, leadDays, isRemoval);\n                }\n\n                // On Time Replacement\n                const isOnTime = checkOntime(date, orderDate).isOntime;\n                updateOrderFill(ROOT_RO[TOPIC_ON_TIME][tfKey][targetKey][keyName], id, isOnTime, isRemoval);\n                updateOrderFill(ROOT_RO[TOPIC_ON_TIME][tfKey][targetKey], id, isOnTime, isRemoval);\n\n                // RO Confirmed\n                if (statusCode === \"RO_DELIVERY\") {\n                    updateMetric(ROOT_RO[TOPIC_RO_CONFIRMED][tfKey][targetKey][keyName], 1, id, isRemoval, 'count');\n                    updateMetric(ROOT_RO[TOPIC_RO_CONFIRMED][tfKey][targetKey], 1, id, isRemoval, 'count');\n                }\n\n                // RO Closed\n                if (statusCode === \"RO_BINNING\") {\n                    updateMetric(ROOT_RO[TOPIC_RO_CLOSED][tfKey][targetKey][keyName], 1, id, isRemoval, 'count');\n                    updateMetric(ROOT_RO[TOPIC_RO_CLOSED][tfKey][targetKey], 1, id, isRemoval, 'count');\n                }\n\n                // RO Overdue\n                if (isOverdue) {\n                    updateMetric(ROOT_RO[TOPIC_RO_OVERDUE][tfKey][targetKey][keyName], 1, id, isRemoval, 'count');\n                    updateMetric(ROOT_RO[TOPIC_RO_OVERDUE][tfKey][targetKey], 1, id, isRemoval, 'count');\n                }\n\n                // Status pie\n                if (status) {\n                    updateStatus(ROOT_RO[TOPIC_STATUS][tfKey][targetKey][keyName], status, id, isRemoval);\n                    updateStatus(ROOT_RO[TOPIC_STATUS][tfKey][targetKey], status, id, isRemoval);\n                }\n\n                // Line chart by timeframe bucket\n                updateLineChart(ROOT_RO[TOPIC_LINE_COUNT], tfKey, targetKey, keysArr, \"Replacement Order\", COLOR_BLUE, ROOT_RO[TOPIC_COUNT]);\n\n                // MONTHLY only charts\n                if (tfKey === 'MONTHLY' && dayKey && totalOrderQty > 0) {\n                    updateLineChartByDate(tfKey, targetKey, dayKey, id, totalOrderQty, isRemoval);\n                    updateOutstandingVsClose(tfKey, targetKey, dayKey, id, totalOrderQty, statusCode, isRemoval);\n                }\n\n                // Top 10 Replacement Item\n                if (items?.length) {\n                    updateTopItem(tfKey, targetKey, items, isRemoval);\n                }\n\n                // Top 10 Replacement Aging — all orders, no status filter\n                if (orderDate) {\n                    updateTopAging(tfKey, targetKey, id, orderCode, supplierName, orderDate, isRemoval);\n                }\n            }\n        });\n    });\n}\n\n// --- 6. MAIN LOOP ---\nconst transactions = Array.isArray(msg.payload) ? msg.payload : [];\ntransactions.forEach(tx => {\n    if (tx.oldData) processSingle(tx.oldData, true);\n    if (tx.newData) processSingle(tx.newData, false);\n});\n\nglobal.set(\"DASHBOARD\", DASHBOARD);\nmsg.payload = DASHBOARD.REALTIME.REPLACEMENT_ORDER;\nreturn msg;",
+        "func": "// --- 1. CONSTANTS ---\nconst ALL_MONTHS = [\"jan\",\"feb\",\"mar\",\"apr\",\"may\",\"jun\",\"jul\",\"aug\",\"sep\",\"oct\",\"nov\",\"dec\"];\nconst ALL_WEEKS = [\"1\",\"2\",\"3\",\"4\",\"5\"];\nconst ALL_DAYS = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];\nconst ALL_HOURS = Array.from({ length: 24 }, (_, i) => String(i));\nconst ALL_DATES = Array.from({ length: 31 }, (_, i) => String(i + 1).padStart(2, '0'));\nconst COLOR_BLUE = \"#1E88E5\";\nconst COLOR_RED  = \"#E53935\";\nconst KEY_ALL = \"ALL\";\n\nconst fmtStandard = new Intl.NumberFormat('id-ID');\n\n// --- 2. GLOBAL STATE ---\nlet DASHBOARD = global.get(\"DASHBOARD\") || {};\nDASHBOARD.REALTIME = DASHBOARD.REALTIME || {};\nDASHBOARD.REALTIME.REPLACEMENT_ORDER = DASHBOARD.REALTIME.REPLACEMENT_ORDER || {};\nconst ROOT_RO = DASHBOARD.REALTIME.REPLACEMENT_ORDER;\n\n// --- TOPICS ---\nconst TOPIC_COUNT           = \"DETAIL_PARAMETER_TOTAL_REPLACEMENT_ORDER\";\nconst TOPIC_ON_TIME         = \"DETAIL_PARAMETER_ON_TIME_REPLACEMENT\";\nconst TOPIC_LEAD_TIME       = \"DETAIL_PARAMETER_AVG_RO_LEAD_TIME\";\nconst TOPIC_RO_CONFIRMED    = \"DETAIL_PARAMETER_RO_CONFIRMED\";\nconst TOPIC_RO_CLOSED       = \"DETAIL_PARAMETER_RO_CLOSED\";\nconst TOPIC_RO_OVERDUE      = \"DETAIL_PARAMETER_RO_OVERDUE\";\nconst TOPIC_STATUS          = \"PIE_CHART_REPLACEMENT_ORDER\";\nconst TOPIC_LINE_COUNT      = \"LINE_CHART_REPLACEMENT_ORDER\";\nconst TOPIC_LINE_DATE       = \"LINE_CHART_REPLACEMENT_ORDER_BY_DATE\";\nconst TOPIC_BAR_OUTSTANDING = \"BAR_CHART_OUTSTANDING_VS_CLOSE_RO\";\nconst TOPIC_TOP_ITEM        = \"BAR_CHART_TOP_10_REPLACEMENT_ITEM\";\nconst TOPIC_TOP_AGING       = \"BAR_CHART_TOP_10_REPLACEMENT_AGING\";\n\nconst ALL_TOPICS = [\n    TOPIC_COUNT, TOPIC_ON_TIME, TOPIC_LEAD_TIME,\n    TOPIC_RO_CONFIRMED, TOPIC_RO_CLOSED, TOPIC_RO_OVERDUE,\n    TOPIC_STATUS, TOPIC_LINE_COUNT, TOPIC_LINE_DATE,\n    TOPIC_BAR_OUTSTANDING,\n    TOPIC_TOP_ITEM, TOPIC_TOP_AGING\n];\n\nALL_TOPICS.forEach(t => { if (!ROOT_RO[t]) ROOT_RO[t] = {}; });\n\n// --- 3. HELPERS ---\nfunction createEmptyData(type) {\n    if (type === 'status' || type === 'material') return { COUNTS: {}, data: [] };\n    if (type === 'chart') return { data: { label: \"\", value: \"\", subValue: \"\", xAxis: [], seriesData: [] } };\n    return { raw: 0, data: { value: \"0\", label: \"No Data\", subValue: \"0\" } };\n}\n\nfunction initContainer(keys, type, labelPrefix = \"\") {\n    if (type === 'chart') return createEmptyData('chart');\n    const container = { VALUE: createEmptyData(type) };\n    if (keys) {\n        keys.forEach(k => {\n            container[k] = { VALUE: createEmptyData(type), TRACKER: {} };\n            if (type !== 'status' && type !== 'material' && container[k].VALUE.data) {\n                container[k].VALUE.data.label = labelPrefix ? `${labelPrefix} ${k}` : k;\n            }\n        });\n    }\n    return container;\n}\n\nfunction checkOntime(plannedDate, referenceDate) {\n    if (!plannedDate || !referenceDate) return { isOntime: false, diffDays: 0 };\n    const dPlanned = new Date(plannedDate.slice(0, 10) + \"T00:00:00\");\n    const dRef = new Date(referenceDate.slice(0, 10) + \"T00:00:00\");\n    const diffDays = Math.floor((dPlanned - dRef) / (1000 * 60 * 60 * 24));\n    return { isOntime: diffDays >= 0, diffDays };\n}\n\nfunction getDayKey(isoDate) {\n    if (!isoDate) return null;\n    return isoDate.slice(8, 10);\n}\n\nfunction getDaysFromToday(isoDate) {\n    if (!isoDate) return 0;\n    const d = new Date(isoDate.slice(0, 10) + \"T00:00:00\");\n    const today = new Date(new Date().toISOString().slice(0, 10) + \"T00:00:00\");\n    return Math.floor((today - d) / (1000 * 60 * 60 * 24));\n}\n\n// --- 4. UPDATE FUNCTIONS ---\n\nfunction updateMetric(bucket, amount, id, isRemoval, type) {\n    if (!bucket) return;\n    if (!bucket.VALUE) bucket.VALUE = createEmptyData(type);\n    bucket.TRACKER = bucket.TRACKER || {};\n\n    const prevVal = bucket.TRACKER[id];\n    const exists = prevVal !== undefined;\n    let delta = 0;\n\n    if (isRemoval) {\n        if (exists) {\n            delta = type === 'qty' ? -prevVal : -1;\n            delete bucket.TRACKER[id];\n        }\n    } else {\n        const valToAdd = type === 'qty' ? amount : 1;\n        if (exists && type === 'qty') {\n            delta = amount - prevVal;\n            bucket.TRACKER[id] = amount;\n        } else if (!exists) {\n            delta = valToAdd;\n            bucket.TRACKER[id] = valToAdd;\n        }\n    }\n\n    if (delta !== 0) {\n        bucket.VALUE.raw = (bucket.VALUE.raw || 0) + delta;\n        bucket.VALUE.data.value = fmtStandard.format(bucket.VALUE.raw);\n        const sign = delta > 0 ? \"+\" : \"\";\n        bucket.VALUE.data.subValue = `${sign}${delta}`;\n    }\n}\n\nfunction updateLeadTime(bucket, id, leadDays, isRemoval) {\n    if (!bucket) return;\n    bucket.TRACKER = bucket.TRACKER || {};\n    bucket.VALUE = bucket.VALUE || { raw: 0, data: { value: \"0 days\", label: \"No Data\", subValue: \"0\" } };\n\n    if (isRemoval) {\n        delete bucket.TRACKER[id];\n    } else {\n        bucket.TRACKER[id] = leadDays;\n    }\n\n    const allDays = Object.values(bucket.TRACKER);\n    const avg = allDays.length === 0 ? 0 : Math.round(allDays.reduce((s, v) => s + v, 0) / allDays.length);\n    const diff = avg - (bucket.VALUE.raw || 0);\n\n    bucket.VALUE.raw = avg;\n    bucket.VALUE.data.value = `${avg} days`;\n    bucket.VALUE.data.label = `${allDays.length} records`;\n    bucket.VALUE.data.subValue = diff >= 0 ? `+${diff} days` : `${diff} days`;\n}\n\nfunction updateStatus(bucket, status, id, isRemoval) {\n    if (!bucket) return;\n    if (!bucket.VALUE) bucket.VALUE = createEmptyData('status');\n    bucket.TRACKER = bucket.TRACKER || {};\n\n    const prevStat = bucket.TRACKER[id];\n    let oldS = null, newS = null;\n\n    if (isRemoval && prevStat) {\n        oldS = prevStat; delete bucket.TRACKER[id];\n    } else if (!isRemoval) {\n        if (prevStat !== status) { oldS = prevStat; newS = status; bucket.TRACKER[id] = status; }\n        else if (!prevStat) { newS = status; bucket.TRACKER[id] = status; }\n    }\n\n    const counts = bucket.VALUE.COUNTS;\n    if (oldS) { counts[oldS] = (counts[oldS] || 1) - 1; if (counts[oldS] <= 0) delete counts[oldS]; }\n    if (newS) { counts[newS] = (counts[newS] || 0) + 1; }\n    bucket.VALUE.data = Object.entries(counts).map(([k, v]) => ({ name: k, value: v }));\n}\n\nfunction updateOrderFill(bucket, id, isFulfilled, isRemoval) {\n    if (!bucket) return;\n    bucket.TOTAL     = bucket.TOTAL     || { raw: 0, TRACKER: {} };\n    bucket.FULFILLED = bucket.FULFILLED || { raw: 0, TRACKER: {} };\n    bucket.VALUE     = bucket.VALUE     || { raw: 0, data: { value: \"0%\", label: \"0 / 0\", subValue: \"0%\" } };\n\n    const prevPercent = Number(bucket.VALUE.raw) || 0;\n    const existed = bucket.TOTAL.TRACKER[id];\n\n    if (isRemoval) {\n        if (existed) {\n            bucket.TOTAL.raw--;\n            delete bucket.TOTAL.TRACKER[id];\n            if (bucket.FULFILLED.TRACKER[id]) { bucket.FULFILLED.raw--; delete bucket.FULFILLED.TRACKER[id]; }\n        }\n    } else {\n        if (!existed) {\n            bucket.TOTAL.raw++;\n            bucket.TOTAL.TRACKER[id] = true;\n            if (isFulfilled) { bucket.FULFILLED.raw++; bucket.FULFILLED.TRACKER[id] = true; }\n        } else {\n            const wasFulfilled = !!bucket.FULFILLED.TRACKER[id];\n            if (isFulfilled && !wasFulfilled)  { bucket.FULFILLED.raw++; bucket.FULFILLED.TRACKER[id] = true; }\n            if (!isFulfilled && wasFulfilled)  { bucket.FULFILLED.raw--; delete bucket.FULFILLED.TRACKER[id]; }\n        }\n    }\n\n    const total = bucket.TOTAL.raw;\n    const done = bucket.FULFILLED.raw;\n    const percent = total === 0 ? 0 : +(done / total * 100).toFixed(1);\n    const diff = +(percent - prevPercent).toFixed(1);\n\n    bucket.VALUE.raw = percent;\n    bucket.VALUE.data.value = `${percent}%`;\n    bucket.VALUE.data.label = `${done} / ${total}`;\n    bucket.VALUE.data.subValue = diff > 0 ? `+${diff}%` : diff < 0 ? `${diff}%` : `0%`;\n}\n\nfunction updateLineChart(topicRoot, timeframeKey, targetKey, keys, label, color, topicMetricRoot) {\n    if (!topicRoot[timeframeKey]) topicRoot[timeframeKey] = {};\n    if (!topicRoot[timeframeKey][targetKey]) topicRoot[timeframeKey][targetKey] = createEmptyData('chart');\n\n    const chartObj = topicRoot[timeframeKey][targetKey];\n    const sourceObj = topicMetricRoot[timeframeKey]?.[targetKey];\n    if (!sourceObj) return;\n\n    chartObj.data = {\n        label: sourceObj.VALUE?.data?.label || label,\n        value: sourceObj.VALUE?.data?.value,\n        subValue: sourceObj.VALUE?.data?.subValue,\n        xAxis: keys,\n        seriesData: [{ name: label, color, data: keys.map(k => sourceObj[k]?.VALUE?.raw || 0) }]\n    };\n}\n\nfunction updateLineChartByDate(timeframeKey, targetKey, dayKey, id, qty, isRemoval) {\n    if (!dayKey || qty < 1) return;\n\n    const topic = ROOT_RO[TOPIC_LINE_DATE];\n    if (!topic[timeframeKey]) topic[timeframeKey] = {};\n    if (!topic[timeframeKey][targetKey]) {\n        topic[timeframeKey][targetKey] = {\n            TRACKER: {},\n            COUNTS:  {},\n            data: {\n                label: \"Replacement Order\",\n                value: \"0\",\n                subValue: \"0\",\n                xAxis: ALL_DATES,\n                seriesData: [{ name: \"Replacement Order\", color: COLOR_BLUE, data: new Array(31).fill(0) }]\n            }\n        };\n    }\n\n    const bucket = topic[timeframeKey][targetKey];\n    const prev = bucket.TRACKER[id];\n\n    if (isRemoval) {\n        if (prev !== undefined) {\n            bucket.COUNTS[prev.dayKey] = Math.max(0, (bucket.COUNTS[prev.dayKey] || 0) - prev.qty);\n            delete bucket.TRACKER[id];\n        }\n    } else {\n        if (prev !== undefined) {\n            bucket.COUNTS[prev.dayKey] = Math.max(0, (bucket.COUNTS[prev.dayKey] || 0) - prev.qty);\n        }\n        bucket.COUNTS[dayKey] = (bucket.COUNTS[dayKey] || 0) + qty;\n        bucket.TRACKER[id] = { dayKey, qty };\n    }\n\n    const seriesData = ALL_DATES.map(d => bucket.COUNTS[d] || 0);\n    const total = seriesData.reduce((s, v) => s + v, 0);\n    bucket.data.value = fmtStandard.format(total);\n    bucket.data.seriesData[0].data = seriesData;\n}\n\nfunction updateOutstandingVsClose(timeframeKey, targetKey, dayKey, id, qty, statusCode, isRemoval) {\n    if (!dayKey || qty < 1) return;\n\n    const topic = ROOT_RO[TOPIC_BAR_OUTSTANDING];\n    if (!topic[timeframeKey]) topic[timeframeKey] = {};\n    if (!topic[timeframeKey][targetKey]) {\n        topic[timeframeKey][targetKey] = {\n            TRACKER:     {},\n            OUTSTANDING: {},\n            CLOSED:      {},\n            data: {\n                label: \"Outstanding Vs Close\",\n                value: \"0\",\n                subValue: \"0\",\n                xAxis: ALL_DATES,\n                seriesData: [\n                    { name: \"Outstanding\", color: COLOR_BLUE, data: new Array(31).fill(0) },\n                    { name: \"Closed\",      color: COLOR_RED,  data: new Array(31).fill(0) }\n                ]\n            }\n        };\n    }\n\n    const bucket    = topic[timeframeKey][targetKey];\n    const isClosed  = statusCode === \"RO_BINNING\";\n    const seriesKey = isClosed ? \"CLOSED\" : \"OUTSTANDING\";\n    const prev      = bucket.TRACKER[id];\n\n    if (isRemoval) {\n        if (prev !== undefined) {\n            const prevStore = prev.series === \"CLOSED\" ? bucket.CLOSED : bucket.OUTSTANDING;\n            prevStore[prev.dayKey] = Math.max(0, (prevStore[prev.dayKey] || 0) - prev.qty);\n            delete bucket.TRACKER[id];\n        }\n    } else {\n        if (prev !== undefined) {\n            const prevStore = prev.series === \"CLOSED\" ? bucket.CLOSED : bucket.OUTSTANDING;\n            prevStore[prev.dayKey] = Math.max(0, (prevStore[prev.dayKey] || 0) - prev.qty);\n        }\n        const store = isClosed ? bucket.CLOSED : bucket.OUTSTANDING;\n        store[dayKey] = (store[dayKey] || 0) + qty;\n        bucket.TRACKER[id] = { dayKey, qty, series: seriesKey };\n    }\n\n    const outData    = ALL_DATES.map(d => bucket.OUTSTANDING[d] || 0);\n    const closedData = ALL_DATES.map(d => bucket.CLOSED[d] || 0);\n    const total      = [...outData, ...closedData].reduce((s, v) => s + v, 0);\n\n    bucket.data.value              = fmtStandard.format(total);\n    bucket.data.seriesData[0].data = outData;\n    bucket.data.seriesData[1].data = closedData;\n}\n\nfunction updateTopItem(timeframeKey, targetKey, items, isRemoval) {\n    if (!items?.length) return;\n\n    const topic = ROOT_RO[TOPIC_TOP_ITEM];\n    if (!topic[timeframeKey]) topic[timeframeKey] = {};\n    if (!topic[timeframeKey][targetKey]) {\n        topic[timeframeKey][targetKey] = { COUNTS: {}, data: [] };\n    }\n\n    const bucket = topic[timeframeKey][targetKey];\n    const mult   = isRemoval ? -1 : 1;\n\n    items.forEach(({ materialCode, materialName, orderQty }) => {\n        if (!materialCode || !orderQty) return;\n        const key = `${materialCode}||${materialName}`;\n        bucket.COUNTS[key] = (bucket.COUNTS[key] || 0) + (orderQty * mult);\n        if (bucket.COUNTS[key] <= 0) delete bucket.COUNTS[key];\n    });\n\n    bucket.data = Object.entries(bucket.COUNTS)\n        .map(([k, v]) => {\n            const [code, name] = k.split(\"||\");\n            return { name: `${code} - ${name}`, value: v };\n        })\n        .sort((a, b) => b.value - a.value)\n        .slice(0, 10);\n}\n\n// Top 10 Replacement Aging — one entry per item per order.\n// TRACKER key: \"{id}||{materialCode}\" → { label, orderDate }\n// Label format: \"{materialName} - {materialCode} - {supplierName}\"\n// Value: today minus order_date in days (same for all items of the same order)\nfunction updateTopAging(timeframeKey, targetKey, id, supplierName, orderDate, items, isRemoval) {\n    if (!orderDate) return;\n\n    const topic = ROOT_RO[TOPIC_TOP_AGING];\n    if (!topic[timeframeKey]) topic[timeframeKey] = {};\n    if (!topic[timeframeKey][targetKey]) {\n        topic[timeframeKey][targetKey] = {\n            TRACKER: {},  // \"{id}||{materialCode}\" → { label, orderDate }\n            data: []\n        };\n    }\n\n    const bucket  = topic[timeframeKey][targetKey];\n    const ageDays = getDaysFromToday(orderDate);\n\n    if (isRemoval) {\n        // Remove all item entries belonging to this order\n        Object.keys(bucket.TRACKER).forEach(k => {\n            if (k.startsWith(`${id}||`)) delete bucket.TRACKER[k];\n        });\n    } else {\n        // Remove stale entries for this order first (handles item list changes)\n        Object.keys(bucket.TRACKER).forEach(k => {\n            if (k.startsWith(`${id}||`)) delete bucket.TRACKER[k];\n        });\n\n        if (items?.length) {\n            items.forEach(({ materialCode, materialName }) => {\n                if (!materialCode) return;\n                const trackerKey = `${id}||${materialCode}`;\n                const label      = `${materialName} - ${materialCode} - ${supplierName}`;\n                bucket.TRACKER[trackerKey] = { label, orderDate };\n            });\n        }\n    }\n\n    // Recompute top 10 — all entries sorted by age desc\n    bucket.data = Object.values(bucket.TRACKER)\n        .map(entry => ({\n            name:  entry.label,\n            value: getDaysFromToday(entry.orderDate)\n        }))\n        .sort((a, b) => b.value - a.value)\n        .slice(0, 10);\n}\n\n// --- 5. PROCESS SINGLE ---\nfunction processSingle(data, isRemoval) {\n    const {\n        bucket, id, status, statusCode, items,\n        supplierCode, supplierName, orderCode,\n        totalOrderQty,\n        date, orderDate,\n        isCurrentYear, isCurrentMonth, isCurrentWeek, isToday,\n        isOverdue,\n    } = data;\n\n    const { monthName, weekStr, dayName, hourStr } = bucket;\n\n    const updates = [\n        ['YEARLY',  monthName, ALL_MONTHS, \"\",     isCurrentYear],\n        ['MONTHLY', weekStr,   ALL_WEEKS,  \"Week\", isCurrentMonth],\n        ['WEEKLY',  dayName,   ALL_DAYS,   \"\",     isCurrentWeek],\n        ['DAILY',   hourStr,   ALL_HOURS,  \"Hour\", isToday]\n    ];\n\n    const targets = [KEY_ALL];\n    if (supplierCode && supplierCode !== \"UNKNOWN\") targets.push(supplierCode);\n\n    const dayKey = getDayKey(orderDate);\n\n    targets.forEach(targetKey => {\n        updates.forEach(([tfKey, keyName, keysArr, lblPfx, isValidTimeframe]) => {\n\n            ALL_TOPICS.forEach(topic => {\n                if (!ROOT_RO[topic][tfKey]) ROOT_RO[topic][tfKey] = {};\n            });\n\n            if (!ROOT_RO[TOPIC_COUNT][tfKey][targetKey]) {\n                ROOT_RO[TOPIC_COUNT][tfKey][targetKey]     = initContainer(keysArr, 'count',   lblPfx);\n                ROOT_RO[TOPIC_ON_TIME][tfKey][targetKey]   = initContainer(keysArr, 'percent', lblPfx);\n                ROOT_RO[TOPIC_LEAD_TIME][tfKey][targetKey] = initContainer(keysArr, 'count',   lblPfx);\n                ROOT_RO[TOPIC_STATUS][tfKey][targetKey]    = initContainer(keysArr, 'status',  lblPfx);\n            }\n\n            if (!ROOT_RO[TOPIC_RO_CONFIRMED][tfKey][targetKey])\n                ROOT_RO[TOPIC_RO_CONFIRMED][tfKey][targetKey] = initContainer(keysArr, 'count', lblPfx);\n            if (!ROOT_RO[TOPIC_RO_CLOSED][tfKey][targetKey])\n                ROOT_RO[TOPIC_RO_CLOSED][tfKey][targetKey]   = initContainer(keysArr, 'count', lblPfx);\n            if (!ROOT_RO[TOPIC_RO_OVERDUE][tfKey][targetKey])\n                ROOT_RO[TOPIC_RO_OVERDUE][tfKey][targetKey]  = initContainer(keysArr, 'count', lblPfx);\n\n            if (isValidTimeframe) {\n\n                // Total Replacement Order\n                updateMetric(ROOT_RO[TOPIC_COUNT][tfKey][targetKey][keyName], 1, id, isRemoval, 'count');\n                updateMetric(ROOT_RO[TOPIC_COUNT][tfKey][targetKey], 1, id, isRemoval, 'count');\n\n                // Avg RO Lead Time\n                if (date && orderDate) {\n                    const leadDays = Math.abs(checkOntime(date, orderDate).diffDays);\n                    updateLeadTime(ROOT_RO[TOPIC_LEAD_TIME][tfKey][targetKey][keyName], id, leadDays, isRemoval);\n                    updateLeadTime(ROOT_RO[TOPIC_LEAD_TIME][tfKey][targetKey], id, leadDays, isRemoval);\n                }\n\n                // On Time Replacement\n                const isOnTime = checkOntime(date, orderDate).isOntime;\n                updateOrderFill(ROOT_RO[TOPIC_ON_TIME][tfKey][targetKey][keyName], id, isOnTime, isRemoval);\n                updateOrderFill(ROOT_RO[TOPIC_ON_TIME][tfKey][targetKey], id, isOnTime, isRemoval);\n\n                // RO Confirmed\n                if (statusCode === \"RO_DELIVERY\") {\n                    updateMetric(ROOT_RO[TOPIC_RO_CONFIRMED][tfKey][targetKey][keyName], 1, id, isRemoval, 'count');\n                    updateMetric(ROOT_RO[TOPIC_RO_CONFIRMED][tfKey][targetKey], 1, id, isRemoval, 'count');\n                }\n\n                // RO Closed\n                if (statusCode === \"RO_BINNING\") {\n                    updateMetric(ROOT_RO[TOPIC_RO_CLOSED][tfKey][targetKey][keyName], 1, id, isRemoval, 'count');\n                    updateMetric(ROOT_RO[TOPIC_RO_CLOSED][tfKey][targetKey], 1, id, isRemoval, 'count');\n                }\n\n                // RO Overdue\n                if (isOverdue) {\n                    updateMetric(ROOT_RO[TOPIC_RO_OVERDUE][tfKey][targetKey][keyName], 1, id, isRemoval, 'count');\n                    updateMetric(ROOT_RO[TOPIC_RO_OVERDUE][tfKey][targetKey], 1, id, isRemoval, 'count');\n                }\n\n                // Status pie\n                if (status) {\n                    updateStatus(ROOT_RO[TOPIC_STATUS][tfKey][targetKey][keyName], status, id, isRemoval);\n                    updateStatus(ROOT_RO[TOPIC_STATUS][tfKey][targetKey], status, id, isRemoval);\n                }\n\n                // Line chart by timeframe bucket\n                updateLineChart(ROOT_RO[TOPIC_LINE_COUNT], tfKey, targetKey, keysArr, \"Replacement Order\", COLOR_BLUE, ROOT_RO[TOPIC_COUNT]);\n\n                // MONTHLY only charts\n                if (tfKey === 'MONTHLY' && dayKey && totalOrderQty > 0) {\n                    updateLineChartByDate(tfKey, targetKey, dayKey, id, totalOrderQty, isRemoval);\n                    updateOutstandingVsClose(tfKey, targetKey, dayKey, id, totalOrderQty, statusCode, isRemoval);\n                }\n\n                // Top 10 Replacement Item\n                if (items?.length) {\n                    updateTopItem(tfKey, targetKey, items, isRemoval);\n                }\n\n                // Top 10 Replacement Aging — one row per item, label: materialName - materialCode - supplierName\n                if (orderDate) {\n                    updateTopAging(tfKey, targetKey, id, supplierName, orderDate, items, isRemoval);\n                }\n            }\n        });\n    });\n}\n\n// --- 6. MAIN LOOP ---\nconst transactions = Array.isArray(msg.payload) ? msg.payload : [];\ntransactions.forEach(tx => {\n    if (tx.oldData) processSingle(tx.oldData, true);\n    if (tx.newData) processSingle(tx.newData, false);\n});\n\nglobal.set(\"DASHBOARD\", DASHBOARD);\nmsg.payload = DASHBOARD.REALTIME.REPLACEMENT_ORDER;\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
-        "noerr": 63,
+        "noerr": 65,
         "initialize": "",
         "finalize": "",
         "libs": [
@@ -18746,7 +18943,7 @@
         "z": "b80c44bd6fa8b311",
         "g": "acaabff9e7a0899e",
         "name": "Production Set Request",
-        "func": "const { start_date, end_date } = msg.payload;\nconst ENTITY = 'production_order';\n\n// --- LOGIC 1: REALTIME (CDC TRIGGER) ---\nif (msg.cdc_target_id) {\n    msg.requestConfig = {\n        items: ENTITY,\n        method: \"GET\",\n        datacore: \"MAIN-DATACORE\",\n        params: {\n            fields: [\n                \"id\", \"production_number\", \"code\", \n                \"production_start_date\", \"production_quantity\", \"line_id.line\", \n                \"material_id.code\", \"material_id.name\", \n                \"submission_id.activity_id.activity_status_code\", \"submission_id.activity_id.activity_status\"\n            ],\n            filter: {\n                id: { _eq: msg.cdc_target_id },\n                submission_id: {\n                    activity_id: {\n                        activity_status_code: { _eq: \"PRO_SHOPPING\" }\n                    }\n                },\n                production_start_date : {\n                    _between: [start_date, end_date]\n                }\n            }\n        }\n    };\n    msg.isRealtime = true;\n} else {\n    // --- LOGIC 2: INITIAL LOAD ---\n    // Reset Cache Global\n    // global.set(\"PRO_CACHE\", {}); \n    // global.set(\"DASHBOARD.REALTIME.PRODUCTION\", { LIST: {}, ARRAY: [] });\n\n    const isFilter= (start_date || end_date);\n    // Filter tahun berjalan (Optional, agar tidak load semua history)\n    const now = new Date();\n    const startOfYear = `${now.getFullYear()}-01-01`;\n    const endOfYear = `${now.getFullYear()}-12-31`;\n\n\n    msg.requestConfig = {\n        items: ENTITY,\n        method: \"GET\",\n        datacore: \"MAIN-DATACORE\",\n        params: {\n            fields: [\n                \"id\", \"production_number\", \"code\", \n                \"production_start_date\", \"production_quantity\", \"line_id.line\", \n                \"material_id.code\", \"material_id.name\", \n                \"submission_id.activity_id.activity_status_code\", \"submission_id.activity_id.activity_status\"\n            ],\n            sort: '-production_start_date',\n            limit: -1,\n            filter: {\n                production_start_date: {\n                    _between: isFilter ? [start_date, end_date] : [startOfYear, endOfYear]\n                },\n                submission_id: {\n                    activity_id: {\n                        activity_status_code: { _eq: \"PRO_SHOPPING\" }\n                    }\n                }\n            }\n        }\n    };\n    msg.isRealtime = false;\n}\n\nmsg.items = msg.requestConfig.items;\nmsg.method = msg.requestConfig.method;\nmsg.datacore = msg.requestConfig.datacore;\nmsg.parameter = msg.requestConfig.params;\n\nreturn msg.requestConfig;",
+        "func": "const ENTITY = 'production_order';\n\n// --- LOGIC 1: REALTIME (CDC TRIGGER) ---\nif (msg.cdc_target_id) {\n    msg.requestConfig = {\n        items: ENTITY,\n        method: \"GET\",\n        datacore: \"MAIN-DATACORE\",\n        params: {\n            fields: [\n                \"id\", \"production_number\", \"code\", \n                \"production_start_date\", \"production_quantity\", \"line_id.line\", \n                \"material_id.code\", \"material_id.name\", \n                \"submission_id.activity_id.activity_status_code\", \"submission_id.activity_id.activity_status\"\n            ],\n            filter: {\n                id: { _eq: msg.cdc_target_id },\n                submission_id: {\n                    activity_id: {\n                        activity_status_code: { _eq: \"PRO_SHOPPING\" }\n                    }\n                }\n            }\n        }\n    };\n    msg.isRealtime = true;\n} else {\n    // --- LOGIC 2: INITIAL LOAD ---\n    // Reset Cache Global\n    // global.set(\"PRO_CACHE\", {}); \n    // global.set(\"DASHBOARD.REALTIME.PRODUCTION\", { LIST: {}, ARRAY: [] });\n    // Filter tahun berjalan (Optional, agar tidak load semua history)\n    const now = new Date();\n    const startOfYear = `${now.getFullYear()}-01-01`;\n    const endOfYear = `${now.getFullYear()}-12-31`;\n\n\n    msg.requestConfig = {\n        items: ENTITY,\n        method: \"GET\",\n        datacore: \"MAIN-DATACORE\",\n        params: {\n            fields: [\n                \"id\", \"production_number\", \"code\", \n                \"production_start_date\", \"production_quantity\", \"line_id.line\", \n                \"material_id.code\", \"material_id.name\", \n                \"submission_id.activity_id.activity_status_code\", \"submission_id.activity_id.activity_status\"\n            ],\n            sort: '-production_start_date',\n            limit: -1,\n            filter: {\n                production_start_date: {\n                    _between: [startOfYear, endOfYear]\n                },\n                submission_id: {\n                    activity_id: {\n                        activity_status_code: { _eq: \"PRO_SHOPPING\" }\n                    }\n                }\n            }\n        }\n    };\n    msg.isRealtime = false;\n}\n\nmsg.items = msg.requestConfig.items;\nmsg.method = msg.requestConfig.method;\nmsg.datacore = msg.requestConfig.datacore;\nmsg.parameter = msg.requestConfig.params;\n\nreturn msg.requestConfig;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -18796,28 +18993,8 @@
         "y": 340,
         "wires": [
             [
+                "3630c7f923b5f02d",
                 "6e32f6ea7288f131"
-            ]
-        ]
-    },
-    {
-        "id": "6e32f6ea7288f131",
-        "type": "function",
-        "z": "b80c44bd6fa8b311",
-        "g": "acaabff9e7a0899e",
-        "name": "Resolve Cache (Batch)",
-        "func": "// --- BATCH PROCESSING ---\nlet PRO_CACHE = global.get(\"PRO_CACHE\") || {};\nconst inputList = Array.isArray(msg.payload) ? msg.payload : [msg.payload];\nconst transactionList = [];\n\nfor (const newData of inputList) {\n    const id = newData.id;\n    \n    // Handle Delete (CDC)\n    if (msg.cdc_op === 'd') {\n        if (PRO_CACHE[id]) {\n            transactionList.push({\n                id: id,\n                isRemoval: true\n            });\n            delete PRO_CACHE[id];\n        }\n        continue;\n    }\n\n    // Handle Insert/Update\n    transactionList.push({\n        id: id,\n        isRemoval: false,\n        data: newData\n    });\n\n    PRO_CACHE[id] = newData;\n}\n\n// Save Cache\nglobal.set(\"PRO_CACHE\", PRO_CACHE);\n\nmsg.payload = transactionList;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 800,
-        "y": 400,
-        "wires": [
-            [
-                "619f9358d02a860b"
             ]
         ]
     },
@@ -18849,8 +19026,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
         "x": 810,
@@ -18957,7 +19134,7 @@
         "z": "b80c44bd6fa8b311",
         "g": "14fb3b56b95e3fa3",
         "name": "Production Set Request",
-        "func": "const { start_date, end_date } = msg.payload;\nconst ENTITY = 'production_order';\n\n// --- LOGIC 1: REALTIME (CDC TRIGGER) ---\nif (msg.cdc_target_id) {\n    msg.requestConfig = {\n        items: ENTITY,\n        method: \"GET\",\n        datacore: \"MAIN-DATACORE\",\n        params: {\n            fields: [\n                \"id\", \"production_number\", \"code\", \n                \"production_start_date\", \"production_quantity\", \"line_id\", \n                \"material_id.code\", \"material_id.name\", \n                \"submission_id.activity_id.activity_status_code\", \"submission_id.activity_id.activity_status\",\"kanbans.binning_qty\"\n            ],\n            filter: {\n                id: { _eq: msg.cdc_target_id },\n                submission_id: {\n                    activity_id: {\n                        activity_status_code: { _eq: \"PRO_BINNING\" }\n                    }\n                },\n                production_start_date : {\n                    _between: [start_date, end_date]\n                }\n            }\n        }\n    };\n    msg.isRealtime = true;\n} else {\n    // --- LOGIC 2: INITIAL LOAD ---\n    // Reset Cache Global\n    // global.set(\"PRO_CACHE\", {}); \n    // global.set(\"DASHBOARD.REALTIME.PRODUCTION\", { LIST: {}, ARRAY: [] });\n    const isFilter= (start_date || end_date);\n    // Filter tahun berjalan (Optional, agar tidak load semua history)\n    const now = new Date();\n    const startOfYear = `${now.getFullYear()}-01-01`;\n    const endOfYear = `${now.getFullYear()}-12-31`;\n\n    msg.requestConfig = {\n        items: ENTITY,\n        method: \"GET\",\n        datacore: \"MAIN-DATACORE\",\n        params: {\n            fields: [\n                \"id\", \"production_number\", \"code\", \n                \"production_start_date\", \"production_quantity\", \"line_id\", \n                \"material_id.code\", \"material_id.name\", \n                \"submission_id.activity_id.activity_status_code\", \"submission_id.activity_id.activity_status\",\" kanbans.binning_qty\"\n            ],\n            sort: '-production_start_date',\n            limit: -1,\n            filter: {\n                production_start_date: {\n                    _between: isFilter ? [start_date, end_date] : [startOfYear, endOfYear]\n                },\n                submission_id: {\n                    activity_id: {\n                        activity_status_code: { _eq: \"PRO_BINNING\" }\n                    }\n                }\n            }\n        }\n    };\n    msg.isRealtime = false;\n}\n\nmsg.items = msg.requestConfig.items;\nmsg.method = msg.requestConfig.method;\nmsg.datacore = msg.requestConfig.datacore;\nmsg.parameter = msg.requestConfig.params;\n\nreturn msg.requestConfig;",
+        "func": "const ENTITY = 'production_order';\n\n// --- LOGIC 1: REALTIME (CDC TRIGGER) ---\nif (msg.cdc_target_id) {\n    msg.requestConfig = {\n        items: ENTITY,\n        method: \"GET\",\n        datacore: \"MAIN-DATACORE\",\n        params: {\n            fields: [\n                \"id\", \"production_number\", \"code\", \n                \"production_start_date\", \"production_quantity\", \"line_id\", \n                \"material_id.code\", \"material_id.name\", \n                \"submission_id.activity_id.activity_status_code\", \"submission_id.activity_id.activity_status\",\"kanbans.binning_qty\"\n            ],\n            filter: {\n                id: { _eq: msg.cdc_target_id },\n                submission_id: {\n                    activity_id: {\n                        activity_status_code: { _eq: \"PRO_BINNING\" }\n                    }\n                }\n            }\n        }\n    };\n    msg.isRealtime = true;\n} else {\n    // --- LOGIC 2: INITIAL LOAD ---\n    // Reset Cache Global\n    // global.set(\"PRO_CACHE\", {}); \n    // global.set(\"DASHBOARD.REALTIME.PRODUCTION\", { LIST: {}, ARRAY: [] });\n    // Filter tahun berjalan (Optional, agar tidak load semua history)\n    const now = new Date();\n    const startOfYear = `${now.getFullYear()}-01-01`;\n    const endOfYear = `${now.getFullYear()}-12-31`;\n\n    msg.requestConfig = {\n        items: ENTITY,\n        method: \"GET\",\n        datacore: \"MAIN-DATACORE\",\n        params: {\n            fields: [\n                \"id\", \"production_number\", \"code\", \n                \"production_start_date\", \"production_quantity\", \"line_id\", \n                \"material_id.code\", \"material_id.name\", \n                \"submission_id.activity_id.activity_status_code\", \"submission_id.activity_id.activity_status\",\" kanbans.binning_qty\"\n            ],\n            sort: '-production_start_date',\n            limit: -1,\n            filter: {\n                production_start_date: {\n                    _between: [startOfYear, endOfYear]\n                },\n                submission_id: {\n                    activity_id: {\n                        activity_status_code: { _eq: \"PRO_BINNING\" }\n                    }\n                }\n            }\n        }\n    };\n    msg.isRealtime = false;\n}\n\nmsg.items = msg.requestConfig.items;\nmsg.method = msg.requestConfig.method;\nmsg.datacore = msg.requestConfig.datacore;\nmsg.parameter = msg.requestConfig.params;\n\nreturn msg.requestConfig;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -19075,7 +19252,7 @@
         "func": "// --- GET GLOBAL CONTEXT ---\nconst CONTEXT_KEY = \"DASHBOARD.REALTIME.PRODUCTION.SHOPPING\";\nlet CONTEXT = global.get(CONTEXT_KEY);\nlet isNewContext = false;\n\n// Inisialisasi jika Context belum ada\nif (!CONTEXT) {\n    CONTEXT = { LIST: {}, ARRAY: [] };\n    isNewContext = true;\n}\n\nlet LIST = CONTEXT.LIST || {};\n\nconst transactions = Array.isArray(msg.payload) ? msg.payload : [];\nlet hasChange = false;\n\n// --- PROCESS TRANSACTIONS ---\ntransactions.forEach(tx => {\n    if (tx.isRemoval) {\n        if (LIST[tx.id]) {\n            delete LIST[tx.id];\n            hasChange = true;\n        }\n    } else {\n        // Upsert\n        LIST[tx.id] = tx.data;\n        hasChange = true;\n    }\n});\n\n// --- REBUILD ARRAY & PUBLISH IF CHANGED OR NEW CONTEXT ---\nif (hasChange || isNewContext) {\n    const finalArray = Object.values(LIST).map(item => ({\n        id: item.id,\n        ...item.ui,\n        _rawDate: item.rawDate // Simpan untuk sorting\n    }));\n\n    // Sort by Date Descending\n    finalArray.sort((a, b) => {\n        return new Date(b._rawDate) - new Date(a._rawDate);\n    });\n\n    // Hapus field helper sorting\n    const cleanArray = finalArray.map(({ _rawDate, ...keepAttrs }) => keepAttrs);\n\n    // Update Global Object\n    CONTEXT.LIST = LIST;\n    CONTEXT.ARRAY = cleanArray;\n\n    // SIMPAN KE GLOBAL\n    global.set(CONTEXT_KEY, CONTEXT);\n\n    // --- MQTT COMPATIBILITY ---\n    // 1. Set Topic berdasarkan context (mengubah dot menjadi slash agar standar MQTT)\n    msg.topic = CONTEXT_KEY.toUpperCase().replace(/\\./g, \"/\");\n    \n    // 2. Set Payload (Node-RED MQTT Out akan otomatis men-stringify object ini)\n    msg.payload = cleanArray;\n\n    // 3. Opsional: Tambahkan timestamp atau metadata jika diperlukan\n    // msg.retain = true; // Bisa di-set di node mqtt-out secara langsung\n\n    // Return both: msg (original/modified) and httpResponse (cloned/modified)\n    return msg;\n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
-        "noerr": 0,
+        "noerr": 2,
         "initialize": "",
         "finalize": "",
         "libs": [],
@@ -19149,68 +19326,6 @@
         "wires": []
     },
     {
-        "id": "e46503c2785909b6",
-        "type": "http in",
-        "z": "b80c44bd6fa8b311",
-        "g": "acaabff9e7a0899e",
-        "name": "",
-        "url": "/tv-production/pro-shopping",
-        "method": "post",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 170,
-        "y": 260,
-        "wires": [
-            [
-                "e1ba0c2a78475044",
-                "7a5e5cd64c4058e0"
-            ]
-        ]
-    },
-    {
-        "id": "7a5e5cd64c4058e0",
-        "type": "http response",
-        "z": "b80c44bd6fa8b311",
-        "g": "acaabff9e7a0899e",
-        "name": "",
-        "statusCode": "",
-        "headers": {},
-        "x": 410,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "7cd10ba9466c322c",
-        "type": "http response",
-        "z": "b80c44bd6fa8b311",
-        "g": "14fb3b56b95e3fa3",
-        "name": "",
-        "statusCode": "",
-        "headers": {},
-        "x": 410,
-        "y": 560,
-        "wires": []
-    },
-    {
-        "id": "ab4a29bdc6debcc0",
-        "type": "http in",
-        "z": "b80c44bd6fa8b311",
-        "g": "14fb3b56b95e3fa3",
-        "name": "",
-        "url": "/tv-production/pro-binning",
-        "method": "post",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 170,
-        "y": 560,
-        "wires": [
-            [
-                "7cd10ba9466c322c",
-                "a0409a9d79116dc2"
-            ]
-        ]
-    },
-    {
         "id": "f2324fdfb2077b4b",
         "type": "debug",
         "z": "b80c44bd6fa8b311",
@@ -19220,11 +19335,435 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
         "x": 540,
         "y": 440,
+        "wires": []
+    },
+    {
+        "id": "3630c7f923b5f02d",
+        "type": "debug",
+        "z": "b80c44bd6fa8b311",
+        "g": "acaabff9e7a0899e",
+        "name": "debug 1279",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1090,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "6e32f6ea7288f131",
+        "type": "function",
+        "z": "b80c44bd6fa8b311",
+        "g": "acaabff9e7a0899e",
+        "name": "Resolve Cache (Batch)",
+        "func": "// --- BATCH PROCESSING ---\nlet PRO_CACHE = global.get(\"PRO_CACHE\") || {};\nconst inputList = Array.isArray(msg.payload) ? msg.payload : [msg.payload];\nconst transactionList = [];\n\nfor (const newData of inputList) {\n    const id = newData.id;\n    \n    // Handle Delete (CDC)\n    if (msg.cdc_op === 'd') {\n        if (PRO_CACHE[id]) {\n            transactionList.push({\n                id: id,\n                isRemoval: true\n            });\n            delete PRO_CACHE[id];\n        }\n        continue;\n    }\n\n    // Handle Insert/Update\n    transactionList.push({\n        id: id,\n        isRemoval: false,\n        data: newData\n    });\n\n    PRO_CACHE[id] = newData;\n}\n\n// Save Cache\nglobal.set(\"PRO_CACHE\", PRO_CACHE);\n\nmsg.payload = transactionList;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 400,
+        "wires": [
+            [
+                "619f9358d02a860b",
+                "542fad1090bb7886"
+            ]
+        ]
+    },
+    {
+        "id": "542fad1090bb7886",
+        "type": "debug",
+        "z": "b80c44bd6fa8b311",
+        "g": "acaabff9e7a0899e",
+        "name": "debug 1280",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "5e1964dc39a6ee6d",
+        "type": "function",
+        "z": "b80c44bd6fa8b311",
+        "g": "6a47b69838c20e5d",
+        "name": "Production Set Request",
+        "func": "const { start_date, end_date } = msg.payload;\nconst ENTITY = 'production_order';\n\nmsg.requestConfig = {\n    items: ENTITY,\n    method: \"GET\",\n    datacore: \"MAIN-DATACORE\",\n    params: {\n        fields: [\n            \"id\", \"production_number\", \"code\",\n            \"production_start_date\", \"production_quantity\", \"line_id\",\n            \"material_id.code\", \"material_id.name\",\n            \"submission_id.activity_id.activity_status_code\", \"submission_id.activity_id.activity_status\", \"kanbans.binning_qty\"\n        ],\n        filter: {\n            id: { _eq: msg.cdc_target_id },\n            submission_id: {\n                activity_id: {\n                    activity_status_code: { _eq: \"PRO_BINNING\" }\n                }\n            },\n            production_start_date: {\n                _between: [start_date, end_date]\n            }\n        }\n    }\n};\nmsg.items = msg.requestConfig.items;\nmsg.method = msg.requestConfig.method;\nmsg.datacore = msg.requestConfig.datacore;\nmsg.params = msg.requestConfig.params;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 1160,
+        "wires": [
+            [
+                "015017b1cd731a79",
+                "4fd74cca5657209e"
+            ]
+        ]
+    },
+    {
+        "id": "015017b1cd731a79",
+        "type": "subflow:11bcac05a44a18c2",
+        "z": "b80c44bd6fa8b311",
+        "g": "6a47b69838c20e5d",
+        "name": "",
+        "x": 740,
+        "y": 1160,
+        "wires": [
+            [
+                "ff25b4b9a5931992",
+                "87037999519cf502"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "6041c3dd21c1cc8e",
+        "type": "debug",
+        "z": "b80c44bd6fa8b311",
+        "g": "6a47b69838c20e5d",
+        "name": "UI Data Payload",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1300,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "ff25b4b9a5931992",
+        "type": "debug",
+        "z": "b80c44bd6fa8b311",
+        "g": "6a47b69838c20e5d",
+        "name": "debug 1283",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "87037999519cf502",
+        "type": "function",
+        "z": "b80c44bd6fa8b311",
+        "g": "6a47b69838c20e5d",
+        "name": "Normalize & Format (UI Card)",
+        "func": "const rows = Array.isArray(msg.payload.data) ? msg.payload.data : (msg.payload ? [msg.payload] : []);\nconst clean = [];\n\n// --- FORMATTER HELPERS ---\nconst formatDate = (dateStr) => {\n    if(!dateStr) return \"-\";\n    const d = new Date(dateStr);\n    if (isNaN(d.getTime())) return \"-\";\n    const dd = String(d.getDate()).padStart(2, '0');\n    const mm = String(d.getMonth() + 1).padStart(2, '0');\n    const yyyy = d.getFullYear();\n    const hh = String(d.getHours()).padStart(2, '0');\n    const min = String(d.getMinutes()).padStart(2, '0');\n    return `${dd}/${mm}/${yyyy}, HH:${min}`;\n};\n\nfor (const row of rows) {\n    // 1. Header\n    const headerId = row.production_number ? `#${row.production_number}` : (row.code ? `#${row.code}` : \"#Unknown\");\n    \n    // 2. Status Badge\n    // const status = row.submission_id?.activity_id?.activity_status_code || \"DRAFT\";\n\n    const status = row.submission_id?.activity_id?.activity_status || \"DRAFT\";\n    \n    // 3. Grid Info\n    const fgName = row.material_id?.name || \"Unknown Product\";\n    const fgCode = row.material_id?.code || \"-\";\n    const line = row.line_id || \"-\";\n    \n    // 4. Dates\n    const prodDate = formatDate(row.production_start_date);\n    const qcDate = \"-\"; // REQUEST: Kosong\n\n    // 5. Quantities\n    const qtyProdVal = Number(row.production_quantity) || 0;\n    const qtyProd = `${qtyProdVal} pcs`;\n\n    // QC Qty (REQUEST: 0 & Skipped)\n    const qtyQC = \"0 pcs\";\n    const qtyQCTag = \"Skipped\";\n    const qtyQCTagColor = \"blue\"; // logic for frontend color if needed\n\n    // Binning Qty (Logic: Sum from Kanbans)\n    let binningVal = 0;\n    if (Array.isArray(row.kanbans)) {\n        binningVal = row.kanbans.reduce((acc, curr) => acc + (Number(curr.binning_qty) || 0), 0);\n    }\n    const qtyBinning = `${binningVal} pcs`;\n    \n    // Binning Tag Logic\n    let qtyBinningTag = \"Partial\";\n    let qtyBinningTagColor = \"orange\";\n    if (binningVal >= qtyProdVal && qtyProdVal > 0) {\n        qtyBinningTag = \"Full\";\n        qtyBinningTagColor = \"blue\";\n    } else if (binningVal === 0) {\n        qtyBinningTag = \"Empty\";\n        qtyBinningTagColor = \"grey\";\n    }\n\n    clean.push({\n        id: row.id,\n        // Data structure matching the UI Card Design\n        ui: {\n            headerId: headerId,\n            status: status,\n            \n            // Top Grid\n            fgName: fgName,\n            fgCode: fgCode,\n            line: line,\n            \n            // Date Grid\n            prodDate: prodDate,\n            qcDate: qcDate,\n            \n            // Bottom Boxes\n            qtyProd: qtyProd,\n            \n            qtyQC: qtyQC,\n            qtyQCTag: qtyQCTag,\n            qtyQCTagColor: qtyQCTagColor,\n\n            qtyBinning: qtyBinning,\n            qtyBinningTag: qtyBinningTag,\n            qtyBinningTagColor: qtyBinningTagColor\n        },\n        rawDate: row.production_start_date\n    });\n}\n\nmsg.normalized = clean;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 990,
+        "y": 1160,
+        "wires": [
+            [
+                "89216d606eaf2304",
+                "764d0b19f9716b87"
+            ]
+        ]
+    },
+    {
+        "id": "89216d606eaf2304",
+        "type": "function",
+        "z": "b80c44bd6fa8b311",
+        "g": "6a47b69838c20e5d",
+        "name": "Manager (Binning) - Optimized",
+        "func": "// --- GET GLOBAL CONTEXT ---\nconst CONTEXT_KEY = \"DASHBOARD.HISTORICAL.PRODUCTION.BINNING\";\nlet CONTEXT = global.get(CONTEXT_KEY);\nlet isNewContext = false;\n\n// Inisialisasi jika Context belum ada\nif (!CONTEXT) {\n    CONTEXT = { LIST: {}, ARRAY: [] };\n    isNewContext = true;\n}\n\nlet LIST = CONTEXT.LIST || {};\n\nconst transactions = Array.isArray(msg.normalized) ? msg.normalized : [];\nlet hasChange = false;\n\n// --- PROCESS TRANSACTIONS ---\ntransactions.forEach(tx => {\n    if (tx.isRemoval) {\n        if (LIST[tx.id]) {\n            delete LIST[tx.id];\n            hasChange = true;\n        }\n    } else {\n        // Upsert\n        LIST[tx.id] = {\n            ...tx.ui,\n            id: tx.id\n        };\n        hasChange = true;\n    }\n});\n\n// --- REBUILD ARRAY & PUBLISH IF CHANGED OR NEW CONTEXT ---\nif (hasChange || isNewContext) {\n    const finalArray = Object.values(LIST).map(item => ({\n        id: item.id,\n        ...item.ui,\n        _rawDate: item.rawDate // Simpan untuk sorting\n    }));\n\n    // Sort by Date Descending (Terbaru diatas)\n    finalArray.sort((a, b) => {\n        return new Date(b._rawDate) - new Date(a._rawDate);\n    });\n\n    // Hapus field helper sorting sebelum dikirim\n    const cleanArray = finalArray.map(({ _rawDate, ...keepAttrs }) => keepAttrs);\n\n    // Update Global Object\n    CONTEXT.LIST = LIST;\n    CONTEXT.ARRAY = cleanArray;\n\n    // SIMPAN KE GLOBAL\n    global.set(CONTEXT_KEY, CONTEXT);\n}\n\n// Return response\nmsg.payload = {\n    status: \"success\",\n    message: \"fetched successfully\",\n    data: transactions\n};\n\nif (transactions.length < 1) {\n    msg.payload = {\n        status: \"success\",\n        message: \"no data\",\n        data: transactions\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 2,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1050,
+        "y": 1220,
+        "wires": [
+            [
+                "6041c3dd21c1cc8e",
+                "5d21ab67b74a7dae"
+            ]
+        ]
+    },
+    {
+        "id": "b2505c3b779c58e0",
+        "type": "http in",
+        "z": "b80c44bd6fa8b311",
+        "g": "6a47b69838c20e5d",
+        "name": "",
+        "url": "/tv-production/pro-binning",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 1160,
+        "wires": [
+            [
+                "5e1964dc39a6ee6d"
+            ]
+        ]
+    },
+    {
+        "id": "5d21ab67b74a7dae",
+        "type": "http response",
+        "z": "b80c44bd6fa8b311",
+        "g": "6a47b69838c20e5d",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1270,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "7f9d954b4a888165",
+        "type": "function",
+        "z": "b80c44bd6fa8b311",
+        "g": "39cd2ddaf27dc980",
+        "name": "Production Set Request",
+        "func": "const { start_date, end_date } = msg.payload;\nconst ENTITY = 'production_order';\n\nmsg.requestConfig = {\n    items: ENTITY,\n    method: \"GET\",\n    datacore: \"MAIN-DATACORE\",\n    params: {\n        fields: [\n            \"id\", \"production_number\", \"code\",\n            \"production_start_date\", \"production_quantity\", \"line_id.line\",\n            \"material_id.code\", \"material_id.name\",\n            \"submission_id.activity_id.activity_status_code\", \"submission_id.activity_id.activity_status\"\n        ],\n        sort: '-production_start_date',\n        limit: -1,\n        filter: {\n            production_start_date: {\n                _between: [start_date, end_date]\n            },\n            submission_id: {\n                activity_id: {\n                    activity_status_code: { _eq: \"PRO_SHOPPING\" }\n                }\n            }\n        }\n    }\n};\n\nmsg.items = msg.requestConfig.items;\nmsg.method = msg.requestConfig.method;\nmsg.datacore = msg.requestConfig.datacore;\nmsg.params = msg.requestConfig.params;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 940,
+        "wires": [
+            [
+                "92a997c61fca7b81",
+                "d88b6f7f04a19b8c"
+            ]
+        ]
+    },
+    {
+        "id": "92a997c61fca7b81",
+        "type": "subflow:11bcac05a44a18c2",
+        "z": "b80c44bd6fa8b311",
+        "g": "39cd2ddaf27dc980",
+        "name": "",
+        "x": 740,
+        "y": 940,
+        "wires": [
+            [
+                "53dd1ec8b3264cc9",
+                "55159bc9183b6434"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "53dd1ec8b3264cc9",
+        "type": "function",
+        "z": "b80c44bd6fa8b311",
+        "g": "39cd2ddaf27dc980",
+        "name": "Normalize & Format (UI Card)",
+        "func": "const rows = Array.isArray(msg.payload.data) ? msg.payload.data : [];\nconst clean = [];\n\n// --- FORMATTER HELPERS ---\n// Format: DD/MM/YYYY, HH:MM\nconst formatDate = (dateStr) => {\n    if(!dateStr) return \"-\";\n    const d = new Date(dateStr);\n    if (isNaN(d.getTime())) return \"-\";\n    const dd = String(d.getDate()).padStart(2, '0');\n    const mm = String(d.getMonth() + 1).padStart(2, '0');\n    const yyyy = d.getFullYear();\n    const hh = String(d.getHours()).padStart(2, '0');\n    const min = String(d.getMinutes()).padStart(2, '0');\n    return `${dd}/${mm}/${yyyy}, ${hh}:${min}`;\n};\n\nfor (const row of rows) {\n    // --- UI MAPPING LOGIC ---\n    // Header: #ProdOrder001\n    const headerId = row.production_number ? `#${row.production_number}` : (row.code ? `#${row.code}` : \"#Unknown\");\n    \n    // Status Badge\n    // const status = row.submission_id?.activity_id?.activity_status_code || \"DRAFT\";\n    const status = row.submission_id?.activity_id?.activity_status || \"DRAFT\";\n    \n    // Material Info\n    const fgName = row.material_id?.name || \"Unknown Product\";\n    const fgCode = row.material_id?.code || \"-\";\n    \n    // Line Info (Jika Line ID panjang, mungkin perlu mapping, disini kita ambil raw atau truncated)\n    const line = row.line_id?.line || \"-\";\n    \n    // QTY\n    const qty = row.production_quantity ? `${row.production_quantity} pcs` : \"0 pcs\";\n\n    clean.push({\n        id: row.id,\n        // Data Ready to Render\n        ui: {\n            headerId: headerId,\n            status: status,\n            fgName: fgName,\n            fgCode: fgCode,\n            line: line,\n            prodDate: formatDate(row.production_start_date),\n            qty: qty\n        },\n        // Raw Data untuk sorting/filtering jika perlu nanti\n        rawDate: row.production_start_date\n    });\n}\n\nmsg.normalized = clean;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1010,
+        "y": 960,
+        "wires": [
+            [
+                "f31141f79e90207c",
+                "a1aafce6365adfbf"
+            ]
+        ]
+    },
+    {
+        "id": "3d150c014dca6777",
+        "type": "debug",
+        "z": "b80c44bd6fa8b311",
+        "g": "39cd2ddaf27dc980",
+        "name": "UI Data Payload",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1320,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "55159bc9183b6434",
+        "type": "debug",
+        "z": "b80c44bd6fa8b311",
+        "g": "39cd2ddaf27dc980",
+        "name": "debug 1284",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "f31141f79e90207c",
+        "type": "function",
+        "z": "b80c44bd6fa8b311",
+        "g": "39cd2ddaf27dc980",
+        "name": "Manager (Shopping) - Optimized",
+        "func": "// --- GET GLOBAL CONTEXT ---\nconst CONTEXT_KEY = \"DASHBOARD.HISTORICAL.PRODUCTION.SHOPPING\";\nlet CONTEXT = global.get(CONTEXT_KEY);\nlet isNewContext = false;\n\n// Inisialisasi jika Context belum ada\nif (!CONTEXT) {\n    CONTEXT = { LIST: {}, ARRAY: [] };\n    isNewContext = true;\n}\n\nlet LIST = CONTEXT.LIST || {};\n\nconst transactions = Array.isArray(msg.normalized) ? msg.normalized : [];\nlet hasChange = false;\n\n// --- PROCESS TRANSACTIONS ---\ntransactions.forEach(tx => {\n    if (tx.isRemoval) {\n        if (LIST[tx.id]) {\n            delete LIST[tx.id];\n            hasChange = true;\n        }\n    } else {\n        // Upsert\n        LIST[tx.id] = {\n            ...tx.ui,\n            id: tx.id\n        };\n        hasChange = true;\n    }\n});\n\n// --- REBUILD ARRAY & PUBLISH IF CHANGED OR NEW CONTEXT ---\nif (hasChange || isNewContext) {\n    node.warn(Object.values(LIST));\n    const finalArray = Object.values(LIST).map(item => ({\n        id: item.id,\n        ...item.ui,\n        _rawDate: item.rawDate // Simpan untuk sorting\n    }));\n\n    // Sort by Date Descending\n    finalArray.sort((a, b) => {\n        return new Date(b._rawDate) - new Date(a._rawDate);\n    });\n\n    // Hapus field helper sorting\n    const cleanArray = finalArray.map(({ _rawDate, ...keepAttrs }) => keepAttrs);\n\n    // Update Global Object\n    CONTEXT.LIST = LIST;\n    CONTEXT.ARRAY = cleanArray;\n\n    // SIMPAN KE GLOBAL\n    global.set(CONTEXT_KEY, CONTEXT);\n}\n\n// Return response\nmsg.payload = {\n    status: \"success\",\n    data: transactions\n};\n\n\nif (transactions.length < 1) {\n    msg.payload = {\n        status: \"success\",\n        message: \"no data\",\n        data: transactions\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 2,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1050,
+        "y": 1020,
+        "wires": [
+            [
+                "3d150c014dca6777",
+                "14bf9ccef2502af9"
+            ]
+        ]
+    },
+    {
+        "id": "d88b6f7f04a19b8c",
+        "type": "debug",
+        "z": "b80c44bd6fa8b311",
+        "g": "39cd2ddaf27dc980",
+        "name": "debug 1285",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "0d92c95224839079",
+        "type": "http in",
+        "z": "b80c44bd6fa8b311",
+        "g": "39cd2ddaf27dc980",
+        "name": "",
+        "url": "/tv-production/pro-shopping",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 940,
+        "wires": [
+            [
+                "7f9d954b4a888165"
+            ]
+        ]
+    },
+    {
+        "id": "14bf9ccef2502af9",
+        "type": "http response",
+        "z": "b80c44bd6fa8b311",
+        "g": "39cd2ddaf27dc980",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1290,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "4fd74cca5657209e",
+        "type": "debug",
+        "z": "b80c44bd6fa8b311",
+        "g": "6a47b69838c20e5d",
+        "name": "debug 1286",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 710,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "a1aafce6365adfbf",
+        "type": "debug",
+        "z": "b80c44bd6fa8b311",
+        "g": "39cd2ddaf27dc980",
+        "name": "debug 1287",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1310,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "764d0b19f9716b87",
+        "type": "debug",
+        "z": "b80c44bd6fa8b311",
+        "g": "6a47b69838c20e5d",
+        "name": "debug 1288",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1290,
+        "y": 1140,
         "wires": []
     },
     {
@@ -20530,7 +21069,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 650,
+        "x": 630,
         "y": 240,
         "wires": []
     },
@@ -23128,7 +23667,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "counter",
-        "x": 690,
+        "x": 650,
         "y": 80,
         "wires": []
     },
@@ -23324,7 +23863,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 870,
+        "x": 890,
         "y": 160,
         "wires": []
     },
@@ -24730,7 +25269,7 @@
         "correl": "",
         "expiry": "",
         "broker": "0020ac8ed328b6fa",
-        "x": 910,
+        "x": 890,
         "y": 100,
         "wires": []
     },
@@ -26100,6 +26639,7 @@
         "id": "a06a090f200363ba",
         "type": "inject",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "Test Inject",
         "props": [
@@ -26130,6 +26670,7 @@
         "id": "311ff7e7eaf8405d",
         "type": "function",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "Params get config",
         "func": "// Build filter dari payload (jika ada field filter dikirim)\n// Build filter dari payload (jika ada field filter dikirim)\nconst now = new Date();\nconst currentYear = now.getFullYear();\nconst startOfYear = `${currentYear}-01-01`;\nconst endOfYear = `${currentYear}-12-31`;\n\nlet filterDate = {\n    startOfYear,\n    endOfYear\n};\n\nlet filter = {}\n\nif (msg.payload && typeof msg.payload === 'object' && Object.keys(msg.payload).length > 0) {\n    Object.entries(msg.payload).forEach(([key, value]) => {\n        filter[key] = { _eq: value };\n    });\n}\n\nnode.warn('[Params get config] filter: ' + JSON.stringify(filter));\n\nmsg = {\n    items    : 'mt_charts',\n    method   : 'GET',\n    datacore : 'MAIN-DATACORE',\n    filter   : filter,\n    filterDate: filterDate,\n    req      : msg.req,\n    res      : msg.res,\n    params   : {\n        fields : ['*'],\n        filter : filter,\n        sort   : '-date_created',\n        limit  : -1\n    }\n};\n\nreturn msg;",
@@ -26299,6 +26840,7 @@
         "id": "12c1a3b5a06c822f",
         "type": "http in",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "",
         "url": "/mt_charts",
@@ -26317,6 +26859,7 @@
         "id": "78426f6918c2dfe4",
         "type": "debug",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "Debug — Params get config",
         "active": true,
@@ -26358,6 +26901,7 @@
         "id": "24ec9fd10d6d7662",
         "type": "function",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "CDC Trigger (Simulasi)",
         "func": "// Simulasi trigger dari CDC (Change Data Capture)\n// Kirim ulang proses refresh mt_charts saat ada perubahan data\nnode.log('[CDC Trigger] Received CDC event, refreshing mt_charts...');\nreturn msg;",
@@ -26394,6 +26938,7 @@
         "id": "fd995a18fd3df225",
         "type": "link in",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "link in → SETUP MQTT",
         "links": [
@@ -26411,6 +26956,7 @@
         "id": "1d9f05b19aa47b62",
         "type": "function",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "SETUP MQTT MT_CHARTS",
         "func": "// FIX: Implementasi lengkap — subscribe/publish setup untuk chart MQTT mode\n// Kirim payload siap-format ke topic_in sesuai §3A & §6.2\nconst item = msg.payload;\n\nif (!item || !item.topic_in) {\n    node.warn('[SETUP MQTT] topic_in kosong, skip.');\n    return null;\n}\n\nlet jsonOutput;\ntry {\n    jsonOutput = typeof item.json_output === 'string'\n        ? JSON.parse(item.json_output)\n        : (item.json_output || null);\n} catch (e) {\n    node.error('[SETUP MQTT] json_output parse error untuk ' + item.code + ': ' + e.message);\n    return null;\n}\n\nif (!jsonOutput) {\n    node.warn('[SETUP MQTT] json_output null untuk: ' + item.code);\n    return null;\n}\n\n// Normalisasi topic: '/' → '.' sesuai standar §6\nconst topicNormalized = item.topic_in.replace(/\\//g, '.');\n\nmsg.topic   = topicNormalized;\nmsg.payload = JSON.stringify({\n    code      : item.code,\n    name      : item.name,\n    data      : jsonOutput,   // §6.1: property 'data' berisi series\n    source    : 'context',\n    timestamp : new Date().toISOString()\n});\n\nmsg.retain = true;           // Retain agar subscriber baru langsung dapat data\n\nnode.log('[SETUP MQTT] Publish retained to: ' + topicNormalized);\nreturn msg;",
@@ -26452,6 +26998,7 @@
         "id": "b827431cfd579234",
         "type": "subflow:11bcac05a44a18c2",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "",
         "x": 620,
@@ -26489,6 +27036,7 @@
         "id": "b00af0b4b22f33b5",
         "type": "mqtt out",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "",
         "topic": "",
@@ -26508,6 +27056,7 @@
         "id": "2e8dcdba2a45430f",
         "type": "mqtt in",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "",
         "topic": "DASHBOARD_DYNAMIC/REALTIME/PURCHASE_ORDER/PIE_CHART_EXAMPLE",
@@ -26530,6 +27079,7 @@
         "id": "393a642ded27db0a",
         "type": "debug",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "debug 1250",
         "active": true,
@@ -26586,6 +27136,7 @@
         "id": "bd711e02e00e1b35",
         "type": "debug",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "debug 1253",
         "active": true,
@@ -26604,6 +27155,7 @@
         "id": "c4126395340ad488",
         "type": "function",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "Mutation Data — Route MQTT vs HTTP",
         "func": "// FIX: Gunakan topic_in (bukan topic_id)\n// FIX: Port 1 = mode MQTT (topic_in terisi)\n//       Port 2 = mode HTTP / Query DB (topic_in kosong)\nconst item = msg.mt_chart;\n\n// Validasi: name & code wajib ada (§10 Checklist)\nif (!item.name || !item.code) {\n    node.warn('[Mutation Data] Chart tidak valid (name/code kosong): ' + JSON.stringify(item));\n    return [null, null];\n}\n\nconst hasTopic = item.topic_in && item.topic_in.trim() !== '-';\nconst hasQuery = item.query && item.query.trim() !== '';\n\n// Decision rules §7:\n// Rule 3: Keduanya kosong → invalid\nif (!hasTopic && !hasQuery) {\n    node.warn('[Mutation Data] Chart invalid config (topic_in & query kosong): ' + item.code);\n    return [null, null];\n}\n\nif (hasTopic && item.topic_in.trim() !== \"-\") {\n    // Mode MQTT — Port 1\n    node.log('[Mutation Data] MQTT mode: ' + item.code + ' → ' + item.topic_in);\n    return [{ ...msg, mutationData: [], dataMode: 'mqtt' }, null];\n} else {\n    // Mode Query DB — Port 2\n    node.log('[Mutation Data] Query DB mode: ' + item.code);\n    return [null, { ...msg, mutationData: [], dataMode: 'query' }];\n}",
@@ -26630,6 +27182,7 @@
         "id": "70aa7f2ae84a53e9",
         "type": "debug",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "Debug — MT Chart MQTT mode",
         "active": true,
@@ -26648,6 +27201,7 @@
         "id": "630af07038010ac0",
         "type": "function",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "Resolve Time Bucket",
         "func": "// --- 1. SETUP CONSTANTS ---\nconst MONTH_NAMES = [\"jan\", \"feb\", \"mar\", \"apr\", \"may\", \"jun\", \"jul\", \"aug\", \"sep\", \"oct\", \"nov\", \"dec\"];\nconst DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];\nconst now = new Date();\nconst currentYearVal = now.getFullYear();\n\n// --- HELPER FUNCTIONS ---\nfunction getWeekOfMonth(d) {\n  const day = d.getUTCDate();\n  const week = Math.floor(day / 7) + 1;\n  return week > 5 ? 5 : week;\n}\n\nfunction generateBucketData(item) {\n  const d = new Date(item.date_series);\n  if (isNaN(d.getTime())) return null;\n\n  let statusLabel = item.submission_id?.activity_id?.activity_status || item.status || \"Unknown\";\n  const itemYear = d.getFullYear();\n  const itemMonth = d.getMonth();\n  const itemDate = d.getDate();\n\n  // Helper cek minggu ini (sederhana)\n  const oneJan = new Date(d.getFullYear(), 0, 1);\n  const numberOfDays = Math.floor((d - oneJan) / (24 * 60 * 60 * 1000));\n  const weekNum = Math.ceil((d.getDay() + 1 + numberOfDays) / 7);\n  \n  const nowOneJan = new Date(currentYearVal, 0, 1);\n  const nowNumberOfDays = Math.floor((now - nowOneJan) / (24 * 60 * 60 * 1000));\n  const currentWeekNum = Math.ceil((now.getDay() + 1 + nowNumberOfDays) / 7);\n\n  // Flags Calculation\n  const isCurrentYear = itemYear === currentYearVal;\n  const isCurrentMonth = isCurrentYear && (itemMonth === now.getMonth());\n  // Cek minggu: harus tahun sama, bulan sama (opsional tergantung bisnis), dan nomor minggu sama\n  const isCurrentWeek = isCurrentYear && (weekNum === currentWeekNum); \n  const isToday = isCurrentMonth && (itemDate === now.getDate());\n\n  return {\n    bucket: {\n      year: itemYear,\n      monthName: MONTH_NAMES[d.getMonth()], // Gunakan getMonth lokal agar konsisten\n      weekStr: String(getWeekOfMonth(d)),\n      dayName: DAYS[d.getDay()],\n      hourStr: String(d.getHours()),\n      dayOfMonth: d.getDate()\n    },\n    isCurrentYear,\n    isCurrentMonth,\n    isCurrentWeek,\n    isToday,\n    ...item \n  };\n}\n\n// --- 2. MAIN BATCH PROCESS ---\nconst inputList = Array.isArray(msg.payload) ? msg.payload : [msg.payload];\nconst transactionList = [];\n\n// Loop native JavaScript\nfor (const raw of inputList) {\n  const newData = generateBucketData(raw);\n  if (!newData) continue;\n  transactionList.push(newData);\n}\n\nmsg.payload = transactionList;\nreturn msg;",
@@ -26670,6 +27224,7 @@
         "id": "4adb20998e21e4be",
         "type": "function",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "Set Response HTTP",
         "func": "// FIX: Guard jika json_output null / bukan JSON valid\nconst item = msg.payload;\n\nif (!item.json_output) {\n    node.warn('[Set Response HTTP] json_output kosong untuk: ' + item.code);\n    return {\n        ...msg,\n        payload    : { error: 'json_output kosong', code: item.code },\n        statusCode : 204\n    };\n}\n\nlet parsed;\ntry {\n    parsed = typeof item.json_output === 'string'\n        ? JSON.parse(item.json_output)\n        : item.json_output;\n} catch (e) {\n    node.error('[Set Response HTTP] json_output bukan JSON valid untuk ' + item.code + ': ' + e.message);\n    return {\n        ...msg,\n        payload    : { error: 'invalid json_output', code: item.code, detail: e.message },\n        statusCode : 500\n    };\n}\n\nreturn {\n    ...msg,\n    payload    : parsed,\n    statusCode : 200\n};",
@@ -26691,6 +27246,7 @@
         "id": "851d2d812b82464c",
         "type": "debug",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "Debug — MT Chart HTTP mode",
         "active": true,
@@ -26709,6 +27265,7 @@
         "id": "4746c5ee73b0dbc5",
         "type": "http response",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "",
         "statusCode": "",
@@ -26721,6 +27278,7 @@
         "id": "d0192beaa97af754",
         "type": "function",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "Aggregate Sales Order Paralel",
         "func": "/**\n * Dynamic Chart Bucket Engine (Node-RED Function)\n * Input msg.payload:\n * {\n *   rows: [...],            // data transaksi mentah\n *   chartDef: {\n *     code: \"...\",\n *     logic: \"JS code\",\n *     meta: { ... }         // optional\n *   }\n * }\n *\n * Atau kompatibel:\n * - msg.payload = [...]  (rows langsung)\n * - msg.chartDef = {...}\n *\n * Output:\n * msg.payload = {\n *   code,\n *   ts,\n *   bucket,                // hasil agregasi bucket\n *   chartData              // optional hasil finalize dari logic\n * }\n */\n\n// =========================\n// 1) CONSTANTS\n// =========================\nconst ALL_MONTHS = [\"jan\", \"feb\", \"mar\", \"apr\", \"may\", \"jun\", \"jul\", \"aug\", \"sep\", \"oct\", \"nov\", \"dec\"];\nconst ALL_WEEKS = [\"1\", \"2\", \"3\", \"4\", \"5\"];\nconst ALL_DAYS = [\"sunday\", \"monday\", \"tuesday\", \"wednesday\", \"thursday\", \"friday\", \"saturday\"];\nconst ALL_HOURS = Array.from({ length: 24 }, (_, i) => String(i));\n\nconst KEY_ALL = \"ALL\";\n\n// =========================\n// 2) HELPERS\n// =========================\nfunction parseDateSafe(v) {\n    if (!v) return null;\n    const d = new Date(v);\n    return isNaN(d.getTime()) ? null : d;\n}\n\nfunction getTimeKeys(dateObj) {\n    if (!dateObj) {\n        return { monthName: null, weekStr: null, dayName: null, hourStr: null };\n    }\n\n    const monthName = ALL_MONTHS[dateObj.getMonth()];\n    const dayName = ALL_DAYS[dateObj.getDay()];\n    const hourStr = String(dateObj.getHours());\n\n    const dayOfMonth = dateObj.getDate();\n    const weekNum = Math.min(5, Math.ceil(dayOfMonth / 7));\n    const weekStr = String(weekNum);\n\n    return { monthName, weekStr, dayName, hourStr };\n}\n\nfunction createBaseMetric() {\n    return { raw: 0, data: { value: 0, subValue: 0 } };\n}\n\nfunction initContainer(keys) {\n    const c = { VALUE: createBaseMetric(), TRACKER: {} };\n    keys.forEach(k => {\n        c[k] = { VALUE: createBaseMetric(), TRACKER: {} };\n    });\n    return c;\n}\n\nfunction ensurePath(root, timeframe, target, keys) {\n    if (!root[timeframe]) root[timeframe] = {};\n    if (!root[timeframe][target]) root[timeframe][target] = initContainer(keys);\n}\n\nfunction incMetric(metricObj, delta = 1) {\n    if (!metricObj.VALUE) metricObj.VALUE = createBaseMetric();\n    metricObj.VALUE.raw = (metricObj.VALUE.raw || 0) + delta;\n    metricObj.VALUE.data.value = metricObj.VALUE.raw;\n    metricObj.VALUE.data.subValue = delta;\n}\n\n// =========================\n// 3) BUCKET CORE\n// =========================\nfunction applyDefaultCounter(bucketRoot, row, amount = 1) {\n    const txDate = parseDateSafe(row.date || row.created_at || row.date_created || row.ts);\n    const { monthName, weekStr, dayName, hourStr } = getTimeKeys(txDate);\n\n    const updates = [\n        [\"YEARLY\", monthName, ALL_MONTHS],\n        [\"MONTHLY\", weekStr, ALL_WEEKS],\n        [\"WEEKLY\", dayName, ALL_DAYS],\n        [\"DAILY\", hourStr, ALL_HOURS]\n    ];\n\n    const customerCode = row.customer_code || row.customerCode || KEY_ALL;\n    const targets = [KEY_ALL];\n    if (customerCode && customerCode !== KEY_ALL) targets.push(customerCode);\n\n    targets.forEach(target => {\n        updates.forEach(([tf, keyName, keys]) => {\n            ensurePath(bucketRoot, tf, target, keys);\n            if (keyName == null) return;\n\n            incMetric(bucketRoot[tf][target][keyName], amount);\n            incMetric(bucketRoot[tf][target], amount);\n        });\n    });\n}\n\n// =========================\n// 4) LOGIC FROM DB EXECUTOR\n// =========================\n/**\n * Kontrak logic DB:\n * - logic adalah JS body function.\n * - akan dipanggil per-row:\n *   fn(ctx)\n * - ctx berisi helper aman:\n *   {\n *     row, index, bucket, meta,\n *     helpers: { ensurePath, incMetric, ALL_MONTHS, ALL_WEEKS, ALL_DAYS, ALL_HOURS, KEY_ALL, getTimeKeys, parseDateSafe },\n *     state: {...} // mutable state antar-row\n *   }\n *\n * Optional finalize:\n * - jika logic mengembalikan function di row pertama via ctx.state.finalize = (bucket, state)=>any\n *   maka dipanggil setelah loop untuk menghasilkan chartData.\n */\nfunction buildLogicExecutor(logicCode) {\n    if (!logicCode || !logicCode.trim()) return null;\n    try {\n        // body-only JS\n        return new Function(\"ctx\", logicCode);\n    } catch (e) {\n        node.error(\"Invalid logic JS from DB: \" + e.message);\n        return null;\n    }\n}\n\n// =========================\n// 5) MAIN\n// =========================\nconst rows = msg.payload;\nconst chartDef = msg.mt_chart;\nconst logicCode = String(chartDef.logic || \"\");\nconst meta = chartDef.meta || {};\n\nconst bucket = {};\nconst state = {};\n\nconst logicFn = buildLogicExecutor(logicCode);\n\nfor (let i = 0; i < rows.length; i++) {\n    const row = rows[i];\n\n    if (logicFn) {\n        try {\n            logicFn({\n                node,\n                global,\n                row,\n                index: i,\n                bucket,\n                meta,\n                state,\n                helpers: {\n                    ensurePath,\n                    incMetric,\n                    ALL_MONTHS,\n                    ALL_WEEKS,\n                    ALL_DAYS,\n                    ALL_HOURS,\n                    KEY_ALL,\n                    getTimeKeys,\n                    parseDateSafe\n                }\n            });\n        } catch (e) {\n            node.warn(`[${chartDef.code || \"UNKNOWN\"}] logic runtime error row#${i}: ${e.message}`);\n            // fallback tetap hitung default agar flow tidak putus\n            applyDefaultCounter(bucket, row, 1);\n        }\n    } else {\n        applyDefaultCounter(bucket, row, 1);\n    }\n}\n\n// optional finalize\nlet chartData = null;\nif (typeof state.finalize === \"function\") {\n    try {\n        chartData = state.finalize(bucket, state);\n    } catch (e) {\n        node.warn(`[${chartDef.code || \"UNKNOWN\"}] finalize error: ${e.message}`);\n    }\n}\n\nmsg.payload = {\n    code: chartDef.code || null,\n    ts: Date.now(),\n    bucket,\n    chartData\n};\n\nreturn msg;",
@@ -26748,6 +27306,7 @@
         "id": "b509122d6fe8f68b",
         "type": "debug",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "debug 37",
         "active": true,
@@ -26766,6 +27325,7 @@
         "id": "ac223c7986db8dae",
         "type": "debug",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "debug 39",
         "active": true,
@@ -26783,6 +27343,7 @@
         "id": "5f95842fccbaa9bb",
         "type": "function",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "Set Response MQTT",
         "func": "// FIX: Implementasi lengkap — subscribe/publish setup untuk chart MQTT mode\n// Kirim payload siap-format ke topic_in sesuai §3A & §6.2\nconst chart = msg.mt_chart;\n\nif (!chart || !chart.topic_in) {\n    node.warn('[SETUP MQTT] topic_in kosong, skip.');\n    return null;\n}\n// Normalisasi topic: '/' → '.' sesuai standar §6\nconst topicNormalized = chart.topic_in.replace(/\\//g, '.');\nconst chartData = msg.payload.chartData;\n\nObject.keys(chartData).map((index) =>{\n    // global.set(topicNormalized + `.${index}`, chartData[index])\n    node.send({\n        topic : topicNormalized + `.${index}`,\n        payload : {\n            code: chart.code,\n            name: chart.name,\n            data: chartData[index],   // §6.1: property 'data' berisi series\n            source: 'context',\n            timestamp: new Date().toISOString()\n        },\n        qos : 1,\n        retain : true           // Retain agar subscriber baru langsung dapat data    \n    }, [])\n})\n\nglobal.set(topicNormalized, {...chartData, bucket: msg.payload.bucket})\n\nreturn [ [] , msg];",
@@ -26808,6 +27369,7 @@
         "id": "3bef20bf2e26d34a",
         "type": "debug",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "Result Data",
         "active": true,
@@ -26826,6 +27388,7 @@
         "id": "fdc563b5a59f9413",
         "type": "debug",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "Result Mqtt",
         "active": true,
@@ -26844,6 +27407,7 @@
         "id": "fa8e4ff79d0fa66c",
         "type": "mqtt out",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "",
         "topic": "",
@@ -26863,6 +27427,7 @@
         "id": "d7c430f0fa7471a4",
         "type": "function",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "Split Data From DB",
         "func": "// Kirim tiap item mt_charts sebagai pesan terpisah\nconst items = msg.payload?.data ?? [];\n\nif (items.length === 0) {\n    node.warn('[Split Data] Tidak ada data mt_charts diterima.');\n    return null;\n}\n\nnode.log('[Split Data] Total charts: ' + items.length);\n\nitems.forEach(function(item) {\n    node.send({\n        ...msg,\n        payload: item,\n        mt_chart: item\n    });\n});",
@@ -26884,6 +27449,7 @@
         "id": "b62ef2e09d71400a",
         "type": "function",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "Build query",
         "func": "// const configDb = env.get(\"DATABASE\");\n\nconst connection = global.get(\"CORE.ETL_CONNECTION\")\nconst configDb = Object.values(connection).find(item => item.db_client == \"postgresql\");\n\n// set config pg sql\nmsg.pgConfig = {\n    user    : configDb.username,\n    password: configDb.password,\n    host    : configDb.host,\n    database: configDb.database,\n    port    : configDb.port\n};\n\n// set query\nmsg.query = msg.payload.query\nmsg.queryParameters = {...msg.filter , ...msg.filterDate}\n\nreturn msg;",
@@ -26906,6 +27472,7 @@
         "id": "a52c53bb6983bd26",
         "type": "debug",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "debug 35",
         "active": true,
@@ -26924,6 +27491,7 @@
         "id": "d71f9839413f1fd1",
         "type": "debug",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "debug 34",
         "active": true,
@@ -26942,6 +27510,7 @@
         "id": "19a08c5c0699d24e",
         "type": "postgresql",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "37be0240bdf5e460",
         "name": "",
         "query": "",
@@ -26984,19 +27553,20 @@
         "type": "inject",
         "z": "853d459b0cf0e88c",
         "g": "6fb57354512f7506",
-        "name": "Sync every 5 min",
+        "name": "Init",
         "props": [
             {
                 "p": "payload"
             }
         ],
-        "repeat": "300",
+        "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": "1",
+        "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 180,
+        "x": 140,
         "y": 660,
         "wires": [
             [
@@ -27021,12 +27591,12 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
+        "once": true,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
+        "x": 160,
         "y": 740,
         "wires": [
             [
@@ -27040,7 +27610,7 @@
         "z": "853d459b0cf0e88c",
         "g": "6fb57354512f7506",
         "name": "Set Filter  & config Data",
-        "func": "const MT_CHART_CONFIG = \"DCB_DEFINITIONS\";\n\nconst getConfigChart = global.get(MT_CHART_CONFIG);\n\nObject.values(getConfigChart).map( (item) => {\n    node.send({\n        payload: item,\n        filter: {}\n    });\n})",
+        "func": "const MT_CHART_CONFIG = \"DCB_DEFINITIONS\";\n\nconst getConfigChart = global.get(MT_CHART_CONFIG);\n\nObject.values(getConfigChart).map( (item) => {\n    const topic = item.topic_in;\n    if (item.topic_in != \"-\" && topic ) {\n        const typeChart = item.topic_in.split(\"/\")[1] ?? \"\"\n        if (typeChart != \"HISTORICAL\" && typeChart) {\n                    node.warn(typeChart)\n\n            node.send({\n                payload: item,\n                filter: {},\n                mode: \"mqtt\"\n            });\n        }\n    }\n})",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -27051,8 +27621,7 @@
         "y": 740,
         "wires": [
             [
-                "4492413c33079ff2",
-                "9593e22fcbd94391"
+                "4492413c33079ff2"
             ]
         ]
     },
@@ -27060,23 +27629,22 @@
         "id": "4492413c33079ff2",
         "type": "delay",
         "z": "853d459b0cf0e88c",
-        "d": true,
         "g": "6fb57354512f7506",
         "name": "",
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
         "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "minute",
+        "nbRateUnits": "3",
+        "rateUnits": "second",
         "randomFirst": "1",
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
         "allowrate": false,
         "outputs": 1,
-        "x": 590,
-        "y": 780,
+        "x": 600,
+        "y": 740,
         "wires": [
             [
                 "9593e22fcbd94391"
@@ -27093,7 +27661,7 @@
         "links": [
             "04fa310427943f72"
         ],
-        "x": 755,
+        "x": 785,
         "y": 740,
         "wires": []
     },
@@ -27184,10 +27752,11 @@
         "name": "link in 2",
         "links": [
             "9593e22fcbd94391",
-            "150d6ce633742727"
+            "150d6ce633742727",
+            "64d84019ee03f882"
         ],
-        "x": 85,
-        "y": 900,
+        "x": 95,
+        "y": 1000,
         "wires": [
             [
                 "b86802735e510cf3"
@@ -27207,8 +27776,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 250,
-        "y": 900,
+        "x": 260,
+        "y": 1000,
         "wires": [
             [
                 "0d0ccf6f83f747b2"
@@ -27228,8 +27797,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 480,
-        "y": 900,
+        "x": 490,
+        "y": 1000,
         "wires": [
             [
                 "a0ab53391afa08e8",
@@ -27251,8 +27820,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 610,
-        "y": 960,
+        "x": 770,
+        "y": 1080,
         "wires": []
     },
     {
@@ -27269,8 +27838,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 790,
-        "y": 960,
+        "x": 910,
+        "y": 1060,
         "wires": []
     },
     {
@@ -27286,8 +27855,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 970,
-        "y": 900,
+        "x": 980,
+        "y": 1000,
         "wires": [
             [
                 "af08f50f308aec96"
@@ -27303,18 +27872,19 @@
         "z": "853d459b0cf0e88c",
         "g": "e834bc7d323b1bf2",
         "name": "Resolve Time Bucket",
-        "func": "// --- 1. SETUP CONSTANTS ---\nconst MONTH_NAMES = [\"jan\", \"feb\", \"mar\", \"apr\", \"may\", \"jun\", \"jul\", \"aug\", \"sep\", \"oct\", \"nov\", \"dec\"];\nconst DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];\nconst now = new Date();\nconst currentYearVal = now.getFullYear();\n\n// --- HELPER FUNCTIONS ---\nfunction getWeekOfMonth(d) {\n  const day = d.getUTCDate();\n  const week = Math.floor(day / 7) + 1;\n  return week > 5 ? 5 : week;\n}\n\nfunction generateBucketData(item) {\n  const d = new Date(item.date_series);\n  if (isNaN(d.getTime())) return null;\n\n  let statusLabel = item.submission_id?.activity_id?.activity_status || item.status || \"Unknown\";\n  const itemYear = d.getFullYear();\n  const itemMonth = d.getMonth();\n  const itemDate = d.getDate();\n\n  // Helper cek minggu ini (sederhana)\n  const oneJan = new Date(d.getFullYear(), 0, 1);\n  const numberOfDays = Math.floor((d - oneJan) / (24 * 60 * 60 * 1000));\n  const weekNum = Math.ceil((d.getDay() + 1 + numberOfDays) / 7);\n  \n  const nowOneJan = new Date(currentYearVal, 0, 1);\n  const nowNumberOfDays = Math.floor((now - nowOneJan) / (24 * 60 * 60 * 1000));\n  const currentWeekNum = Math.ceil((now.getDay() + 1 + nowNumberOfDays) / 7);\n\n  // Flags Calculation\n  const isCurrentYear = itemYear === currentYearVal;\n  const isCurrentMonth = isCurrentYear && (itemMonth === now.getMonth());\n  // Cek minggu: harus tahun sama, bulan sama (opsional tergantung bisnis), dan nomor minggu sama\n  const isCurrentWeek = isCurrentYear && (weekNum === currentWeekNum); \n  const isToday = isCurrentMonth && (itemDate === now.getDate());\n\n  return {\n    bucket: {\n      year: itemYear,\n      monthName: MONTH_NAMES[d.getMonth()], // Gunakan getMonth lokal agar konsisten\n      weekStr: String(getWeekOfMonth(d)),\n      dayName: DAYS[d.getDay()],\n      hourStr: String(d.getHours()),\n      dayOfMonth: d.getDate()\n    },\n    isCurrentYear,\n    isCurrentMonth,\n    isCurrentWeek,\n    isToday,\n    ...item \n  };\n}\n\n// --- 2. MAIN BATCH PROCESS ---\nconst inputList = Array.isArray(msg.payload) ? msg.payload : [msg.payload];\nconst transactionList = [];\n\n// Loop native JavaScript\nfor (const raw of inputList) {\n  const newData = generateBucketData(raw);\n  if (!newData) continue;\n  transactionList.push(newData);\n}\n\nconst topicNormalized = msg.mt_chart.topic_in.replace(/\\//g, '.');\n\nglobal.set( 'bucket.' + topicNormalized, transactionList)\nmsg.payload = transactionList;\nreturn msg;",
+        "func": "// --- 1. SETUP CONSTANTS ---\nconst MONTH_NAMES = [\"jan\", \"feb\", \"mar\", \"apr\", \"may\", \"jun\", \"jul\", \"aug\", \"sep\", \"oct\", \"nov\", \"dec\"];\nconst DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];\nconst now = new Date();\nconst currentYearVal = now.getFullYear();\n\n// --- HELPER FUNCTIONS ---\nfunction getWeekOfMonth(d) {\n  const day = d.getUTCDate();\n  const week = Math.floor(day / 7) + 1;\n  return week > 5 ? 5 : week;\n}\n\nfunction generateBucketData(item) {\n  const d = new Date(item.date_series);\n  if (isNaN(d.getTime())) return null;\n\n  let statusLabel = item.submission_id?.activity_id?.activity_status || item.status || \"Unknown\";\n  const itemYear = d.getFullYear();\n  const itemMonth = d.getMonth();\n  const itemDate = d.getDate();\n\n  // Helper cek minggu ini (sederhana)\n  const oneJan = new Date(d.getFullYear(), 0, 1);\n  const numberOfDays = Math.floor((d - oneJan) / (24 * 60 * 60 * 1000));\n  const weekNum = Math.ceil((d.getDay() + 1 + numberOfDays) / 7);\n  \n  const nowOneJan = new Date(currentYearVal, 0, 1);\n  const nowNumberOfDays = Math.floor((now - nowOneJan) / (24 * 60 * 60 * 1000));\n  const currentWeekNum = Math.ceil((now.getDay() + 1 + nowNumberOfDays) / 7);\n\n  // Flags Calculation\n  const isCurrentYear = itemYear === currentYearVal;\n  const isCurrentMonth = isCurrentYear && (itemMonth === now.getMonth());\n  // Cek minggu: harus tahun sama, bulan sama (opsional tergantung bisnis), dan nomor minggu sama\n  const isCurrentWeek = isCurrentYear && (weekNum === currentWeekNum); \n  const isToday = isCurrentMonth && (itemDate === now.getDate());\n\n  return {\n    bucket: {\n      year: itemYear,\n      monthName: MONTH_NAMES[d.getMonth()], // Gunakan getMonth lokal agar konsisten\n      weekStr: String(getWeekOfMonth(d)),\n      dayName: DAYS[d.getDay()],\n      hourStr: String(d.getHours()),\n      dayOfMonth: d.getDate()\n    },\n    isCurrentYear,\n    isCurrentMonth,\n    isCurrentWeek,\n    isToday,\n    ...item \n  };\n}\n\n// --- 2. MAIN BATCH PROCESS ---\nconst inputList = Array.isArray(msg.payload) ? msg.payload : [msg.payload];\nconst transactionList = [];\n\n// Loop native JavaScript\nfor (const raw of inputList) {\n  const newData = generateBucketData(raw);\n  if (!newData) continue;\n  transactionList.push(newData);\n}\n\nconst topicNormalized = msg.mt_chart.topic_in.replace(/\\//g, '.');\n\nglobal.set( 'bucket.' + topicNormalized, transactionList)\nmsg.payload = transactionList;\nmsg.mode = \"mqtt\";\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 7,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1290,
-        "y": 880,
+        "x": 1300,
+        "y": 980,
         "wires": [
             [
-                "7e1ef083117dc192"
+                "7e1ef083117dc192",
+                "25bcdd2a4dbc6703"
             ]
         ]
     },
@@ -27331,8 +27901,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1290,
-        "y": 940,
+        "x": 1300,
+        "y": 1040,
         "wires": [
             [
                 "25bcdd2a4dbc6703"
@@ -27349,8 +27919,8 @@
         "links": [
             "f48c391c370165d9"
         ],
-        "x": 1455,
-        "y": 940,
+        "x": 1465,
+        "y": 1040,
         "wires": []
     },
     {
@@ -27367,8 +27937,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1490,
-        "y": 880,
+        "x": 1500,
+        "y": 980,
         "wires": []
     },
     {
@@ -27394,7 +27964,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 160,
-        "y": 1100,
+        "y": 1440,
         "wires": [
             [
                 "7a6d5430c035e3a0"
@@ -27415,7 +27985,7 @@
         "finalize": "",
         "libs": [],
         "x": 390,
-        "y": 1100,
+        "y": 1440,
         "wires": [
             [
                 "38fed9c01159dae8",
@@ -27437,7 +28007,7 @@
         "finalize": "",
         "libs": [],
         "x": 333,
-        "y": 1154,
+        "y": 1494,
         "wires": [
             [
                 "38fed9c01159dae8"
@@ -27459,7 +28029,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 550,
-        "y": 1060,
+        "y": 1400,
         "wires": []
     },
     {
@@ -27477,7 +28047,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 500,
-        "y": 1180,
+        "y": 1520,
         "wires": []
     },
     {
@@ -27486,15 +28056,15 @@
         "z": "853d459b0cf0e88c",
         "g": "b5492f98d53a25e2",
         "name": "Logic",
-        "func": "/**\n * Dynamic Chart Bucket Engine (Node-RED Function)\n */\n\n// =========================\n// 1) CONSTANTS\n// =========================\nconst ALL_MONTHS = [\"jan\",\"feb\",\"mar\",\"apr\",\"may\",\"jun\",\"jul\",\"aug\",\"sep\",\"oct\",\"nov\",\"dec\"];\nconst ALL_WEEKS  = [\"1\",\"2\",\"3\",\"4\",\"5\"];\nconst ALL_DAYS   = [\"sunday\",\"monday\",\"tuesday\",\"wednesday\",\"thursday\",\"friday\",\"saturday\"];\nconst ALL_HOURS  = Array.from({ length: 24 }, (_, i) => String(i));\nconst KEY_ALL    = \"ALL\";\n\n// =========================\n// 2) HELPERS\n// =========================\nfunction parseDateSafe(v) {\n    if (!v) return null;\n    const d = new Date(v);\n    return isNaN(d.getTime()) ? null : d;\n}\n\nfunction getTimeKeys(dateObj) {\n    if (!dateObj) return { monthName: null, weekStr: null, dayName: null, hourStr: null };\n    const monthName = ALL_MONTHS[dateObj.getMonth()];\n    const dayName   = ALL_DAYS[dateObj.getDay()];\n    const hourStr   = String(dateObj.getHours());\n    const weekNum   = Math.min(5, Math.ceil(dateObj.getDate() / 7));\n    const weekStr   = String(weekNum);\n    return { monthName, weekStr, dayName, hourStr };\n}\n\nfunction createBaseMetric() {\n    return { raw: 0, data: { value: 0, subValue: 0 } };\n}\n\nfunction initContainer(keys) {\n    const c = { VALUE: createBaseMetric(), TRACKER: {} };\n    keys.forEach(k => { c[k] = { VALUE: createBaseMetric(), TRACKER: {} }; });\n    return c;\n}\n\nfunction ensurePath(root, timeframe, target, keys) {\n    if (!root[timeframe]) root[timeframe] = {};\n    if (!root[timeframe][target]) root[timeframe][target] = initContainer(keys);\n}\n\nfunction incMetric(metricObj, delta = 1) {\n    if (!metricObj.VALUE) metricObj.VALUE = createBaseMetric();\n    metricObj.VALUE.raw = (metricObj.VALUE.raw || 0) + delta;\n    metricObj.VALUE.data.value = metricObj.VALUE.raw;\n    metricObj.VALUE.data.subValue = delta;\n}\n\n// =========================\n// 3) BUCKET CORE\n// =========================\nfunction applyDefaultCounter(bucketRoot, row, amount = 1) {\n    const txDate = parseDateSafe(row.date || row.created_at || row.date_created || row.ts);\n    const { monthName, weekStr, dayName, hourStr } = getTimeKeys(txDate);\n\n    const updates = [\n        [\"YEARLY\",  monthName, ALL_MONTHS],\n        [\"MONTHLY\", weekStr,   ALL_WEEKS],\n        [\"WEEKLY\",  dayName,   ALL_DAYS],\n        [\"DAILY\",   hourStr,   ALL_HOURS]\n    ];\n\n    const customerCode = row.customer_code || row.customerCode || KEY_ALL;\n    const targets = [KEY_ALL];\n    if (customerCode && customerCode !== KEY_ALL) targets.push(customerCode);\n\n    targets.forEach(target => {\n        updates.forEach(([tf, keyName, keys]) => {\n            ensurePath(bucketRoot, tf, target, keys);\n            if (keyName == null) return;\n            incMetric(bucketRoot[tf][target][keyName], amount);\n            incMetric(bucketRoot[tf][target], amount);\n        });\n    });\n}\n\n// =========================\n// 4) LOGIC EXECUTOR\n// =========================\nfunction buildLogicExecutor(logicCode) {\n    if (!logicCode || !logicCode.trim()) return null;\n    try {\n        return new Function(\"ctx\", logicCode);\n    } catch (e) {\n        node.error(\"Invalid logic JS from DB: \" + e.message);\n        return null;\n    }\n}\n\n// =========================\n// 5) FILTER GROUPING HELPERS\n// =========================\n\n/**\n * Bangun base topic dari chartDef.code\n * Ganti semua \"/\" jadi \".\"\n * ex: \"DASHBOARD_DYNAMIC/REALTIME/SALES_ORDER/PIE_IKI_LUR\"\n *  -> \"DASHBOARD_DYNAMIC.REALTIME.SALES_ORDER.PIE_IKI_LUR\"\n */\nfunction buildBaseTopic(code) {\n    if (!code) return \"UNKNOWN\";\n    return String(code).replace(/\\//g, \".\");\n}\n\n/**\n * Bangun suffix topic dari kombinasi filter\n * ex: { code: \"abc\", status: \"active\" }\n *  -> \"code=abc|status=active\"\n * ex: { code: \"_all\", status: \"_all\" }\n *  -> \"code=_all|status=_all\"\n */\nfunction buildFilterSuffix(combo) {\n    return Object.entries(combo)\n        .map(([k, v]) => `${k}=${v}`)\n        .join(\"|\");\n}\n\n/**\n * Bangun topic_in lengkap\n * ex: \"DASHBOARD_DYNAMIC.REALTIME.SALES_ORDER.PIE_IKI_LUR.code=abc|status=active\"\n */\nfunction buildTopicIn(baseTopic, combo) {\n    const suffix = buildFilterSuffix(combo);\n    return `${baseTopic}.${suffix}`;\n}\n\n/**\n * Kumpulkan semua kombinasi unik nilai dari field-field filter\n * PLUS semua variasi dengan \"_all\" sebagai wildcard per field\n *\n * ex fields: [\"code\",\"status\"]\n * unique: code=[ABC,DEF], status=[active,non-active]\n * hasil:\n *   { code:\"_all\",  status:\"_all\"       }  ← full all\n *   { code:\"_all\",  status:\"active\"     }  ← partial\n *   { code:\"_all\",  status:\"non-active\" }  ← partial\n *   { code:\"ABC\",   status:\"_all\"       }  ← partial\n *   { code:\"ABC\",   status:\"active\"     }  ← spesifik\n *   { code:\"ABC\",   status:\"non-active\" }  ← spesifik\n *   { code:\"DEF\",   status:\"_all\"       }  ← partial\n *   { code:\"DEF\",   status:\"active\"     }  ← spesifik\n *   { code:\"DEF\",   status:\"non-active\" }  ← spesifik\n */\nfunction collectCombinations(rows, fields) {\n    // kumpulkan unique values per field\n    const uniquePerField = {};\n    fields.forEach(f => { uniquePerField[f] = new Set(); });\n\n    rows.forEach(row => {\n        fields.forEach(f => {\n            const val = row[f];\n            if (val !== undefined && val !== null) {\n                uniquePerField[f].add(String(val));\n            }\n        });\n    });\n\n    // Setiap field: [nilai asli...] + \"_all\"\n    // \"_all\" selalu di index 0 supaya urutan: full-all dulu, partial, spesifik\n    const valsPerField = {};\n    fields.forEach(f => {\n        valsPerField[f] = [\"_all\", ...Array.from(uniquePerField[f])];\n    });\n\n    // cartesian product dari semua field (termasuk \"_all\" per field)\n    let combos = [{}];\n    fields.forEach(f => {\n        const vals = valsPerField[f];\n        const next = [];\n        combos.forEach(existing => {\n            vals.forEach(v => {\n                next.push({ ...existing, [f]: v });\n            });\n        });\n        combos = next;\n    });\n\n    return combos;\n}\n\n/**\n * Filter rows yang cocok dengan combo\n * Jika nilai combo suatu field = \"_all\" -> semua nilai lolos untuk field tsb\n */\nfunction filterRowsByCombo(rows, combo) {\n    return rows.filter(row => {\n        return Object.entries(combo).every(([field, val]) => {\n            if (val === \"_all\") return true;\n            return String(row[field]) === val;\n        });\n    });\n}\n\n// =========================\n// 6) MAIN\n// =========================\nconst rows      = msg.payload;\nconst chartDef  = msg.mt_chart;\nconst config    = JSON.parse(chartDef.config);\nconst logicCode = String(chartDef.logic || \"\");\nconst meta      = chartDef.meta   || {};\nconst filters   = Array.isArray(config.filter) ? config.filter : [];\n\nconst baseTopic = buildBaseTopic(chartDef.topic_in);\nconst logicFn   = buildLogicExecutor(logicCode);\n\nconst bucket    = {};\nconst results   = []; // kumpulkan output per kombinasi\n\n// --- Tentukan kombinasi yang akan dieksekusi ---\nlet combos = [];\n\nif (filters.length === 0) {\n    // Tidak ada filter -> jalankan sekali, topic_in = baseTopic saja\n    combos = [null];\n} else {\n    // collectCombinations sudah include semua variasi _all (partial & full)\n    combos = collectCombinations(rows, filters);\n}\n\n// --- Loop per kombinasi ---\nnode.warn(\"Test\");\n\ncombos.forEach(combo => {\n    const filteredRows = combo === null\n        ? rows                          // tanpa filter\n        : filterRowsByCombo(rows, combo); // filter sesuai combo\n\n    // const topic_in = combo === null\n    //     ? baseTopic\n    //     : buildTopicIn(baseTopic, combo);\n\n\n    const topic_in = combo === null\n        ? baseTopic\n        : baseTopic + '.' + Object.values(combo).join(\".\");\n\n    const state      = {};\n    const comboResult = { topic_in, bucket: {}, chartData: null , filter : combo === null ? \"\" :buildFilterSuffix(combo)};\n\n    for (let i = 0; i < filteredRows.length; i++) {\n        // Inject topic_in ke setiap row (non-destructive, pakai spread)\n        const row = { ...filteredRows[i], topic_in };\n\n        if (logicFn) {\n            try {\n                logicFn({\n                    node,\n                    global,\n                    row,\n                    index: i,\n                    bucket: comboResult.bucket,\n                    meta,\n                    state,\n                    helpers: {\n                        ensurePath,\n                        incMetric,\n                        ALL_MONTHS,\n                        ALL_WEEKS,\n                        ALL_DAYS,\n                        ALL_HOURS,\n                        KEY_ALL,\n                        getTimeKeys,\n                        parseDateSafe\n                    }\n                });\n            } catch (e) {\n                node.warn(`[${chartDef.code || \"UNKNOWN\"}][${topic_in}] logic error row#${i}: ${e.message}`);\n                applyDefaultCounter(comboResult.bucket, row, 1);\n            }\n        } else {\n            applyDefaultCounter(comboResult.bucket, row, 1);\n        }\n    }\n\n    // Optional finalize per kombinasi\n    if (typeof state.finalize === \"function\") {\n        try {\n            comboResult.chartData = state.finalize(comboResult.bucket, state);\n        } catch (e) {\n            node.warn(`[${chartDef.code || \"UNKNOWN\"}][${topic_in}] finalize error: ${e.message}`);\n        }\n    }\n\n    results.push(comboResult);\n});\n\nmsg.payload = {\n    code    : chartDef.code || null,\n    ts      : Date.now(),\n    bucket,          // bucket global (kosong jika semua pakai per-combo bucket)\n    results          // array hasil per kombinasi filter\n};\n\nif (msg.mode === \"mqtt\" ) return [ msg , []] \nelse return [ [] , msg ] ",
+        "func": "/**\n * Dynamic Chart Bucket Engine (Node-RED Function)\n */\n\n// =========================\n// 1) CONSTANTS\n// =========================\nconst ALL_MONTHS = [\"jan\",\"feb\",\"mar\",\"apr\",\"may\",\"jun\",\"jul\",\"aug\",\"sep\",\"oct\",\"nov\",\"dec\"];\nconst ALL_WEEKS  = [\"1\",\"2\",\"3\",\"4\",\"5\"];\nconst ALL_DAYS   = [\"sunday\",\"monday\",\"tuesday\",\"wednesday\",\"thursday\",\"friday\",\"saturday\"];\nconst ALL_HOURS  = Array.from({ length: 24 }, (_, i) => String(i));\nconst KEY_ALL    = \"ALL\";\n\n// =========================\n// 2) HELPERS\n// =========================\nfunction parseDateSafe(v) {\n    if (!v) return null;\n    const d = new Date(v);\n    return isNaN(d.getTime()) ? null : d;\n}\n\nfunction getTimeKeys(dateObj) {\n    if (!dateObj) return { monthName: null, weekStr: null, dayName: null, hourStr: null };\n    const monthName = ALL_MONTHS[dateObj.getMonth()];\n    const dayName   = ALL_DAYS[dateObj.getDay()];\n    const hourStr   = String(dateObj.getHours());\n    const weekNum   = Math.min(5, Math.ceil(dateObj.getDate() / 7));\n    const weekStr   = String(weekNum);\n    return { monthName, weekStr, dayName, hourStr };\n}\n\nfunction createBaseMetric() {\n    return { raw: 0, data: { value: 0, subValue: 0 } };\n}\n\nfunction initContainer(keys) {\n    const c = { VALUE: createBaseMetric(), TRACKER: {} };\n    keys.forEach(k => { c[k] = { VALUE: createBaseMetric(), TRACKER: {} }; });\n    return c;\n}\n\nfunction ensurePath(root, timeframe, target, keys) {\n    if (!root[timeframe]) root[timeframe] = {};\n    if (!root[timeframe][target]) root[timeframe][target] = initContainer(keys);\n}\n\nfunction incMetric(metricObj, delta = 1) {\n    if (!metricObj.VALUE) metricObj.VALUE = createBaseMetric();\n    metricObj.VALUE.raw = (metricObj.VALUE.raw || 0) + delta;\n    metricObj.VALUE.data.value = metricObj.VALUE.raw;\n    metricObj.VALUE.data.subValue = delta;\n}\n\n// =========================\n// 3) BUCKET CORE\n// =========================\nfunction applyDefaultCounter(bucketRoot, row, amount = 1) {\n    const txDate = parseDateSafe(row.date || row.created_at || row.date_created || row.ts);\n    const { monthName, weekStr, dayName, hourStr } = getTimeKeys(txDate);\n\n    const updates = [\n        [\"YEARLY\",  monthName, ALL_MONTHS],\n        [\"MONTHLY\", weekStr,   ALL_WEEKS],\n        [\"WEEKLY\",  dayName,   ALL_DAYS],\n        [\"DAILY\",   hourStr,   ALL_HOURS]\n    ];\n\n    const customerCode = row.customer_code || row.customerCode || KEY_ALL;\n    const targets = [KEY_ALL];\n    if (customerCode && customerCode !== KEY_ALL) targets.push(customerCode);\n\n    targets.forEach(target => {\n        updates.forEach(([tf, keyName, keys]) => {\n            ensurePath(bucketRoot, tf, target, keys);\n            if (keyName == null) return;\n            incMetric(bucketRoot[tf][target][keyName], amount);\n            incMetric(bucketRoot[tf][target], amount);\n        });\n    });\n}\n\n// =========================\n// 4) LOGIC EXECUTOR\n// =========================\nfunction buildLogicExecutor(logicCode) {\n    if (!logicCode || !logicCode.trim()) return null;\n    try {\n        return new Function(\"ctx\", logicCode);\n    } catch (e) {\n        node.error(\"Invalid logic JS from DB: \" + e.message);\n        return null;\n    }\n}\n\n// =========================\n// 5) FILTER GROUPING HELPERS\n// =========================\n\n/**\n * Bangun base topic dari chartDef.code\n * Ganti semua \"/\" jadi \".\"\n * ex: \"DASHBOARD_DYNAMIC/REALTIME/SALES_ORDER/PIE_IKI_LUR\"\n *  -> \"DASHBOARD_DYNAMIC.REALTIME.SALES_ORDER.PIE_IKI_LUR\"\n */\nfunction buildBaseTopic(code) {\n    if (!code) return \"UNKNOWN\";\n    return String(code).replace(/\\//g, \".\");\n}\n\n/**\n * Bangun suffix topic dari kombinasi filter\n * ex: { code: \"abc\", status: \"active\" }\n *  -> \"code=abc|status=active\"\n * ex: { code: \"_all\", status: \"_all\" }\n *  -> \"code=_all|status=_all\"\n */\nfunction buildFilterSuffix(combo) {\n    return Object.entries(combo)\n        .map(([k, v]) => `${k}=${v}`)\n        .join(\"|\");\n}\n\n/**\n * Bangun topic_in lengkap\n * ex: \"DASHBOARD_DYNAMIC.REALTIME.SALES_ORDER.PIE_IKI_LUR.code=abc|status=active\"\n */\nfunction buildTopicIn(baseTopic, combo) {\n    const suffix = buildFilterSuffix(combo);\n    return `${baseTopic}.${suffix}`;\n}\n\n/**\n * Kumpulkan semua kombinasi unik nilai dari field-field filter\n * PLUS semua variasi dengan \"_all\" sebagai wildcard per field\n *\n * ex fields: [\"code\",\"status\"]\n * unique: code=[ABC,DEF], status=[active,non-active]\n * hasil:\n *   { code:\"_all\",  status:\"_all\"       }  ← full all\n *   { code:\"_all\",  status:\"active\"     }  ← partial\n *   { code:\"_all\",  status:\"non-active\" }  ← partial\n *   { code:\"ABC\",   status:\"_all\"       }  ← partial\n *   { code:\"ABC\",   status:\"active\"     }  ← spesifik\n *   { code:\"ABC\",   status:\"non-active\" }  ← spesifik\n *   { code:\"DEF\",   status:\"_all\"       }  ← partial\n *   { code:\"DEF\",   status:\"active\"     }  ← spesifik\n *   { code:\"DEF\",   status:\"non-active\" }  ← spesifik\n */\nfunction collectCombinations(rows, fields) {\n    // kumpulkan unique values per field\n    const uniquePerField = {};\n    fields.forEach(f => { uniquePerField[f] = new Set(); });\n\n    rows.forEach(row => {\n        fields.forEach(f => {\n            const val = row[f];\n            if (val !== undefined && val !== null) {\n                uniquePerField[f].add(String(val));\n            }\n        });\n    });\n\n    // Setiap field: [nilai asli...] + \"_all\"\n    // \"_all\" selalu di index 0 supaya urutan: full-all dulu, partial, spesifik\n    const valsPerField = {};\n    fields.forEach(f => {\n        valsPerField[f] = [\"_all\", ...Array.from(uniquePerField[f])];\n    });\n\n    // cartesian product dari semua field (termasuk \"_all\" per field)\n    let combos = [{}];\n    fields.forEach(f => {\n        const vals = valsPerField[f];\n        const next = [];\n        combos.forEach(existing => {\n            vals.forEach(v => {\n                next.push({ ...existing, [f]: v });\n            });\n        });\n        combos = next;\n    });\n\n    return combos;\n}\n\n/**\n * Filter rows yang cocok dengan combo\n * Jika nilai combo suatu field = \"_all\" -> semua nilai lolos untuk field tsb\n */\nfunction filterRowsByCombo(rows, combo) {\n    return rows.filter(row => {\n        return Object.entries(combo).every(([field, val]) => {\n            if (val === \"_all\") return true;\n            return String(row[field]) === val;\n        });\n    });\n}\n\n// =========================\n// 6) MAIN\n// =========================\nconst rows      = msg.payload;\nconst chartDef  = msg.mt_chart;\nconst config    = JSON.parse(chartDef.config);\nconst logicCode = String(chartDef.logic || \"\");\nconst meta      = chartDef.meta   || {};\nconst filters   = Array.isArray(config.filter) ? config.filter : [];\n\nconst baseTopic = buildBaseTopic(chartDef.topic_in);\nconst logicFn   = buildLogicExecutor(logicCode);\n\nconst bucket    = {};\nconst results   = []; // kumpulkan output per kombinasi\n\n// --- Tentukan kombinasi yang akan dieksekusi ---\nlet combos = [];\n\nif (filters.length === 0) {\n    // Tidak ada filter -> jalankan sekali, topic_in = baseTopic saja\n    combos = [null];\n} else {\n    // collectCombinations sudah include semua variasi _all (partial & full)\n    combos = collectCombinations(rows, filters);\n}\n\n// --- Loop per kombinasi ---\nnode.warn(\"Test\");\n\ncombos.forEach(combo => {\n    const filteredRows = combo === null\n        ? rows                          // tanpa filter\n        : filterRowsByCombo(rows, combo); // filter sesuai combo\n\n    // const topic_in = combo === null\n    //     ? baseTopic\n    //     : buildTopicIn(baseTopic, combo);\n\n\n    const topic_in = combo === null\n        ? baseTopic\n        : baseTopic + '.' + Object.values(combo).join(\".\");\n\n    const state      = {};\n    const comboResult = { topic_in, bucket: {}, chartData: null , filter : combo === null ? \"\" :buildFilterSuffix(combo)};\n\n    for (let i = 0; i < filteredRows.length; i++) {\n        // Inject topic_in ke setiap row (non-destructive, pakai spread)\n        const row = { ...filteredRows[i], topic_in };\n\n        if (logicFn) {\n            try {\n                logicFn({\n                    node,\n                    global,\n                    row,\n                    index: i,\n                    bucket: comboResult.bucket,\n                    meta,\n                    state,\n                    helpers: {\n                        ensurePath,\n                        incMetric,\n                        ALL_MONTHS,\n                        ALL_WEEKS,\n                        ALL_DAYS,\n                        ALL_HOURS,\n                        KEY_ALL,\n                        getTimeKeys,\n                        parseDateSafe\n                    }\n                });\n            } catch (e) {\n                node.warn(`[${chartDef.code || \"UNKNOWN\"}][${topic_in}] logic error row#${i}: ${e.message}`);\n                applyDefaultCounter(comboResult.bucket, row, 1);\n            }\n        } else {\n            applyDefaultCounter(comboResult.bucket, row, 1);\n        }\n    }\n\n    // [TAMBAHAN] Pancing eksekusi 1x jika data benar-benar kosong (0 baris)\n    // Tujuannya agar state.finalize tetap dibaca dan mengembalikan format default (Rp 0)\n    if (filteredRows.length === 0 && logicFn) {\n        try {\n            logicFn({\n                node, global, row: {}, index: -1, bucket: comboResult.bucket, meta, state,\n                helpers: { ensurePath, incMetric, ALL_MONTHS, ALL_WEEKS, ALL_DAYS, ALL_HOURS, KEY_ALL, getTimeKeys, parseDateSafe }\n            });\n        } catch (e) {\n            // Abaikan error saat pancingan\n        }\n    }\n\n    // Optional finalize per kombinasi\n    if (typeof state.finalize === \"function\") {\n        try {\n            comboResult.chartData = state.finalize(comboResult.bucket, state);\n        } catch (e) {\n            node.warn(`[${chartDef.code || \"UNKNOWN\"}][${topic_in}] finalize error: ${e.message}`);\n        }\n    }\n\n    results.push(comboResult);\n});\n\nmsg.payload = {\n    code    : chartDef.code || null,\n    ts      : Date.now(),\n    bucket,          // bucket global (kosong jika semua pakai per-combo bucket)\n    results          // array hasil per kombinasi filter\n};\n\nif (msg.mode === \"mqtt\" ) return [ msg , []] \nelse return [ [] , msg ] ",
         "outputs": 2,
         "timeout": 0,
-        "noerr": 0,
+        "noerr": 29,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 610,
-        "y": 1140,
+        "y": 1480,
         "wires": [
             [
                 "c1ba8788750bbf2b"
@@ -27510,7 +28080,7 @@
         "type": "function",
         "z": "853d459b0cf0e88c",
         "g": "b5492f98d53a25e2",
-        "name": "Set Response MQTT",
+        "name": "Save At Context",
         "func": "// FIX: Implementasi lengkap — subscribe/publish setup untuk chart MQTT mode\n// Kirim payload siap-format ke topic_in sesuai §3A & §6.2\nconst chart = msg.mt_chart;\n\nif (!chart || !chart.topic_in) {\n    node.warn('[SETUP MQTT] topic_in kosong, skip.');\n    return null;\n}\nconst chartData = msg.payload.results;\n\nchartData.map((item) =>{\n    // global.set(topicNormalized + `.${index}`, chartData[index])\n    const filter = item?.filter;\n    global.set(item.topic_in, { /* bucket: item.bucket , */ data: item.chartData })\n    node.send({\n        topic : chart.topic_in + ( filter  ? `/${filter}` : ''),\n        payload : {\n            code: chart.code,\n            name: chart.name,\n            data: item.chartData,   // §6.1: property 'data' berisi series\n            source: 'context',\n            timestamp: new Date().toISOString()\n        },\n        qos : 1,\n        retain : true           // Retain agar subscriber baru langsung dapat data    \n    }, [])\n})\n\n\nreturn [ [] , msg];",
         "outputs": 2,
         "timeout": 0,
@@ -27518,15 +28088,16 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 820,
-        "y": 1100,
+        "x": 800,
+        "y": 1440,
         "wires": [
             [
                 "e7c082d3b40822b1",
                 "7f593fd14acd3337"
             ],
             [
-                "212a7f3b5fcba9b0"
+                "212a7f3b5fcba9b0",
+                "6e4f57e6ccfa7550"
             ]
         ]
     },
@@ -27544,7 +28115,7 @@
         "finalize": "",
         "libs": [],
         "x": 810,
-        "y": 1160,
+        "y": 1500,
         "wires": [
             [
                 "bee79dbcbc1bc32a",
@@ -27566,7 +28137,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 710,
-        "y": 1200,
+        "y": 1540,
         "wires": []
     },
     {
@@ -27584,7 +28155,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1140,
-        "y": 1180,
+        "y": 1520,
         "wires": []
     },
     {
@@ -27593,7 +28164,7 @@
         "z": "853d459b0cf0e88c",
         "g": "b5492f98d53a25e2",
         "name": "Result Mqtt",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -27602,7 +28173,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1070,
-        "y": 1060,
+        "y": 1400,
         "wires": []
     },
     {
@@ -27620,7 +28191,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1040,
-        "y": 1140,
+        "y": 1480,
         "wires": []
     },
     {
@@ -27632,7 +28203,7 @@
         "statusCode": "",
         "headers": {},
         "x": 990,
-        "y": 1200,
+        "y": 1540,
         "wires": []
     },
     {
@@ -27645,7 +28216,7 @@
             "25bcdd2a4dbc6703"
         ],
         "x": 85,
-        "y": 1160,
+        "y": 1500,
         "wires": [
             [
                 "925ff36125a623d8",
@@ -27654,61 +28225,10 @@
         ]
     },
     {
-        "id": "eb9b6e19edebb817",
-        "type": "function",
-        "z": "853d459b0cf0e88c",
-        "g": "46b7599f0df399d4",
-        "name": "Lookup context → fallback query",
-        "func": "const code        = msg.req.params.code;\nconst queryFilter = msg.req.query || {};\nconst defs        = global.get('DCB_DEFINITIONS') || {};\n\n// Cari chart def berdasarkan code\nconst chart = Object.values(defs).find(function(d) { return d.code === code; });\nif (!chart) {\n    msg.res.status(404).json({ error: 'Chart not found: ' + code });\n    return null;\n}\n\n// Bangun topic yang dicari dari query params\n// const topicBase = (chart.topic_in || chart.code).replace(/\\//g, '.');\n// let topicLookup = topicBase;\n// if (Object.keys(queryFilter).length > 0) {\n//     const suffix = Object.entries(queryFilter).map(function(e) { return e[0]+'='+e[1]; }).join('|');\n//     topicLookup = topicBase + '.' + suffix;\n// }\n\n// Coba ambil dari global context dulu\n// const cached = global.get(topicLookup) || global.get(topicBase + '.' + Object.keys(queryFilter).map(function(k){ return k+'=_all'; }).join('|'));\n\n// if (cached) {\n//     // Langsung return dari cache\n//     msg.res.json({\n//         code     : chart.code,\n//         name     : chart.name,\n//         filter   : Object.keys(queryFilter).length > 0 ? Object.entries(queryFilter).map(function(e){return e[0]+'='+e[1];}).join('|') : null,\n//         topic_in : topicLookup,\n//         data     : cached.data,\n//         source   : 'context',\n//         timestamp: new Date().toISOString()\n//     });\n//     return null;\n// }\n\n// Fallback: jalankan query + engine\nmsg.mt_chart = chart;\nmsg.filter = queryFilter;\nmsg.payload  = chart;\nmsg.mode = \"rest\";\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 440,
-        "y": 1320,
-        "wires": [
-            [
-                "150d6ce633742727"
-            ]
-        ]
-    },
-    {
-        "id": "b45c13d8eb2ed5ff",
-        "type": "http in",
-        "z": "853d459b0cf0e88c",
-        "g": "46b7599f0df399d4",
-        "name": "GET /chart/:code",
-        "url": "/chart/:code",
-        "method": "get",
-        "upload": false,
-        "x": 160,
-        "y": 1320,
-        "wires": [
-            [
-                "eb9b6e19edebb817"
-            ]
-        ]
-    },
-    {
-        "id": "150d6ce633742727",
-        "type": "link out",
-        "z": "853d459b0cf0e88c",
-        "g": "46b7599f0df399d4",
-        "name": "link out 3",
-        "mode": "link",
-        "links": [
-            "04fa310427943f72"
-        ],
-        "x": 655,
-        "y": 1320,
-        "wires": []
-    },
-    {
         "id": "7f593fd14acd3337",
         "type": "mqtt out",
         "z": "853d459b0cf0e88c",
+        "d": true,
         "g": "b5492f98d53a25e2",
         "name": "",
         "topic": "",
@@ -27720,8 +28240,8 @@
         "correl": "",
         "expiry": "",
         "broker": "3d3bd7e8af197698",
-        "x": 1060,
-        "y": 1100,
+        "x": 1310,
+        "y": 1560,
         "wires": []
     },
     {
@@ -27752,14 +28272,681 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 690,
-        "y": 900,
+        "x": 700,
+        "y": 1000,
         "wires": [
             [
                 "0270e04061530705",
                 "21d5edc745a8970e"
             ]
         ]
+    },
+    {
+        "id": "37ce7cc9a5038e73",
+        "type": "http in",
+        "z": "853d459b0cf0e88c",
+        "g": "0815395a577749ef",
+        "name": "GET /chart/:code",
+        "url": "/chart/:code",
+        "method": "get",
+        "upload": false,
+        "x": 160,
+        "y": 1660,
+        "wires": [
+            [
+                "6a1dca46d199784e"
+            ]
+        ]
+    },
+    {
+        "id": "6a1dca46d199784e",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "g": "0815395a577749ef",
+        "name": "Lookup context → fallback query",
+        "func": "const code        = msg.req.params.code;\nconst queryFilter = msg.req.query || {};\nconst defs        = global.get('DCB_DEFINITIONS') || {};\n\n// Cari chart def berdasarkan code\nconst chart = Object.values(defs).find(function(d) { return d.code === code; });\nif (!chart) {\n    msg.res.status(404).json({ error: 'Chart not found: ' + code });\n    return null;\n}\n\n// Bangun topic yang dicari dari query params\n// const topicBase = (chart.topic_in || chart.code).replace(/\\//g, '.');\n// let topicLookup = topicBase;\n// if (Object.keys(queryFilter).length > 0) {\n//     const suffix = Object.entries(queryFilter).map(function(e) { return e[0]+'='+e[1]; }).join('|');\n//     topicLookup = topicBase + '.' + suffix;\n// }\n\n// Coba ambil dari global context dulu\n// const cached = global.get(topicLookup) || global.get(topicBase + '.' + Object.keys(queryFilter).map(function(k){ return k+'=_all'; }).join('|'));\n\n// if (cached) {\n//     // Langsung return dari cache\n//     msg.res.json({\n//         code     : chart.code,\n//         name     : chart.name,\n//         filter   : Object.keys(queryFilter).length > 0 ? Object.entries(queryFilter).map(function(e){return e[0]+'='+e[1];}).join('|') : null,\n//         topic_in : topicLookup,\n//         data     : cached.data,\n//         source   : 'context',\n//         timestamp: new Date().toISOString()\n//     });\n//     return null;\n// }\n\n// Fallback: jalankan query + engine\nmsg.mt_chart = chart;\nmsg.filter = queryFilter;\nmsg.payload  = chart;\nmsg.mode = \"rest\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1660,
+        "wires": [
+            [
+                "64d84019ee03f882"
+            ]
+        ]
+    },
+    {
+        "id": "64d84019ee03f882",
+        "type": "link out",
+        "z": "853d459b0cf0e88c",
+        "g": "0815395a577749ef",
+        "name": "link out 3",
+        "mode": "link",
+        "links": [
+            "04fa310427943f72"
+        ],
+        "x": 655,
+        "y": 1660,
+        "wires": []
+    },
+    {
+        "id": "a28c042e81c8c836",
+        "type": "mqtt in",
+        "z": "853d459b0cf0e88c",
+        "g": "0815395a577749ef",
+        "name": "",
+        "topic": "Create/New/Topic/Data",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "e91394d9ad08cbfe",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 1720,
+        "wires": [
+            [
+                "f3801e658224adad",
+                "15475284f9684b80"
+            ]
+        ]
+    },
+    {
+        "id": "f3801e658224adad",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "g": "0815395a577749ef",
+        "name": "Setup Get Data",
+        "func": "// const fullTopic = msg.payload.topic ;// || \"DASHBOARD_DYNAMIC/REALTIME/SALES_ORDER/PIE_IKI_LUR/YEARLY/code=_all|activity_status_code=_all\";\n// const parts = fullTopic.split(\"/\");\n\n// // Safety: Pastikan ada minimal 5 segmen (Path utama)\n// if (parts.length < 5) {\n//     // node.error(\"Topic path too short. Expected at least 5 segments.\");\n//     return null;\n// }\n\n// // --- 1. Ambil Path Utama (5 segmen pertama) ---\n// const baseSegments = parts.slice(0, 5);\n// msg.topic_in = baseSegments.join(\"/\");\n// const baseDot = baseSegments.join(\".\");\n\n// // --- 2. Cek Kondisi Parameter (Segmen ke-6 / Index 5) ---\n// if (parts[5] && parts[5].includes(\"=\")) {\n//     // JIKA ADA PARAMETER (seperti code=_all|activity_status_code=_all)\n//     const paramValues = parts[5].split(\"|\").map(item => {\n//         const val = item.split(\"=\")[1] || \"\";\n//         return val\n//     }).filter(v => v !== \"\").join(\".\"); // Filter jika ada value kosong, lalu join dengan dot\n\n//     msg.topic = `${baseDot}.${paramValues}`;\n// } else {\n//     // Output langsung ke base dot notation\n//     msg.topic = baseDot;\n// }\n\n// const defs = Object.values(global.get('DCB_DEFINITIONS')).find((item) => {\n//     return item.topic_in === msg.topic_in    \n// })\n\n// const topic_ = msg.topic;\n\n// return {\n//     topic : fullTopic,\n//     top: msg.topic,\n//     payload : {\n//         code: defs.code,\n//         name: defs.name,\n//         data: global.get(msg.topic),\n//         source: 'context',\n//         timestamp: new Date().toISOString()\n//     },\n//     qos : 1,\n//     retain : true    \n// }\n\nconst fullTopic = msg.payload.topic ;// || \"DASHBOARD_DYNAMIC/REALTIME/SALES_ORDER/PIE_IKI_LUR/YEARLY/code=_all|activity_status_code=_all\";\nconst parts = fullTopic.split(\"/\");\n\n// Safety: Pastikan ada minimal 5 segmen (Path utama)\nif (parts.length < 5) {\n    // node.error(\"Topic path too short. Expected at least 5 segments.\");\n    return [null, {\n        topic: fullTopic ,\n        message: null\n    } ];\n}\n\n// --- 1. Ambil Path Utama (5 segmen pertama) ---\nconst baseSegments = parts.slice(0, 5);\nmsg.topic_in = baseSegments.join(\"/\");\nconst baseDot = baseSegments.join(\".\");\n\n// --- 2. Cek Kondisi Parameter (Segmen ke-6 / Index 5) ---\nif (parts[5] && parts[5].includes(\"=\")) {\n    // JIKA ADA PARAMETER (seperti code=_all|activity_status_code=_all)\n    const paramValues = parts[5].split(\"|\").map(item => {\n        const val = item.split(\"=\")[1] || \"\";\n        return val\n    }).filter(v => v !== \"\").join(\".\"); // Filter jika ada value kosong, lalu join dengan dot\n\n    msg.topic = `${baseDot}.${paramValues}`;\n} else {\n    // Output langsung ke base dot notation\n    msg.topic = baseDot;\n}\n\nconst defs = Object.values(global.get('DCB_DEFINITIONS')).find((item) => {\n    return item.topic_in === msg.topic_in    \n})\n\nif (!defs) return [null, {\n    topic: fullTopic,\n    message: null\n}];;\n\nconst topic_ = msg.topic;\n\nreturn [{\n    topic : fullTopic,\n    top: msg.topic,\n    payload : {\n        code: defs.code,\n        name: defs.name,\n        data: global.get(msg.topic),\n        source: 'context',\n        timestamp: new Date().toISOString()\n    },\n    qos : 1,\n    retain : true    \n}, null]",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 1720,
+        "wires": [
+            [
+                "b2643304b2552d2e",
+                "a98b072362b2d192"
+            ],
+            [
+                "29be8af4c198256c"
+            ]
+        ]
+    },
+    {
+        "id": "5cbc67d1ae830374",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "g": "0815395a577749ef",
+        "name": "Setup MQTT",
+        "func": "const fullTopic = msg.payload.topic ;// || \"DASHBOARD_DYNAMIC/REALTIME/SALES_ORDER/PIE_IKI_LUR/YEARLY/code=_all|activity_status_code=_all\";\nconst parts = fullTopic.split(\"/\");\n\n// Safety: Pastikan ada minimal 5 segmen (Path utama)\nif (parts.length < 5) {\n    node.error(\"Topic path too short. Expected at least 5 segments.\");\n    return null;\n}\n\n// --- 1. Ambil Path Utama (5 segmen pertama) ---\nconst baseSegments = parts.slice(0, 5);\nmsg.topic_in = baseSegments.join(\"/\");\nconst baseDot = baseSegments.join(\".\");\n\n// --- 2. Cek Kondisi Parameter (Segmen ke-6 / Index 5) ---\nif (parts[5] && parts[5].includes(\"=\")) {\n    // JIKA ADA PARAMETER (seperti code=_all|activity_status_code=_all)\n    const paramValues = parts[5].split(\"|\").map(item => {\n        const val = item.split(\"=\")[1] || \"\";\n        return val\n    }).filter(v => v !== \"\").join(\".\"); // Filter jika ada value kosong, lalu join dengan dot\n\n    msg.topic = `${baseDot}.${paramValues}`;\n} else {\n    // Output langsung ke base dot notation\n    msg.topic = baseDot;\n}\n\nconst defs = Object.values(global.get('DCB_DEFINITIONS')).find((item) => {\n    return item.topic_in === msg.topic_in    \n})\n\nconst topic_ = msg.topic;\n\nreturn {\n    topic : fullTopic,\n    top: msg.topic,\n    payload : {\n        code: defs.code,\n        name: defs.name,\n        data: global.get(msg.topic),\n        source: 'context',\n        timestamp: new Date().toISOString()\n    },\n    qos : 1,\n    retain : true    \n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 1880,
+        "wires": [
+            [
+                "251692bbe0e9005f"
+            ]
+        ]
+    },
+    {
+        "id": "251692bbe0e9005f",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "g": "0815395a577749ef",
+        "name": "debug 77",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "f0e27c6a939cd7ce",
+        "type": "inject",
+        "z": "853d459b0cf0e88c",
+        "g": "0815395a577749ef",
+        "name": "test Output",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 1880,
+        "wires": [
+            [
+                "5cbc67d1ae830374"
+            ]
+        ]
+    },
+    {
+        "id": "b2643304b2552d2e",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "g": "0815395a577749ef",
+        "name": "debug 78",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 1760,
+        "wires": []
+    },
+    {
+        "id": "15475284f9684b80",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "g": "0815395a577749ef",
+        "name": "debug 79",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 1800,
+        "wires": []
+    },
+    {
+        "id": "a98b072362b2d192",
+        "type": "mqtt out",
+        "z": "853d459b0cf0e88c",
+        "g": "0815395a577749ef",
+        "name": "",
+        "topic": "",
+        "qos": "0",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3d3bd7e8af197698",
+        "x": 690,
+        "y": 1720,
+        "wires": []
+    },
+    {
+        "id": "6e4f57e6ccfa7550",
+        "type": "subflow:emqx_v4_sub_detector",
+        "z": "853d459b0cf0e88c",
+        "g": "b5492f98d53a25e2",
+        "name": "",
+        "x": 1100,
+        "y": 1440,
+        "wires": [
+            [
+                "42286f0674e85bf0",
+                "8ace4f35e476517b"
+            ]
+        ]
+    },
+    {
+        "id": "8ace4f35e476517b",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "g": "b5492f98d53a25e2",
+        "name": "Find By Base Topic",
+        "func": "const searchKeyword = msg.mt_chart?.topic_in;\nconst rawData = msg.payload?.data;\n\nconst dataSource = Array.isArray(rawData) ? rawData : (rawData ? [rawData] : []);\n\nconst results = dataSource.filter(item =>\n    item?.topic && item.topic.startsWith(searchKeyword)\n);\n\nresults.forEach(item => {\n    node.send({ ...msg, payload: item });\n});\n\n// msg.payload = results;\n// msg.count = results.length;\n\n// return msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1370,
+        "y": 1440,
+        "wires": [
+            [
+                "e45a1144e4956635"
+            ]
+        ]
+    },
+    {
+        "id": "42286f0674e85bf0",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "g": "b5492f98d53a25e2",
+        "name": "debug 92",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1340,
+        "y": 1400,
+        "wires": []
+    },
+    {
+        "id": "e45a1144e4956635",
+        "type": "link out",
+        "z": "853d459b0cf0e88c",
+        "g": "b5492f98d53a25e2",
+        "name": "link out 8",
+        "mode": "link",
+        "links": [
+            "36c93de5e153b111"
+        ],
+        "x": 1525,
+        "y": 1440,
+        "wires": []
+    },
+    {
+        "id": "aed2d424b0895025",
+        "type": "inject",
+        "z": "853d459b0cf0e88c",
+        "g": "b5492f98d53a25e2",
+        "name": "Test Find Topic",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "mt_chart",
+                "v": "{\"id\":\"503b041e-18af-4d2d-abd9-a4fb74c3354c\",\"status\":\"published\",\"user_created\":\"f5d5c0eb-b50c-49cf-b10d-82ef43af5c9d\",\"date_created\":\"2026-03-27T02:22:21.207Z\",\"user_updated\":\"f5d5c0eb-b50c-49cf-b10d-82ef43af5c9d\",\"date_updated\":\"2026-04-06T16:37:48.842Z\",\"user_deleted\":null,\"date_deleted\":null,\"name\":\"PIE IKI LUR\",\"code\":\"PIE_IKI_LUR\",\"config\":\"{\\n    \\\"title\\\": {\\n    \\\"text\\\": \\\"Referer of a Website\\\",\\n    \\\"subtext\\\": \\\"Fake Data\\\",\\n    \\\"left\\\": \\\"center\\\"\\n  },\\n  \\\"tooltip\\\": {\\n    \\\"trigger\\\": \\\"item\\\"\\n  },\\n  \\\"legend\\\": {\\n    \\\"orient\\\": \\\"vertical\\\",\\n    \\\"left\\\": \\\"left\\\"\\n  },\\n  \\\"filter\\\":[\\n  \\t\\\"code\\\",\\n    \\\"activity_status_code\\\"\\n  ]\\n}\",\"meta\":null,\"query\":\"SELECT\\n\\tsales_order.\\\"id\\\", \\n\\tsales_order.so_number, \\n\\tsales_order.order_date, \\n\\tsales_order.order_date AS date_series, \\n\\tsales_order.order_amount, \\n\\tactivity.activity_status_code, \\n\\tactivity.activity_status, \\n\\tsales_order.customer_id, \\n\\tmt_company.code\\nFROM\\n\\tsales_order\\n\\tINNER JOIN\\n\\tsubmission\\n\\tON \\n\\t\\tsales_order.submission_id = submission.\\\"id\\\"\\n\\tINNER JOIN\\n\\tactivity\\n\\tON \\n\\t\\tsubmission.activity_id = activity.\\\"id\\\"\\n\\tINNER JOIN\\n\\tmt_company\\n\\tON \\n\\t\\tsales_order.customer_id = mt_company.\\\"id\\\"\\nWHERE\\n\\tsales_order.date_deleted IS NULL\\n\\t\\tAND sales_order.order_date BETWEEN $startOfYear and $endOfYear\",\"topic_in\":\"DASHBOARD_DYNAMIC/REALTIME/SALES_ORDER/PIE_IKI_LUR/YEARLY\",\"incoming_json_example\":\"[\\n  {\\n    \\\"id\\\": \\\"String\\\",\\n    \\\"so_number\\\": \\\"String\\\",\\n    \\\"order_date\\\": \\\"2026-01-20T03:27:00.000Z\\\",\\n    \\\"order_amount\\\": \\\"270000\\\",\\n    \\\"activity_status_code\\\": \\\"SO_OPEN\\\",\\n    \\\"activity_status\\\": \\\"Open\\\"\\n  },\\n  {\\n    \\\"id\\\": \\\"String\\\",\\n    \\\"so_number\\\": \\\"String\\\",\\n    \\\"order_date\\\": \\\"2026-01-22T01:56:00.000Z\\\",\\n    \\\"order_amount\\\": \\\"1000\\\",\\n    \\\"activity_status_code\\\": \\\"SO_OPEN\\\",\\n    \\\"activity_status\\\": \\\"Open\\\"\\n  },\\n  {\\n    \\\"id\\\": \\\"String\\\",\\n    \\\"so_number\\\": \\\"String\\\",\\n    \\\"order_date\\\": \\\"2026-01-22T08:49:00.000Z\\\",\\n    \\\"order_amount\\\": \\\"56000\\\",\\n    \\\"activity_status_code\\\": \\\"SO_FINISH_PLAN\\\",\\n    \\\"activity_status\\\": \\\"Finish Plan\\\"\\n  }\\n]\",\"logic\":\"// const { row, bucket, helpers, state } = ctx;\\n\\n// // ===== Constants =====\\n// const KEY_ALL = helpers.KEY_ALL;\\n\\n// // ===== Helpers =====\\n// function ensureStatusNode(node) {\\n//   if (!node.VALUE) node.VALUE = { COUNTS: {}, data: [] };\\n//   if (!node.VALUE.COUNTS) node.VALUE.COUNTS = {};\\n//   node.TRACKER ??= {};\\n// }\\n\\n// function updateStatus(node, status, id, isActive) {\\n//   if (!node || !isActive) return;\\n//   ensureStatusNode(node);\\n\\n//   if (id) {\\n//     if (node.TRACKER[id]) return;\\n//     node.TRACKER[id] = true;\\n//   }\\n\\n//   const counts = node.VALUE.COUNTS;\\n//   counts[status] = (counts[status] || 0) + 1;\\n//   node.VALUE.data = Object.entries(counts).map(([name, value]) => ({ name, value }));\\n// }\\n\\n// function buildPieSeries(counts, target) {\\n//   const entries = Object.entries(counts).sort((a, b) => b[1] - a[1]);\\n//   return {\\n//     // legend: entries.map(([name]) => name),\\n//     series: [{\\n//       name: `Arrival Order Status (${target})`,\\n//       type: \\\"pie\\\",\\n//      ...\",\"json_output\":\"{\\n  \\\"series\\\": [\\n    {\\n       \\\"name\\\": \\\"Access From\\\",\\n       \\\"type\\\": \\\"pie\\\",\\n       \\\"radius\\\": \\\"50%\\\",\\n       \\\"data\\\": [\\n        { \\\"value\\\": 1048, \\\"name\\\": \\\"Search Engine\\\" },\\n        { \\\"value\\\": 735, \\\"name\\\": \\\"Direct\\\" },\\n        { \\\"value\\\": 580, \\\"name\\\": \\\"Email\\\" },\\n        { \\\"value\\\": 484, \\\"name\\\": \\\"Union Ads\\\" },\\n        { \\\"value\\\": 300, \\\"name\\\": \\\"Video Ads\\\" }\\n      ]\\n    }\\n  ]\\n}\",\"entity_triger\":null}",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 800,
+        "y": 1400,
+        "wires": [
+            [
+                "6e4f57e6ccfa7550"
+            ]
+        ]
+    },
+    {
+        "id": "36c93de5e153b111",
+        "type": "link in",
+        "z": "853d459b0cf0e88c",
+        "g": "0815395a577749ef",
+        "name": "Link In Setup Data By Topic",
+        "links": [
+            "e45a1144e4956635"
+        ],
+        "x": 105,
+        "y": 1760,
+        "wires": [
+            [
+                "f3801e658224adad"
+            ]
+        ]
+    },
+    {
+        "id": "29be8af4c198256c",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "g": "0815395a577749ef",
+        "name": "Undifined Topic ",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 1820,
+        "wires": []
+    },
+    {
+        "id": "a96be2425efe1d8b",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "g": "e834bc7d323b1bf2",
+        "name": "Mapping Chart Update",
+        "func": "const event = msg.payload.data?.payload;\n\nif (!event) return null;\n\nconst table = event.source?.table; // Nama tabel dari CDC (misal: \"sales_order\")\nconst op = event.op;\nconst rowData = op === 'd' ? event.before : event.after;\n\nif (!rowData) return null;\n\nconst defs = global.get('DCB_DEFINITIONS') || {};\n\nconst matchedCharts = Object.values(defs).filter(function (d) {\n\n\n    if (d.entity_triger && typeof d.entity_triger === 'string' && d.topic_in != \"-\") {\n        // Ubah \"sales,order,purchase\" menjadi array dan bersihkan spasi\n        const allowedTables = d.entity_triger.split(',').map(t => t.trim());\n        return allowedTables.includes(table);\n    }\n    return false;\n});\n\n// Jika tidak ada satu pun yang cocok, hentikan flow\nif (matchedCharts.length === 0) {\n    return null;\n}\n\n\nmatchedCharts.forEach(function (chart) {\n    node.send({\n        ...msg, // Mengcopy properti asli msg agar metadata tidak hilang\n        payload: chart\n    });\n});\n\n// Return null di akhir agar node Function tidak mengirim output ganda (dari node.send dan return)\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 1060,
+        "wires": [
+            [
+                "2c68601476c4ea59",
+                "b86802735e510cf3"
+            ]
+        ]
+    },
+    {
+        "id": "c7220bdb5a6aa41b",
+        "type": "delay",
+        "z": "853d459b0cf0e88c",
+        "g": "e834bc7d323b1bf2",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 230,
+        "y": 1060,
+        "wires": [
+            [
+                "a96be2425efe1d8b"
+            ]
+        ]
+    },
+    {
+        "id": "a76702fe3470e972",
+        "type": "NATS JetStream Acknowledge",
+        "z": "853d459b0cf0e88c",
+        "g": "e834bc7d323b1bf2",
+        "name": "ack",
+        "action": "ack",
+        "x": 520,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "2c68601476c4ea59",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "g": "e834bc7d323b1bf2",
+        "name": "Check Chart Update",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "780d37e9b4105b23",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "g": "e834bc7d323b1bf2",
+        "name": "debug 1281",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "a173f7a4de5409ea",
+        "type": "NATS JetStream Consumer",
+        "z": "853d459b0cf0e88c",
+        "g": "e834bc7d323b1bf2",
+        "name": "pg cdc Sales Order",
+        "server": "1a3160710db7b007",
+        "subjects": "pgcdc.public.sales_order",
+        "delivery": "new",
+        "stream": "ensure",
+        "ensurestream": "d7bce44fd61d1c25",
+        "consumertype": "durable",
+        "durable": "DashboardDynamicSales_order",
+        "startseq": 0,
+        "starttime": 0,
+        "ack": "manual",
+        "maxackpending": 2000,
+        "ackwait": 10000,
+        "maxworkerpending": 1000,
+        "maxdeliver": -1,
+        "payloadType": "json",
+        "x": 160,
+        "y": 1120,
+        "wires": [
+            [
+                "a76702fe3470e972",
+                "780d37e9b4105b23",
+                "c7220bdb5a6aa41b"
+            ]
+        ]
+    },
+    {
+        "id": "4f64a5545c5832d2",
+        "type": "NATS JetStream Consumer",
+        "z": "853d459b0cf0e88c",
+        "g": "e834bc7d323b1bf2",
+        "name": "pg cdc submission",
+        "server": "1a3160710db7b007",
+        "subjects": "pgcdc.public.submission",
+        "delivery": "new",
+        "stream": "ensure",
+        "ensurestream": "d7bce44fd61d1c25",
+        "consumertype": "durable",
+        "durable": "DashboardDynamicSubmission",
+        "startseq": 0,
+        "starttime": 0,
+        "ack": "manual",
+        "maxackpending": 2000,
+        "ackwait": 10000,
+        "maxworkerpending": 1000,
+        "maxdeliver": -1,
+        "payloadType": "json",
+        "x": 160,
+        "y": 1160,
+        "wires": [
+            [
+                "780d37e9b4105b23",
+                "a76702fe3470e972",
+                "c7220bdb5a6aa41b"
+            ]
+        ]
+    },
+    {
+        "id": "f2e748d4b9c32f18",
+        "type": "NATS JetStream Consumer",
+        "z": "853d459b0cf0e88c",
+        "g": "e834bc7d323b1bf2",
+        "name": "pg cdc activity",
+        "server": "1a3160710db7b007",
+        "subjects": "pgcdc.public.activity",
+        "delivery": "new",
+        "stream": "ensure",
+        "ensurestream": "d7bce44fd61d1c25",
+        "consumertype": "durable",
+        "durable": "DashboardDynamicActifity",
+        "startseq": 0,
+        "starttime": 0,
+        "ack": "manual",
+        "maxackpending": 2000,
+        "ackwait": 10000,
+        "maxworkerpending": 1000,
+        "maxdeliver": -1,
+        "payloadType": "json",
+        "x": 150,
+        "y": 1200,
+        "wires": [
+            [
+                "780d37e9b4105b23",
+                "a76702fe3470e972",
+                "c7220bdb5a6aa41b"
+            ]
+        ]
+    },
+    {
+        "id": "da7022477ebc39de",
+        "type": "NATS JetStream Consumer",
+        "z": "853d459b0cf0e88c",
+        "g": "6fb57354512f7506",
+        "name": "pg cdc mt_charts",
+        "server": "1a3160710db7b007",
+        "subjects": "pgcdc.public.mt_charts",
+        "delivery": "new",
+        "stream": "ensure",
+        "ensurestream": "d7bce44fd61d1c25",
+        "consumertype": "durable",
+        "durable": "cdc_mt_charts_stg",
+        "startseq": 0,
+        "starttime": 0,
+        "ack": "auto",
+        "maxackpending": 2000,
+        "ackwait": 10000,
+        "maxworkerpending": 1000,
+        "maxdeliver": -1,
+        "payloadType": "json",
+        "x": 160,
+        "y": 780,
+        "wires": [
+            [
+                "b0a46786a4d3cd57",
+                "40d7ed47183f57e9",
+                "aed3e1085abe8f00"
+            ]
+        ]
+    },
+    {
+        "id": "aed3e1085abe8f00",
+        "type": "function",
+        "z": "853d459b0cf0e88c",
+        "g": "6fb57354512f7506",
+        "name": "Setup Data CDC",
+        "func": "// const { before: dataBefore, after: dataAfter, op: action } = msg.payload.data?.payload;\n\n// node.warn({\n//     dataAfter , msg\n// })\n\n// // Ambil data lama dari global context untuk perbandingan\n// const id = dataAfter?.id || dataBefore?.id;\n// const existingDef = global.get(`DCB_DEFINITIONS.${id}`);\n\n// /**\n//  * 1. HANDLING DELETE (op: \"d\")\n//  */\n// if (action === \"d\") {\n//     if (existingDef) {\n//         // Hapus bucket data agar memory bersih\n//         // if (existingDef.topic_in) {\n//         //     global.set(`bucket.${existingDef.topic_in}`, undefined);\n//         // }\n//         // Hapus definisi chart\n//         global.set(`DCB_DEFINITIONS.${id}`, undefined);\n//     }\n\n//     msg.payload = { status: \"DELETED\", id: id, info: \"Context cleared\" };\n//     return [msg, null]; // Output 1: Hanya delete\n// }\n\n// /**\n//  * 2. HANDLING INSERT & UPDATE (op: \"c\", \"r\", \"u\")\n//  */\n// let shouldRefresh = false;\n\n// if (action === \"u\" && existingDef) {\n//     // Cek perbedaan pada field krusial\n//     const isTopicChanged = existingDef.topic_in !== dataAfter.topic_in;\n//     const isConfigChanged = existingDef.config !== dataAfter.config;\n//     const isLogicChanged = existingDef.logic !== dataAfter.logic;\n//     const isQueryChanged = existingDef.query !== dataAfter.query;\n\n//     if (isTopicChanged || isConfigChanged || isLogicChanged || isQueryChanged) {\n//         shouldRefresh = true;\n//         const contextKey = existingDef.topic_in.split(\"/\").join(\".\")\n\n//         // Jika topic berubah, hapus bucket lama agar tidak membengkak\n//         // if (isTopicChanged) {\n//         //     global.set(contextKey, undefined);\n//             // global.set(`bucket.${contextKey}`, undefined);\n//         // }\n//     }\n// } else if (action === \"c\" || action === \"r\") {\n//     // Jika data baru (insert), otomatis harus pemicu query pertama kali\n//     shouldRefresh = true;\n// }\n\n// global.set(`DCB_DEFINITIONS.${id}`, dataAfter);\n\n// // Routing Output\n// if (shouldRefresh) {\n//     msg.payload = dataAfter; // Kirim data terbaru untuk diproses SQL/Logic ulang\n//     const typeChart = dataAfter.topic_in.split(\"/\")[1]\n//     if (typeChart != \"HISTORICAL\") {\n//         node.send([ null ,{\n//             payload: dataAfter,\n//             filter: {},\n//             mode:\"mqtt\"\n//         }]);\n//     }\n// }\n\n// return [{ payload: dataAfter }, null];\n\nconst { before: dataBefore, after: dataAfter, op: action } = msg.payload.data?.payload;\n\n// Ambil data lama dari global context untuk perbandingan\nconst id = dataAfter?.id || dataBefore?.id;\nconst existingDef = global.get(`DCB_DEFINITIONS.${id}`);\n\n// Konstanta placeholder Debezium\nconst DBZ_UNAVAILABLE = \"__debezium_unavailable_value\";\n\n/**\n * 1. HANDLING DELETE (op: \"d\")\n */\nif (action === \"d\") {\n    if (existingDef) {\n        // Hapus bucket data agar memory bersih\n        // if (existingDef.topic_in) {\n        //     global.set(`bucket.${existingDef.topic_in}`, undefined);\n        // }\n        // Hapus definisi chart\n        global.set(`DCB_DEFINITIONS.${id}`, undefined);\n    }\n\n    msg.payload = { status: \"DELETED\", id: id, info: \"Context cleared\" };\n    return [msg, null]; // Output 1: Hanya delete\n}\n\n/**\n * 1.5. HANDLING DEBEZIUM UNAVAILABLE VALUE (Hydration)\n */\nlet cleanDataAfter = { ...dataAfter };\n\nif (action === \"u\" && existingDef) {\n    const checkFields = [\"topic_in\", \"config\", \"logic\", \"query\", \"meta\"];\n    checkFields.forEach(field => {\n        // Jika kolom tidak berubah, Debezium mengirim placeholder ini\n        if (cleanDataAfter[field] === DBZ_UNAVAILABLE) {\n            // Kembalikan ke nilai lama yang valid\n            cleanDataAfter[field] = existingDef[field];\n        }\n    });\n}\n\n/**\n * 2. HANDLING INSERT & UPDATE (op: \"c\", \"r\", \"u\")\n */\nlet shouldRefresh = false;\n\nif (action === \"u\" && existingDef) {\n    // Cek perbedaan menggunakan data yang sudah BERSIH (cleanDataAfter)\n    const isTopicChanged = existingDef.topic_in !== cleanDataAfter.topic_in;\n    const isConfigChanged = existingDef.config !== cleanDataAfter.config;\n    const isLogicChanged = existingDef.logic !== cleanDataAfter.logic;\n    const isQueryChanged = existingDef.query !== cleanDataAfter.query;\n    const isMetaChanged = existingDef.meta !== cleanDataAfter.meta;\n\n    if (isTopicChanged || isConfigChanged || isLogicChanged || isQueryChanged || isMetaChanged) {\n        shouldRefresh = true;\n        const contextKey = existingDef.topic_in.split(\"/\").join(\".\");\n\n        // Jika topic berubah, hapus bucket lama agar tidak membengkak\n        // if (isTopicChanged) {\n        //     global.set(contextKey, undefined);\n            // global.set(`bucket.${contextKey}`, undefined);\n        // }\n    }\n} else if (action === \"c\" || action === \"r\") {\n    // Jika data baru (insert), otomatis harus pemicu query pertama kali\n    shouldRefresh = true;\n}\n\n// Simpan data yang SUDAH BERSIH ke global context\nglobal.set(`DCB_DEFINITIONS.${id}`, cleanDataAfter);\n\n// Routing Output\nif (shouldRefresh) {\n    msg.payload = cleanDataAfter; // Kirim data bersih untuk diproses\n    \n    // Safety check jika topic_in kosong\n    const typeChart = cleanDataAfter.topic_in ? cleanDataAfter.topic_in.split(\"/\")[1] : \"\";\n    \n    if (typeChart !== \"HISTORICAL\") {\n        node.send([ null ,{\n            payload: cleanDataAfter,\n            filter: {},\n            mode: \"mqtt\"\n        }]);\n    }\n}\n\n// Kembalikan data yang sudah bersih ke output 1 juga\nreturn [{ payload: cleanDataAfter }, null];\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 780,
+        "wires": [
+            [
+                "8da8f67b30e6a41a"
+            ],
+            [
+                "7cf785c76bdf976a",
+                "9593e22fcbd94391"
+            ]
+        ]
+    },
+    {
+        "id": "40d7ed47183f57e9",
+        "type": "NATS JetStream Acknowledge",
+        "z": "853d459b0cf0e88c",
+        "g": "6fb57354512f7506",
+        "name": "ack",
+        "action": "ack",
+        "x": 330,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "b0a46786a4d3cd57",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "g": "6fb57354512f7506",
+        "name": "DEBUG CDC MT CHARTS",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 380,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "8da8f67b30e6a41a",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "g": "6fb57354512f7506",
+        "name": "No action cdc",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "7cf785c76bdf976a",
+        "type": "debug",
+        "z": "853d459b0cf0e88c",
+        "g": "6fb57354512f7506",
+        "name": "Debug UPDATE CONTEXT Mt chart",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 800,
+        "wires": []
     },
     {
         "id": "node_mock_db_config",

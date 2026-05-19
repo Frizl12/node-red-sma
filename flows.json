@@ -9929,13 +9929,6 @@
         "database": "sma107"
     },
     {
-        "id": "313f3d2f67131829",
-        "type": "nats-server",
-        "server": "nats",
-        "user": "",
-        "pass": ""
-    },
-    {
         "id": "ed4bb081c4cda5f7",
         "type": "ui-link",
         "name": "ui_template.layout.link 1",
@@ -10716,6 +10709,13 @@
         "willMsg": {},
         "userProps": "",
         "sessionExpiry": ""
+    },
+    {
+        "id": "313f3d2f67131829",
+        "type": "nats-server",
+        "server": "nats",
+        "user": "",
+        "pass": ""
     },
     {
         "id": "cf526b0e0adbfb6c",
@@ -25850,7 +25850,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 930,
+        "x": 950,
         "y": 100,
         "wires": []
     },

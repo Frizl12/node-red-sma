@@ -95,14 +95,6 @@
         "env": []
     },
     {
-        "id": "721bce6a77e1aca4",
-        "type": "tab",
-        "label": "Flow 1",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "c9a671c3ddaeed86",
         "type": "subflow",
         "name": "Data Core API (3)",
@@ -3724,31 +3716,6 @@
         "y": 1259,
         "w": 1422,
         "h": 262
-    },
-    {
-        "id": "group_engine",
-        "type": "group",
-        "z": "721bce6a77e1aca4",
-        "name": "Generic Realtime Dashboard Engine (Metadata Driven)",
-        "style": {
-            "fill": "#e3f2fd",
-            "stroke": "#0d47a1",
-            "label": true
-        },
-        "nodes": [
-            "node_cdc_in",
-            "node_event_processor",
-            "node_request_builder",
-            "node_datacore_mock",
-            "node_dynamic_normalizer",
-            "node_dynamic_aggregator",
-            "node_mock_db_config",
-            "node_load_config"
-        ],
-        "x": 134,
-        "y": 279,
-        "w": 902,
-        "h": 282
     },
     {
         "id": "6fb57354512f7506",
@@ -28059,7 +28026,7 @@
         "func": "/**\n * Dynamic Chart Bucket Engine (Node-RED Function)\n */\n\n// =========================\n// 1) CONSTANTS\n// =========================\nconst ALL_MONTHS = [\"jan\",\"feb\",\"mar\",\"apr\",\"may\",\"jun\",\"jul\",\"aug\",\"sep\",\"oct\",\"nov\",\"dec\"];\nconst ALL_WEEKS  = [\"1\",\"2\",\"3\",\"4\",\"5\"];\nconst ALL_DAYS   = [\"sunday\",\"monday\",\"tuesday\",\"wednesday\",\"thursday\",\"friday\",\"saturday\"];\nconst ALL_HOURS  = Array.from({ length: 24 }, (_, i) => String(i));\nconst KEY_ALL    = \"ALL\";\n\n// =========================\n// 2) HELPERS\n// =========================\nfunction parseDateSafe(v) {\n    if (!v) return null;\n    const d = new Date(v);\n    return isNaN(d.getTime()) ? null : d;\n}\n\nfunction getTimeKeys(dateObj) {\n    if (!dateObj) return { monthName: null, weekStr: null, dayName: null, hourStr: null };\n    const monthName = ALL_MONTHS[dateObj.getMonth()];\n    const dayName   = ALL_DAYS[dateObj.getDay()];\n    const hourStr   = String(dateObj.getHours());\n    const weekNum   = Math.min(5, Math.ceil(dateObj.getDate() / 7));\n    const weekStr   = String(weekNum);\n    return { monthName, weekStr, dayName, hourStr };\n}\n\nfunction createBaseMetric() {\n    return { raw: 0, data: { value: 0, subValue: 0 } };\n}\n\nfunction initContainer(keys) {\n    const c = { VALUE: createBaseMetric(), TRACKER: {} };\n    keys.forEach(k => { c[k] = { VALUE: createBaseMetric(), TRACKER: {} }; });\n    return c;\n}\n\nfunction ensurePath(root, timeframe, target, keys) {\n    if (!root[timeframe]) root[timeframe] = {};\n    if (!root[timeframe][target]) root[timeframe][target] = initContainer(keys);\n}\n\nfunction incMetric(metricObj, delta = 1) {\n    if (!metricObj.VALUE) metricObj.VALUE = createBaseMetric();\n    metricObj.VALUE.raw = (metricObj.VALUE.raw || 0) + delta;\n    metricObj.VALUE.data.value = metricObj.VALUE.raw;\n    metricObj.VALUE.data.subValue = delta;\n}\n\n// =========================\n// 3) BUCKET CORE\n// =========================\nfunction applyDefaultCounter(bucketRoot, row, amount = 1) {\n    const txDate = parseDateSafe(row.date || row.created_at || row.date_created || row.ts);\n    const { monthName, weekStr, dayName, hourStr } = getTimeKeys(txDate);\n\n    const updates = [\n        [\"YEARLY\",  monthName, ALL_MONTHS],\n        [\"MONTHLY\", weekStr,   ALL_WEEKS],\n        [\"WEEKLY\",  dayName,   ALL_DAYS],\n        [\"DAILY\",   hourStr,   ALL_HOURS]\n    ];\n\n    const customerCode = row.customer_code || row.customerCode || KEY_ALL;\n    const targets = [KEY_ALL];\n    if (customerCode && customerCode !== KEY_ALL) targets.push(customerCode);\n\n    targets.forEach(target => {\n        updates.forEach(([tf, keyName, keys]) => {\n            ensurePath(bucketRoot, tf, target, keys);\n            if (keyName == null) return;\n            incMetric(bucketRoot[tf][target][keyName], amount);\n            incMetric(bucketRoot[tf][target], amount);\n        });\n    });\n}\n\n// =========================\n// 4) LOGIC EXECUTOR\n// =========================\nfunction buildLogicExecutor(logicCode) {\n    if (!logicCode || !logicCode.trim()) return null;\n    try {\n        return new Function(\"ctx\", logicCode);\n    } catch (e) {\n        node.error(\"Invalid logic JS from DB: \" + e.message);\n        return null;\n    }\n}\n\n// =========================\n// 5) FILTER GROUPING HELPERS\n// =========================\n\n/**\n * Bangun base topic dari chartDef.code\n * Ganti semua \"/\" jadi \".\"\n * ex: \"DASHBOARD_DYNAMIC/REALTIME/SALES_ORDER/PIE_IKI_LUR\"\n *  -> \"DASHBOARD_DYNAMIC.REALTIME.SALES_ORDER.PIE_IKI_LUR\"\n */\nfunction buildBaseTopic(code) {\n    if (!code) return \"UNKNOWN\";\n    return String(code).replace(/\\//g, \".\");\n}\n\n/**\n * Bangun suffix topic dari kombinasi filter\n * ex: { code: \"abc\", status: \"active\" }\n *  -> \"code=abc|status=active\"\n * ex: { code: \"_all\", status: \"_all\" }\n *  -> \"code=_all|status=_all\"\n */\nfunction buildFilterSuffix(combo) {\n    return Object.entries(combo)\n        .map(([k, v]) => `${k}=${v}`)\n        .join(\"|\");\n}\n\n/**\n * Bangun topic_in lengkap\n * ex: \"DASHBOARD_DYNAMIC.REALTIME.SALES_ORDER.PIE_IKI_LUR.code=abc|status=active\"\n */\nfunction buildTopicIn(baseTopic, combo) {\n    const suffix = buildFilterSuffix(combo);\n    return `${baseTopic}.${suffix}`;\n}\n\n/**\n * Kumpulkan semua kombinasi unik nilai dari field-field filter\n * PLUS semua variasi dengan \"_all\" sebagai wildcard per field\n *\n * ex fields: [\"code\",\"status\"]\n * unique: code=[ABC,DEF], status=[active,non-active]\n * hasil:\n *   { code:\"_all\",  status:\"_all\"       }  ← full all\n *   { code:\"_all\",  status:\"active\"     }  ← partial\n *   { code:\"_all\",  status:\"non-active\" }  ← partial\n *   { code:\"ABC\",   status:\"_all\"       }  ← partial\n *   { code:\"ABC\",   status:\"active\"     }  ← spesifik\n *   { code:\"ABC\",   status:\"non-active\" }  ← spesifik\n *   { code:\"DEF\",   status:\"_all\"       }  ← partial\n *   { code:\"DEF\",   status:\"active\"     }  ← spesifik\n *   { code:\"DEF\",   status:\"non-active\" }  ← spesifik\n */\nfunction collectCombinations(rows, fields) {\n    // kumpulkan unique values per field\n    const uniquePerField = {};\n    fields.forEach(f => { uniquePerField[f] = new Set(); });\n\n    rows.forEach(row => {\n        fields.forEach(f => {\n            const val = row[f];\n            if (val !== undefined && val !== null) {\n                uniquePerField[f].add(String(val));\n            }\n        });\n    });\n\n    // Setiap field: [nilai asli...] + \"_all\"\n    // \"_all\" selalu di index 0 supaya urutan: full-all dulu, partial, spesifik\n    const valsPerField = {};\n    fields.forEach(f => {\n        valsPerField[f] = [\"_all\", ...Array.from(uniquePerField[f])];\n    });\n\n    // cartesian product dari semua field (termasuk \"_all\" per field)\n    let combos = [{}];\n    fields.forEach(f => {\n        const vals = valsPerField[f];\n        const next = [];\n        combos.forEach(existing => {\n            vals.forEach(v => {\n                next.push({ ...existing, [f]: v });\n            });\n        });\n        combos = next;\n    });\n\n    return combos;\n}\n\n/**\n * Filter rows yang cocok dengan combo\n * Jika nilai combo suatu field = \"_all\" -> semua nilai lolos untuk field tsb\n */\nfunction filterRowsByCombo(rows, combo) {\n    return rows.filter(row => {\n        return Object.entries(combo).every(([field, val]) => {\n            if (val === \"_all\") return true;\n            return String(row[field]) === val;\n        });\n    });\n}\n\n// =========================\n// 6) MAIN\n// =========================\nconst rows      = msg.payload;\nconst chartDef  = msg.mt_chart;\nconst config    = JSON.parse(chartDef.config);\nconst logicCode = String(chartDef.logic || \"\");\nconst meta      = chartDef.meta   || {};\nconst filters   = Array.isArray(config.filter) ? config.filter : [];\n\nconst baseTopic = buildBaseTopic(chartDef.topic_in);\nconst logicFn   = buildLogicExecutor(logicCode);\n\nconst bucket    = {};\nconst results   = []; // kumpulkan output per kombinasi\n\n// --- Tentukan kombinasi yang akan dieksekusi ---\nlet combos = [];\n\nif (filters.length === 0) {\n    // Tidak ada filter -> jalankan sekali, topic_in = baseTopic saja\n    combos = [null];\n} else {\n    // collectCombinations sudah include semua variasi _all (partial & full)\n    combos = collectCombinations(rows, filters);\n}\n\n// --- Loop per kombinasi ---\nnode.warn(\"Test\");\n\ncombos.forEach(combo => {\n    const filteredRows = combo === null\n        ? rows                          // tanpa filter\n        : filterRowsByCombo(rows, combo); // filter sesuai combo\n\n    // const topic_in = combo === null\n    //     ? baseTopic\n    //     : buildTopicIn(baseTopic, combo);\n\n\n    const topic_in = combo === null\n        ? baseTopic\n        : baseTopic + '.' + Object.values(combo).join(\".\");\n\n    const state      = {};\n    const comboResult = { topic_in, bucket: {}, chartData: null , filter : combo === null ? \"\" :buildFilterSuffix(combo)};\n\n    for (let i = 0; i < filteredRows.length; i++) {\n        // Inject topic_in ke setiap row (non-destructive, pakai spread)\n        const row = { ...filteredRows[i], topic_in };\n\n        if (logicFn) {\n            try {\n                logicFn({\n                    node,\n                    global,\n                    row,\n                    index: i,\n                    bucket: comboResult.bucket,\n                    meta,\n                    state,\n                    helpers: {\n                        ensurePath,\n                        incMetric,\n                        ALL_MONTHS,\n                        ALL_WEEKS,\n                        ALL_DAYS,\n                        ALL_HOURS,\n                        KEY_ALL,\n                        getTimeKeys,\n                        parseDateSafe\n                    }\n                });\n            } catch (e) {\n                node.warn(`[${chartDef.code || \"UNKNOWN\"}][${topic_in}] logic error row#${i}: ${e.message}`);\n                applyDefaultCounter(comboResult.bucket, row, 1);\n            }\n        } else {\n            applyDefaultCounter(comboResult.bucket, row, 1);\n        }\n    }\n\n    // [TAMBAHAN] Pancing eksekusi 1x jika data benar-benar kosong (0 baris)\n    // Tujuannya agar state.finalize tetap dibaca dan mengembalikan format default (Rp 0)\n    if (filteredRows.length === 0 && logicFn) {\n        try {\n            logicFn({\n                node, global, row: {}, index: -1, bucket: comboResult.bucket, meta, state,\n                helpers: { ensurePath, incMetric, ALL_MONTHS, ALL_WEEKS, ALL_DAYS, ALL_HOURS, KEY_ALL, getTimeKeys, parseDateSafe }\n            });\n        } catch (e) {\n            // Abaikan error saat pancingan\n        }\n    }\n\n    // Optional finalize per kombinasi\n    if (typeof state.finalize === \"function\") {\n        try {\n            comboResult.chartData = state.finalize(comboResult.bucket, state);\n        } catch (e) {\n            node.warn(`[${chartDef.code || \"UNKNOWN\"}][${topic_in}] finalize error: ${e.message}`);\n        }\n    }\n\n    results.push(comboResult);\n});\n\nmsg.payload = {\n    code    : chartDef.code || null,\n    ts      : Date.now(),\n    bucket,          // bucket global (kosong jika semua pakai per-combo bucket)\n    results          // array hasil per kombinasi filter\n};\n\nif (msg.mode === \"mqtt\" ) return [ msg , []] \nelse return [ [] , msg ] ",
         "outputs": 2,
         "timeout": 0,
-        "noerr": 29,
+        "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
@@ -28946,200 +28913,6 @@
         "statusType": "auto",
         "x": 760,
         "y": 800,
-        "wires": []
-    },
-    {
-        "id": "node_mock_db_config",
-        "type": "inject",
-        "z": "721bce6a77e1aca4",
-        "g": "group_engine",
-        "name": "1. LOAD CONFIG DARI DB (MOCK)",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "[{\"entity_source\":\"sales_order\",\"timeframes\":[{\"id\":\"YEARLY\",\"extract\":\"month\",\"validate_flag\":\"isCurrentYear\"},{\"id\":\"MONTHLY\",\"extract\":\"week\",\"validate_flag\":\"isCurrentMonth\"},{\"id\":\"WEEKLY\",\"extract\":\"day\",\"validate_flag\":\"isCurrentWeek\"},{\"id\":\"DAILY\",\"extract\":\"hour\",\"validate_flag\":\"isToday\"}],\"dimensions\":[{\"key\":\"ALL\",\"type\":\"static\"},{\"key\":\"CUSTOMER\",\"field_path\":\"customerCode\",\"type\":\"dynamic\"}],\"computed_fields\":[{\"name\":\"is_fulfilled\",\"type\":\"condition\",\"operator\":\"eq\",\"field\":\"status\",\"compare_value\":\"SO_DELIVERED\"}],\"metrics\":[{\"topic\":\"DETAIL_PARAMETER_TOTAL_REVENUE\",\"type\":\"sum\",\"field\":\"amount\"},{\"topic\":\"DETAIL_PARAMETER_TOTAL_SALES_ORDER\",\"type\":\"count\",\"field\":\"id\"},{\"topic\":\"PIE_CHART_SALES_ORDER\",\"type\":\"group_by\",\"field\":\"status\"}]}]",
-        "payloadType": "json",
-        "x": 320,
-        "y": 320,
-        "wires": [
-            [
-                "node_load_config"
-            ]
-        ]
-    },
-    {
-        "id": "node_load_config",
-        "type": "function",
-        "z": "721bce6a77e1aca4",
-        "g": "group_engine",
-        "name": "Set Global Metadata",
-        "func": "const dbConfigs = msg.payload;\nconst CONFIG_MAP = {};\n\ndbConfigs.forEach(config => {\n    CONFIG_MAP[config.entity_source] = config;\n});\n\nglobal.set(\"METADATA_CONFIG\", CONFIG_MAP);\nnode.warn(\"Dashboard Metadata Loaded successfully!\");\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 610,
-        "y": 320,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "node_cdc_in",
-        "type": "inject",
-        "z": "721bce6a77e1aca4",
-        "g": "group_engine",
-        "name": "2. CDC MOCK EVENT",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"op\":\"u\",\"source\":{\"table\":\"sales_order\"},\"after\":{\"id\":\"SO-001\",\"order_amount\":25000000,\"customer_id\":\"CUST-99\",\"status\":\"SO_DELIVERED\"}}",
-        "payloadType": "json",
-        "x": 280,
-        "y": 420,
-        "wires": [
-            [
-                "node_event_processor"
-            ]
-        ]
-    },
-    {
-        "id": "node_event_processor",
-        "type": "function",
-        "z": "721bce6a77e1aca4",
-        "g": "group_engine",
-        "name": "Event Processor",
-        "func": "const event = msg.payload;\nif (!event) return null;\n\nconst table = event.source?.table;\nconst op = event.op;\nconst rowData = op === 'd' ? event.before : event.after;\n\nif (!rowData) return null;\n\nmsg.cdc_target_id = rowData.id;\nmsg.cdc_op = op;\nmsg.entity = table; // Penting: Ini kunci untuk ambil config DB\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 490,
-        "y": 420,
-        "wires": [
-            [
-                "node_request_builder"
-            ]
-        ]
-    },
-    {
-        "id": "node_request_builder",
-        "type": "function",
-        "z": "721bce6a77e1aca4",
-        "g": "group_engine",
-        "name": "Request Builder",
-        "func": "const config = global.get(\"METADATA_CONFIG\")?.[msg.entity];\nif (!config) return null; // Drop event jika tidak ada di config\n\n// 1. Amankan param dengan fallback {} dan Deep Copy agar global config tidak ikut berubah\nconst safeParams = config.query_params ? JSON.parse(JSON.stringify(config.query_params)) : {};\n\nmsg.requestConfig = {\n    items: msg.entity,\n    method: \"GET\",\n    params: safeParams\n};\n\nif (msg.cdc_target_id) {\n    // 2. Pastikan object 'filter' sudah ada sebelum diisi\n    if (!msg.requestConfig.params.filter) {\n        msg.requestConfig.params.filter = {};\n    }\n\n    // 3. Set filter spesifik untuk realtime\n    // Menggunakan cara ini agar jika di DB sudah ada filter lain (misal is_active: true),\n    // filter tersebut tidak tertimpa/hilang, melainkan ditambah filter ID.\n    msg.requestConfig.params.filter.id = { _eq: msg.cdc_target_id };\n\n    msg.isRealtime = true;\n}\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 690,
-        "y": 420,
-        "wires": [
-            [
-                "node_datacore_mock"
-            ]
-        ]
-    },
-    {
-        "id": "node_datacore_mock",
-        "type": "function",
-        "z": "721bce6a77e1aca4",
-        "g": "group_engine",
-        "name": "Data Core API (Mock)",
-        "func": "// Asumsikan ini adalah Subflow HTTP Request kamu\n// Kita mock responnya berdasarkan event\nmsg.payload = {\n    data: [\n        {\n            id: msg.cdc_target_id,\n            order_amount: 25000000,\n            order_date: new Date().toISOString(),\n            status: \"SO_DELIVERED\",\n            is_active: true,\n            customerCode: \"CUST-99\"\n        }\n    ]\n};\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 910,
-        "y": 420,
-        "wires": [
-            [
-                "node_dynamic_normalizer"
-            ]
-        ]
-    },
-    {
-        "id": "node_dynamic_normalizer",
-        "type": "function",
-        "z": "721bce6a77e1aca4",
-        "g": "group_engine",
-        "name": "Dynamic Normalizer",
-        "func": "const config = global.get(\"METADATA_CONFIG\")?.[msg.entity] || {};\nconst computedFields = config.computed_fields || [];\n\nconst MONTHS = [\"jan\", \"feb\", \"mar\", \"apr\", \"may\", \"jun\", \"jul\", \"aug\", \"sep\", \"oct\", \"nov\", \"dec\"];\nconst now = new Date();\n\nconst rows = Array.isArray(msg.payload.data) ? msg.payload.data : [];\nconst transactions = [];\nlet CACHE = global.get(`${msg.entity.toUpperCase()}_CACHE`) || {};\n\nfor (const row of rows) {\n    const d = new Date(row.order_date || row.date_created);\n    \n    // 1. Eksekusi Computed Fields (Dari DB)\n    computedFields.forEach(calc => {\n        if (calc.type === \"condition\") {\n            row[calc.name] = row[calc.field] === calc.compare_value;\n        }\n    });\n\n    // 2. Generate Dimensi Waktu\n    row.timeBuckets = {\n        YEARLY: MONTHS[d.getMonth()],\n        MONTHLY: `Week ${Math.ceil(d.getDate() / 7)}`,\n        WEEKLY: \"monday\", // Disederhanakan untuk contoh\n        DAILY: String(d.getHours())\n    };\n\n    row.flags = {\n        isCurrentYear: d.getFullYear() === now.getFullYear(),\n        isCurrentMonth: d.getMonth() === now.getMonth(),\n        isCurrentWeek: true,\n        isToday: d.getDate() === now.getDate()\n    };\n\n    const id = row.id;\n    transactions.push({\n        entity: msg.entity,\n        oldData: CACHE[id] ? JSON.parse(JSON.stringify(CACHE[id])) : null,\n        newData: row\n    });\n\n    CACHE[id] = row;\n}\n\nglobal.set(`${msg.entity.toUpperCase()}_CACHE`, CACHE);\nmsg.payload = transactions;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 420,
-        "y": 520,
-        "wires": [
-            [
-                "node_dynamic_aggregator"
-            ]
-        ]
-    },
-    {
-        "id": "node_dynamic_aggregator",
-        "type": "function",
-        "z": "721bce6a77e1aca4",
-        "g": "group_engine",
-        "name": "Dynamic Aggregator",
-        "func": "const CONFIG_MAP = global.get(\"METADATA_CONFIG\") || {};\nlet DASHBOARD = global.get(\"DASHBOARD\") || { REALTIME: {} };\n\nconst transactions = Array.isArray(msg.payload) ? msg.payload : [];\n\ntransactions.forEach(tx => {\n    const entity = tx.entity;\n    const config = CONFIG_MAP[entity];\n    if (!config) return;\n\n    if (!DASHBOARD.REALTIME[entity]) DASHBOARD.REALTIME[entity] = {};\n    const ROOT = DASHBOARD.REALTIME[entity];\n\n    const process = (data, isRemoval) => {\n        if (!data) return;\n\n        // Resolve Targets\n        const targets = [];\n        config.dimensions.forEach(dim => {\n            if (dim.type === 'static') targets.push(dim.key);\n            if (dim.type === 'dynamic' && data[dim.field_path]) targets.push(data[dim.field_path]);\n        });\n\n        targets.forEach(targetKey => {\n            config.timeframes.forEach(tf => {\n                const tfKey = tf.id;\n                const bucketName = data.timeBuckets[tfKey];\n                if (!data.flags[tf.validate_flag] || !bucketName) return;\n\n                config.metrics.forEach(metric => {\n                    const topic = metric.topic;\n                    \n                    // Lazy Init Container\n                    if (!ROOT[topic]) ROOT[topic] = {};\n                    if (!ROOT[topic][tfKey]) ROOT[topic][tfKey] = {};\n                    if (!ROOT[topic][tfKey][targetKey]) ROOT[topic][tfKey][targetKey] = {};\n                    if (!ROOT[topic][tfKey][targetKey][bucketName]) ROOT[topic][tfKey][targetKey][bucketName] = { VALUE: { raw: 0 }, TRACKER: {} };\n\n                    const bucket = ROOT[topic][tfKey][targetKey][bucketName];\n                    const prevValue = bucket.TRACKER[data.id] || 0;\n                    let delta = 0;\n\n                    if (isRemoval) {\n                        if (bucket.TRACKER[data.id] !== undefined) {\n                            delta = -(metric.type === 'sum' ? prevValue : 1);\n                            delete bucket.TRACKER[data.id];\n                        }\n                    } else {\n                        const valToAdd = metric.type === 'sum' ? Number(data[metric.field] || 0) : 1;\n                        if (metric.type === 'sum') {\n                            delta = valToAdd - prevValue;\n                            bucket.TRACKER[data.id] = valToAdd;\n                        } else if (prevValue === 0) {\n                            delta = 1;\n                            bucket.TRACKER[data.id] = 1;\n                        }\n                    }\n\n                    bucket.VALUE.raw += delta;\n                });\n            });\n        });\n    };\n\n    process(tx.oldData, true);\n    process(tx.newData, false);\n});\n\nglobal.set(\"DASHBOARD\", DASHBOARD);\nmsg.payload = DASHBOARD.REALTIME;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 660,
-        "y": 520,
-        "wires": [
-            [
-                "node_debug"
-            ]
-        ]
-    },
-    {
-        "id": "node_debug",
-        "type": "debug",
-        "z": "721bce6a77e1aca4",
-        "g": "group_engine",
-        "name": "Output Dashboard State",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 890,
-        "y": 520,
         "wires": []
     }
 ]
